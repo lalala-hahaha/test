@@ -5,9 +5,12 @@
   <meta charset="UTF-8" />
   <title>TIMETRADE</title>
   <meta http-equiv="Content-type" content="text/html" />
-  <meta content="yes" name="apple-mobile-web-app-capable" />
-  <meta content="yes" name="apple-touch-fullscreen" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="telephone=no" name="format-detection">
+  <meta name="viewport" content="width=1500">
+
+  <script>
+    window.mobileUtil=function(i,e){var t=navigator.userAgent,n=/android|adr/gi.test(t),a=/iphone|ipod|ipad/gi.test(t)&&!n,r=n||a;return{isAndroid:n,isIos:a,isMobile:r,fixScreen:function(){function t(i){return"initial-scale="+i+",maximum-scale="+i+",minimum-scale="+i}var n=e.querySelector('meta[name="viewport"]'),a=n?n.content:"",d=a.match(/initial\-scale=([\d\.]+)/),o=a.match(/width=([^,\s]+)/);if(r&&!d&&o&&"device-width"!=o[1]){var c=parseInt(o[1]),s=i.innerWidth||c,m=i.screen.width||s,l=m/c;n.content=a+",target-densitydpi=device-dpi,"+t(l)}}}}(window,document),mobileUtil.fixScreen();
+  </script>
   <style>
     * {
       margin: 0;
@@ -43,13 +46,13 @@
     .btn {
       background: url(./img/btn.png) center no-repeat;
       background-size: contain;
-      width: 57vw;
-      height: 12vw;
+      width: 848px;
+      height: 182px;
       display: block;
       position: absolute;
       z-index: 1;
       left: 50%;
-      margin-left: -29vw;
+      margin-left: -424px;
       animation: breathing 1.8s linear infinite;
     }
 
@@ -60,19 +63,19 @@
     }
 
     .btn1 {
-      top: 51vw;
+      top: 778px;
     }
 
     .btn2 {
-      top: 34vw;
+      top: 506px;
     }
 
     .btn3 {
-      top: 27vw;
+      top: 402px;
     }
 
     .btn4 {
-      top: 35vw;
+      top: 532px;
     }
 
     @keyframes breathing {
