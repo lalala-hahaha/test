@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>TIMETRADE</title>
+  <meta http-equiv="Content-type" content="text/html" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="yes" name="apple-touch-fullscreen" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background-color: #f5f5f5;
+      font-size: 0;
+      line-height: 0;
+    }
+
+    img {
+      width: 100%;
+      font-size: 0;
+      line-height: 0;
+    }
+
+    .box {
+      position: relative;
+    }
+
+    .btn {
+      background: url(./img/btn.png) center no-repeat;
+      background-size: contain;
+      width: 57vw;
+      height: 12vw;
+      display: block;
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      margin-left: -29vw;
+      animation: breathing 1.8s linear infinite;
+    }
+
+    a {
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    .btn1 {
+      top: 51vw;
+    }
+
+    .btn2 {
+      top: 34vw;
+    }
+
+    .btn3 {
+      top: 27vw;
+    }
+
+    .btn4 {
+      top: 35vw;
+    }
+
+    @keyframes breathing {
+      0% {
+        transform: scale(0.88);
+      }
+
+      50% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(0.88);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <img src="img/d_01.jpg" alt="">
+    <a href="https://wa.me/62882001014790" class="btn btn1"></a>
+  </div>
+  <div class="box">
+    <img src="img/d_02.jpg" alt="">
+  </div>
+  <div class="box">
+    <img src="img/d_03.jpg" alt="">
+    <a href="https://wa.me/62882001014790" class="btn btn2"></a>
+  </div>
+  <div class="box">
+    <img src="img/d_04.jpg" alt="">
+    <a href="https://wa.me/62882001014790" class="btn btn3"></a>
+  </div>
+  <div class="box">
+    <img src="img/d_05.jpg" alt="">
+    <a href="https://wa.me/62882001014790" class="btn btn4"></a>
+  </div>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KLZENQZZ1E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-KLZENQZZ1E');
+  </script>
+</body>
+
+</html>
