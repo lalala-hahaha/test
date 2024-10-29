@@ -1,12 +1,14 @@
 import fs from 'fs';
 import path from 'path';
-import { minify } from 'html-minifier';
+import { minify as htmlMinify } from 'html-minifier';
 import { minify as terserMinify } from 'terser';
 import imagemin from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import imageminPngquant from 'imagemin-pngquant';
 import imageminGifsicle from 'imagemin-gifsicle';
 import imageminSvgo from 'imagemin-svgo';
+import postcss from 'postcss';
+import cssnano from 'cssnano';
 
 async function buildPage() {
     const srcDir = path.resolve('src/pages');
@@ -25,34 +27,57 @@ async function buildPage() {
         process.exit(1);
     }
 
+    // 确保 dist 目录存在
     if (!fs.existsSync(outPageDir)) fs.mkdirSync(outPageDir, { recursive: true });
 
+    // 压缩 HTML 文件
     const htmlPath = path.join(pageDir, 'index.html');
     if (fs.existsSync(htmlPath)) {
         const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
-        const minifiedHtml = minify(htmlContent, { collapseWhitespace: true });
+        const minifiedHtml = htmlMinify(htmlContent, { collapseWhitespace: true });
         fs.writeFileSync(path.join(outPageDir, 'index.html'), minifiedHtml);
+        console.log(`已压缩 ${page} 页面中的 HTML 文件`);
     }
 
-    const cssPath = path.join(pageDir, 'style.css');
+    // 压缩 CSS 文件
+    const cssPath = path.join(pageDir, 'css/style.css');
+    const cssOutDir = path.join(outPageDir, 'css');
     if (fs.existsSync(cssPath)) {
+        if (!fs.existsSync(cssOutDir)) fs.mkdirSync(cssOutDir, { recursive: true });
+
         const cssContent = fs.readFileSync(cssPath, 'utf-8');
-        fs.writeFileSync(path.join(outPageDir, 'style.css'), cssContent);
+        const minifiedCss = await postcss([cssnano]).process(cssContent, { from: undefined });
+        fs.writeFileSync(path.join(cssOutDir, 'style.css'), minifiedCss.css);
+        console.log(`已压缩 ${page} 页面中的 CSS 文件到 ${path.join(cssOutDir, 'style.css')}`);
+    } else {
+        console.log(`CSS 文件未找到: ${cssPath}`);
     }
 
-    const jsPath = path.join(pageDir, 'script.js');
+    // 压缩 JavaScript 文件
+    const jsPath = path.join(pageDir, 'js/index.js');
+    const jsOutDir = path.join(outPageDir, 'js');
     if (fs.existsSync(jsPath)) {
+        if (!fs.existsSync(jsOutDir)) fs.mkdirSync(jsOutDir, { recursive: true });
+
         const jsContent = fs.readFileSync(jsPath, 'utf-8');
         const minifiedJs = await terserMinify(jsContent);
-        fs.writeFileSync(path.join(outPageDir, 'script.js'), minifiedJs.code);
+        if (minifiedJs.code) {
+            fs.writeFileSync(path.join(jsOutDir, 'index.js'), minifiedJs.code);
+            console.log(`已压缩 ${page} 页面中的 JavaScript 文件到 ${path.join(jsOutDir, 'index.js')}`);
+        } else {
+            console.error(`JavaScript 压缩失败: ${minifiedJs.error}`);
+        }
+    } else {
+        console.log(`JavaScript 文件未找到: ${jsPath}`);
     }
 
+    // 压缩图片文件
     const assetsDir = path.join(pageDir, 'img');
+    const outAssetsDir = path.join(outPageDir, 'img');
     if (fs.existsSync(assetsDir)) {
-        const outAssetsDir = path.join(outPageDir, 'img');
         fs.mkdirSync(outAssetsDir, { recursive: true });
 
-        const files = await imagemin([`${assetsDir}/*.{jpg,png,gif,svg}`], {
+        await imagemin([`${assetsDir}/*.{jpg,png,gif,svg}`], {
             destination: outAssetsDir,
             plugins: [
                 imageminMozjpeg({ quality: 75 }),
@@ -63,7 +88,9 @@ async function buildPage() {
                 })
             ]
         });
-        console.log(`已压缩并复制 ${page} 页面中的图片资源`);
+        console.log(`已压缩并复制 ${page} 页面中的图片资源到 ${outAssetsDir}`);
+    } else {
+        console.log(`图片文件夹未找到: ${assetsDir}`);
     }
 
     console.log(`构建完成：${page}`);

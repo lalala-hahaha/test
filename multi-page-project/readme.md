@@ -20,3 +20,6 @@ multi-page-project
 │       └── main.css
 │
 └── package.json            // 项目配置
+
+如运行不起来，请先安装node 18环境
+npm install live-server -g
