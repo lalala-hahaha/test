@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>TIMETRADE</title>
+    <meta http-equiv="Content-type" content="text/html" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no" />
+    <meta name="viewport" content="width=750,viewport-fit=cover" />
+
+    <script>
+        window.mobileUtil = function (i, e) { var t = navigator.userAgent, n = /android|adr/gi.test(t), a = /iphone|ipod|ipad/gi.test(t) && !n, r = n || a; return { isAndroid: n, isIos: a, isMobile: r, fixScreen: function () { function t(i) { return "initial-scale=" + i + ",maximum-scale=" + i + ",minimum-scale=" + i } var n = e.querySelector('meta[name="viewport"]'), a = n ? n.content : "", d = a.match(/initial\-scale=([\d\.]+)/), o = a.match(/width=([^,\s]+)/); if (r && !d && o && "device-width" != o[1]) { var c = parseInt(o[1]), s = i.innerWidth || c, m = i.screen.width || s, l = m / c; n.content = a + ",target-densitydpi=device-dpi," + t(l) } } } }(window, document), mobileUtil.fixScreen();
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            background-color: #f5f5f5;
+            font-size: 0;
+            line-height: 0;
+        }
+
+        img {
+            width: 100%;
+            font-size: 0;
+            line-height: 0;
+        }
+
+        .box {
+            position: relative;
+        }
+
+        .btn {
+            background: url(./img/btn.png) center no-repeat;
+            background-size: contain;
+            width: 216px;
+            height: 51px;
+            display: block;
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
+        }
+
+        a {
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        .btn1 {
+            bottom: 32px;
+        }
+
+        .btn2 {
+            bottom: 34px;
+        }
+
+        .btn3 {
+            bottom: 52px;
+        }
+
+        .btn4 {
+            bottom: 28px;
+        }
+        .btn5 {
+            bottom: 82px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img src="img/img_1.png" alt="">
+        <a href="https://wa.me/62882001014790" class="btn btn1"></a>
+    </div>
+    <div class="box">
+        <img src="img/img_2.png" alt="">
+        <a href="https://wa.me/62882001014790" class="btn btn2"></a>
+    </div>
+    <div class="box">
+        <img src="img/img_3.png" alt="">
+        <a href="https://wa.me/62882001014790" class="btn btn3"></a>
+    </div>
+    <div class="box">
+        <img src="img/img_4.png" alt="">
+        <a href="https://wa.me/62882001014790" class="btn btn4"></a>
+    </div>
+    <div class="box">
+        <img src="img/img_5.png" alt="">
+        <a href="https://wa.me/62882001014790" class="btn btn5"></a>
+    </div>
+</body>
+
+</html>
