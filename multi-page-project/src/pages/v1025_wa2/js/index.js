@@ -18,5 +18,7 @@ async function initializePage() {
 }
 initializePage();
 const affiliation = function () {
-  kwaiq.instance("262327847787656").track("contentView");
+  if (kwaiq) {
+    kwaiq.instance("262327847787656").track("contentView");
+  }
 };

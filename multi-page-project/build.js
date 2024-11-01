@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { minify as htmlMinify } from 'html-minifier';
+import { transformAsync } from '@babel/core';
 import { minify as terserMinify } from 'terser';
 import imagemin from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
@@ -27,14 +28,17 @@ async function buildPage() {
         process.exit(1);
     }
 
-    // 确保 dist 目录存在
     if (!fs.existsSync(outPageDir)) fs.mkdirSync(outPageDir, { recursive: true });
 
     // 压缩 HTML 文件
     const htmlPath = path.join(pageDir, 'index.html');
     if (fs.existsSync(htmlPath)) {
         const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
-        const minifiedHtml = htmlMinify(htmlContent, { collapseWhitespace: true });
+        const minifiedHtml = htmlMinify(htmlContent, { 
+            collapseWhitespace: true,
+            minifyCSS: true,  // 压缩 HTML 文件中的内联 CSS
+            minifyJS: true    // 压缩 HTML 文件中的内联 JS
+        });
         fs.writeFileSync(path.join(outPageDir, 'index.html'), minifiedHtml);
         console.log(`已压缩 ${page} 页面中的 HTML 文件`);
     }
@@ -53,14 +57,19 @@ async function buildPage() {
         console.log(`CSS 文件未找到: ${cssPath}`);
     }
 
-    // 压缩 JavaScript 文件
+    // 转换并压缩 JavaScript 文件
     const jsPath = path.join(pageDir, 'js/index.js');
     const jsOutDir = path.join(outPageDir, 'js');
     if (fs.existsSync(jsPath)) {
         if (!fs.existsSync(jsOutDir)) fs.mkdirSync(jsOutDir, { recursive: true });
 
         const jsContent = fs.readFileSync(jsPath, 'utf-8');
-        const minifiedJs = await terserMinify(jsContent);
+        
+        // 使用 Babel 转换为 ES5
+        const es5JsContent = (await transformAsync(jsContent, { presets: ['@babel/preset-env'] })).code;
+
+        // 压缩转换后的代码
+        const minifiedJs = await terserMinify(es5JsContent);
         if (minifiedJs.code) {
             fs.writeFileSync(path.join(jsOutDir, 'index.js'), minifiedJs.code);
             console.log(`已压缩 ${page} 页面中的 JavaScript 文件到 ${path.join(jsOutDir, 'index.js')}`);
