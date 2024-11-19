@@ -1,5 +1,5 @@
 const pageid = "effortless-moxie-cde575";
-const waNo = "62882001014784";
+const waNo = "85261927693";
 async function initializePage() {
   try {
     const response = await fetch(
