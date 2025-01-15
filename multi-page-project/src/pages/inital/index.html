@@ -7,7 +7,8 @@
   <meta http-equiv="Content-type" content="text/html" />
   <meta content="yes" name="apple-mobile-web-app-capable" />
   <meta content="yes" name="apple-touch-fullscreen" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script src="js/lib-flexible.js"></script>
   <style>
     * {
       margin: 0;
@@ -43,13 +44,13 @@
     .btn {
       background: url(./img/btn.png) center no-repeat;
       background-size: contain;
-      width: 29vw;
-      height: 7vw;
+      width: 2.88rem;
+      height: 0.68rem;
       display: block;
       position: absolute;
       z-index: 1;
       left: 50%;
-      margin-left: -14vw;
+      margin-left: -1.44rem;
       animation: breathing 1.8s linear infinite;
     }
 
@@ -60,23 +61,23 @@
     }
 
     .btn1 {
-      bottom: 5vw;
+      bottom: 0.426666rem;
     }
 
     .btn2 {
-      bottom: 5vw;
+      bottom: 0.45rem;
     }
 
     .btn3 {
-      bottom: 5vw;
+      bottom: 0.69rem;
     }
 
     .btn4 {
-      bottom: 3vw;
+      bottom: 0.373333rem;
     }
 
     .btn5 {
-      bottom: 16vw;
+      bottom: 1.0933rem;
     }
 
     @keyframes breathing {
@@ -92,7 +93,8 @@
         transform: scale(0.88);
       }
     }
-    #zhichiScript{
+
+    #zhichiScript {
       width: 0;
       height: 0;
       display: none;
@@ -102,25 +104,26 @@
 
 <body>
   <div class="box">
-    <img src="img/tu1.png" alt="">
+    <img src="img/img_1.png" alt="">
     <p class="btn btn1"></p>
   </div>
   <div class="box">
-    <img src="img/tu2.png" alt="">
+    <img src="img/img_2.png" alt="">
     <p class="btn btn2"></p>
   </div>
   <div class="box">
-    <img src="img/tu3.png" alt="">
+    <img src="img/img_3.png" alt="">
     <p class="btn btn3"></p>
   </div>
   <div class="box">
-    <img src="img/tu4.png" alt="">
+    <img src="img/img_4.png" alt="">
     <p class="btn btn4"></p>
   </div>
   <div class="box">
-    <img src="img/tu5.png" alt="">
+    <img src="img/img_5.png" alt="">
     <p class="btn btn5"></p>
   </div>
+
   <script src="js/index.js"></script>
 </body>
 
