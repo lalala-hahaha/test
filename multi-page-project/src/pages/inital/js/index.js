@@ -26,7 +26,7 @@ async function initializePage() {
     if (data && data[pageid] === "1") {
       zc("config", {
         cardTrigger: 1,
-        type: 3,
+        type: 1,
         custom: true,
         man_trace: true,
         auto_expand: true,
@@ -36,7 +36,7 @@ async function initializePage() {
     }else{
       zc("config", {
         cardTrigger: 1,
-        type: 3,
+        type: 1,
         custom: true,
         man_trace: true,
         auto_expand: false,
