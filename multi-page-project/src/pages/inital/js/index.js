@@ -20,26 +20,20 @@ async function initializePage() {
       x.async = true;
       x.id = "zhichiScript";
       x.className = "btn";
-      x.src =
-        "https://sg.sobot.com/chat/frame/v6/entrance.js?sysnum=0609ebe3231142b8a815d7bd1831d3f3";
+      x.src = "https://sg.sobot.com/chat/frame/v6/entrance.js?sysnum=0609ebe3231142b8a815d7bd1831d3f3";
       d.body.appendChild(x);
     })(window, document, "zc");
-    const args = {
-      等级:"Boss",
-      惯称:"智齿sobot",
-      来自:"北京"
-    };
-    // if (data && data[pageid] === "1") {
-    //   zc("config", {
-    //     cardTrigger: 1,
-    //     type: 3,
-    //     custom: true,
-    //     man_trace: true,
-    //     auto_expand: true,
-    //     custom_title:"welcome",
-    //     guide_flag: "1"
-    //   });
-    // }else{
+    if (data && data[pageid] === "1") {
+      zc("config", {
+        cardTrigger: 1,
+        type: 3,
+        custom: true,
+        man_trace: true,
+        auto_expand: true,
+        custom_title:"welcome",
+        guide_flag: "1"
+      });
+    }else{
       zc("config", {
         cardTrigger: 1,
         type: 3,
@@ -47,10 +41,9 @@ async function initializePage() {
         man_trace: true,
         auto_expand: false,
         custom_title:"welcome",
-        guide_flag: "1",
-        params:JSON.stringify(args)
+        guide_flag: "1"
       });
-    // }
+    }
   } catch (error) {
     console.error("Fetch error:", error);
   }
