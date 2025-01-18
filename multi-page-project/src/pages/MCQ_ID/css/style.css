@@ -1,0 +1,167 @@
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body,
+header,
+section,
+footer,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dl,
+dt,
+dd,
+ul,
+li,
+p,
+a,
+b,
+i,
+img {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Helvetica Neue", "Helvetica", "Heiti SC", "Droid Sans Fallback",
+    "sans-self";
+  line-height: 1;
+  font-size: 24px;
+  background-color: #fff;
+  color: #353535;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+img {
+  width: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  font-size: 0;
+}
+
+.clf:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clf {
+  display: block;
+  zoom: 1;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.vc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.c {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, 0, 0);
+  transform: translate3d(-50%, 0, 0);
+}
+
+.hide {
+  display: none;
+}
+
+.rel {
+  position: relative;
+}
+
+.abs {
+  position: absolute;
+}
+
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.options-box {
+  display: flex;
+}
+
+.options-item {
+  border: solid 1px #aaa;
+  padding: 20px;
+  margin: 0 6px;
+}
+
+.options-title {
+  padding: 12px 0;
+}
+
+.page-age-not,
+.page-sex,
+.page-form,
+.page-welcome {
+  display: none;
+}
+
+.form-options {
+  font-size: 18px;
+  flex-direction: column;
+  width: 100%;
+}
+.form-options .options-item{
+  border: none;
+}
+.form-submit{
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background-color: rgb(0, 72, 255);
+    color: #fff;
+}
+
+.welcome-txt{
+    padding: 12px;
+    font-size: 16px;
+}
