@@ -3,53 +3,114 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>HELLO</title>
+  <title>Sertai Kami</title>
   <meta http-equiv="Content-type" content="text/html" />
   <meta content="yes" name="apple-mobile-web-app-capable" />
   <meta content="yes" name="apple-touch-fullscreen" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=750">
   <link rel="stylesheet" href="css/style.css">
+  <script>window.mobileUtil = function (i, e) { var t = navigator.userAgent, n = /android|adr/gi.test(t), a = /iphone|ipod|ipad/gi.test(t) && !n, r = n || a; return { isAndroid: n, isIos: a, isMobile: r, fixScreen: function () { function t(i) { return "initial-scale=" + i + ",maximum-scale=" + i + ",minimum-scale=" + i } var n = e.querySelector('meta[name="viewport"]'), a = n ? n.content : "", d = a.match(/initial\-scale=([\d\.]+)/), o = a.match(/width=([^,\s]+)/); if (r && !d && o && "device-width" != o[1]) { var c = parseInt(o[1]), s = i.innerWidth || c, m = i.screen.width || s, l = m / c; n.content = a + ",target-densitydpi=device-dpi," + t(l) } } } }(window, document), mobileUtil.fixScreen();</script>
 </head>
 
 <body>
   <div class="page page-age" id="page-age">
-    <p class="options-title">请问你成年了吗？</p>
-    <div class="options-box age-options">
-      <p class="options-item age-not" id="age-not">我未满18岁</p>
-      <p class="options-item age-yes" id="age-yes">我已满18岁</p>
+    <div class="banner"></div>
+    <div class="page-age-content">
+      <div class="age-options">
+        <p class="age-title">Maafkan saya, adakah anda <br />seorang dewasa</p>
+        <p class="age-yes" id="age-yes">Sudah lebih dari 18 tahun</p>
+        <p class="age-not" id="age-not">Di bawah 18 tahun</p>
+      </div>
+      <div class="age-intro">
+        <p class="age-intro-title">Tentang Kami</p>
+        <dl class="age-intro-content">
+          <dt>Latar Belakang Syarikat:</dt>
+          <dd>Dalam era digital hari ini, ramai orang tidak sabar-sabar untuk meningkatkan pendapatan mereka melalui
+            kerja sambilan dalam talian yang fleksibel Berdasarkan situasi semasa, kami telah mencipta platform yang
+            adil, telus dan percuma untuk menyediakan pengguna tempatan Malaysia dengan pelbagai jenis bahagian dalam
+            talian. -peluang masa.</dd>
+          <dt>Model perniagaan:</dt>
+          <dd>Kami akan memadankan anda dengan pelbagai kerja sambilan berdasarkan maklumat yang anda berikan dan
+            mengesyorkannya kepada anda, dan memastikan bahawa pekerjaan itu adalah benar dan sah;</dd>
+        </dl>
+      </div>
+      <div class="page-age-footer">Perkhidmatan ini tidak mengenakan sebarang yuran atau komisen semasa keseluruhan
+        proses, dan menjamin sepenuhnya faedah sebenar pengguna Jika anda mempunyai sebarang pertanyaan, sila hubungi
+        e-mel</div>
     </div>
   </div>
   <div class="page page-age-not" id="page-age-not">
-    <p>当前工作只对成年人开放</p>
+    <div class="age-not-content">
+      <i class="age-not-content-icon"></i>
+      <div class="age-not-content-txt">
+        <p>Tugas semasa hanya dikembangkan <br/>untuk orang dewasa</p>
+      </div>
+    </div>
   </div>
   <div class="page page-sex" id="page-sex">
-    <p class="options-title">请问你是帅哥还是美女？</p>
-    <div class="options-box sex-options">
-      <p class="options-item sex-male" id="sex-male">我是帅哥</p>
-      <p class="options-item sex-female" id="sex-female">我是美女</p>
+    <div class="sex-options">
+      <p class="sex-title">Maafkan saya, anda tampan <br/>atau cantik</p>
+      <div class="sex-female" id="sex-female"><p>kecantikan</p></div>
+      <div class="sex-male" id="sex-male"><p>Lelaki cantik</p></div>
     </div>
   </div>
   <div class="page page-form" id="page-form">
-    <p class="options-title">提交您的信息我们将联系您</p>
-    <ul class="options-box form-options">
-      <li class="options-item form-1">您的wahtsapp <input type="text" name=""></li>
-      <li class="options-item form-2">您所在的区域 <input type="text" name=""></li>
-      <li class="options-item form-3">您的年龄 <input type="text" name=""></li>
-    </ul>
-    <p class="form-submit" id="form-submit-btn">提交材料</p>
+    <div class="from-content">
+      <p class="page-form-title">Isi maklumat</p>
+      <div class="form-options">
+        <p class="form-options-title">Hantar maklumat anda dan tunggu perkhidmatan pelanggan untuk menghubungi anda</p>
+        <div class="form-item form-1">
+          <p class="form-item-title">Whatsapp anda</p><input placeholder="Masukkan akaun" type="text" name="">
+        </div>
+        <div class="form-item form-2">
+          <p class="form-item-title">Umur anda</p><input type="text" placeholder="Masukkan usia" name="">
+        </div>
+        <div class="form-item form-3">
+          <p class="form-item-title">Masa jadual sengaja</p>
+          <select name="" id="">
+            <option value="Pilih masa jadual">Pilih masa jadual</option>
+            <option value="Kerja semasa hari">Kerja semasa hari</option>
+            <option value="Kerja malam">Kerja malam</option>
+          </select>
+        </div>
+        <p class="form-submit-btn" id="form-submit-btn">Menyerahkan Bahan</p>
+      </div>
+    </div>
+  </div>
+  <div class="page page-thank" id="page-thank">
+    <div class="page-thank-content">
+      <i class="page-thank-content-icon"></i>
+      <div class="page-thank-content-txt">
+        <p>Kami telah menerima aplikasi dan akan menghubungi and a apabila kami mempunyai peluang kerja yang sesuai</p>
+      </div>
+    </div>
   </div>
   <div class="page page-welcome" id="page-welcome">
-    <p class="welcome-txt">😄Halo, ini adalah pekerjaan paruh waktu untuk menghasilkan uang melalui obrolan. Untuk setiap pesan yang kamu
-      balas，kamu bisa mendapatkan penghasilan 0.015$（Rp.243💰).
-      Pekerjaan paruh waktu ini HANYA TERBUKA UNTUK 👧🏻PEREMPUAN DEWASA, Jika kamu adalah PEREMPUAN dan ingin bergabung
-      bersama kami, silahkan bergabung dengan grup wa kami dibawah ini, akan ada admin yang mejawab pertanyaan dan
-      mengajari kamu cara menghasilkan uang.👧🏻<a id="welcome-link" href=""></a>
-      📢Catatan:
-      1. Kami tidak memungut biaya apapun untuk keseluruhan proses! Harap berhati-hati dengan informasi dari orang asing
-      dan jangan sampai tertipu!
-      2. Jika kamu memiliki pertanyaan, silahkan bertanya kepada admin dari link grup diatas. Akun ini tidak akan
-      memberikan balasan apapun.
-      3. 🙏🏻Semoga harimu menyenangkan🙏🏻</p>
+    <div class="banner"></div>
+    <div class="welcome-box">
+      <div class="welcome-content">
+        <div class="welcome-txt">😄Halo, ini adalah pekerjaan paruh waktu untuk menghasilkan uang melalui obrolan. Untuk
+          setiap pesan yang kamu
+          balas，kamu bisa mendapatkan penghasilan 0.015$（Rp.243💰).
+          Pekerjaan paruh waktu ini HANYA TERBUKA UNTUK 👧🏻PEREMPUAN DEWASA, Jika kamu adalah PEREMPUAN dan ingin
+          bergabung
+          bersama kami, silahkan bergabung dengan grup wa kami dibawah ini, akan ada admin yang mejawab pertanyaan dan
+          mengajari kamu cara menghasilkan uang.👧🏻<p class="welcome-link-p"><a id="welcome-link" class="welcome-link" href="">https://www.baidu.com/sldjglasdlkgjs/sadlgjlasjdglsdfsadf</a>➡️</p>
+          📢Catatan:
+          1. Kami tidak memungut biaya apapun untuk keseluruhan proses! Harap berhati-hati dengan informasi dari orang
+          asing
+          dan jangan sampai tertipu!
+          2. Jika kamu memiliki pertanyaan, silahkan bertanya kepada admin dari link grup diatas. Akun ini tidak akan
+          memberikan balasan apapun.
+          3. 🙏🏻Semoga harimu menyenangkan🙏🏻</div>
+          <div class="welcome-notis">
+            <p>Notis:</p>
+            <p>Kami tidak mengenakan sebarang bayaran untuk keseluruhan proses! Jika anda mempunyai sebarang pertanyaan, sila rujuk kepada pentadbir kumpulan! Awas ditipu!</p>
+          </div>
+
+      </div>
+
+    </div>
   </div>
   <script src="js/index.js"></script>
 </body>

@@ -42,7 +42,7 @@ body {
     "sans-self";
   line-height: 1;
   font-size: 24px;
-  background-color: #fff;
+  background-color: #fdf5ea;
   color: #353535;
 }
 
@@ -119,8 +119,6 @@ img {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .options-box {
@@ -140,28 +138,285 @@ img {
 .page-age-not,
 .page-sex,
 .page-form,
+.page-thank,
 .page-welcome {
   display: none;
 }
 
-.form-options {
-  font-size: 18px;
-  flex-direction: column;
-  width: 100%;
-}
-.form-options .options-item{
-  border: none;
-}
-.form-submit{
-    width: 200px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    background-color: rgb(0, 72, 255);
-    color: #fff;
+
+.form-submit {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-color: rgb(0, 72, 255);
+  color: #fff;
 }
 
-.welcome-txt{
-    padding: 12px;
-    font-size: 16px;
+.banner {
+  background: url(../img/banner.png) no-repeat;
+  height: 407px;
+  width: 100%;
+}
+
+.page-age-content {
+  padding: 0 32px;
+}
+
+.age-options {
+  border-radius: 16px;
+  border: solid 1px #000;
+  height: 332px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+.age-title {
+  text-align: center;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: bold;
+}
+
+.age-yes,
+.age-not {
+  width: 520px;
+  height: 72px;
+  line-height: 72px;
+  border-radius: 62px;
+  text-align: center;
+  margin-top: 22px;
+}
+.age-yes {
+  background: #46d85c;
+  font-weight: bold;
+}
+.age-not {
+  border: 2px solid #e3e7ee;
+  background-color: #fff;
+}
+.age-intro {
+  margin-top: 24px;
+  border-radius: 16px;
+  border: 1px solid #000000;
+  overflow: hidden;
+}
+.age-intro-title {
+  height: 84px;
+  line-height: 84px;
+  padding-left: 24px;
+  background: #f1e1cb;
+  border-bottom: 2px solid #000000;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.age-intro-content {
+  padding: 12px 24px 40px 24px;
+}
+.age-intro-content dt {
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 32px;
+  padding-top: 24px;
+}
+.age-intro-content dd {
+  line-height: 28px;
+}
+.page-age-footer {
+  line-height: 32px;
+  padding-top: 48px;
+}
+
+.page-age-not,
+.page-thank{
+  align-items: center;
+  justify-content: center;
+}
+.age-not-content,.page-thank-content {
+  padding: 100px 32px 32px 32px;
+  position: relative;
+}
+.age-not-content-icon,.page-thank-content-icon {
+  background: url(../img/age-not.png) no-repeat;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, 0, 0);
+  transform: translate3d(-50%, 0, 0);
+}
+.age-not-content-txt,.page-thank-content-txt {
+  background-color: #fff;
+  border-radius: 16px;
+  width: 696px;
+  height: 332px;
+  font-size: 36px;
+  border: solid 1px #000;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  line-height: 42px;
+}
+.page-sex {
+  justify-content: center;
+  align-items: center;
+  padding: 0 32px;
+}
+.sex-options {
+  width: 686px;
+  height: 402px;
+  border: solid 1px #000;
+  border-radius: 16px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sex-title {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 32px;
+  text-align: center;
+}
+.sex-male {
+  width: 520px;
+  height: 72px;
+  text-align: center;
+  line-height: 72px;
+  border: 2px solid #e3e7ee;
+  border-radius: 62px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+.sex-male p {
+  padding-left: 40px;
+  background: url(../img/male_icon.png) 0 50% no-repeat;
+}
+.sex-female {
+  width: 520px;
+  height: 72px;
+  text-align: center;
+  line-height: 72px;
+  border: 2px solid #e3e7ee;
+  border-radius: 62px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+.sex-female p {
+  padding-left: 40px;
+  background: url(../img/female_icon.png) 0 50% no-repeat;
+}
+
+.page-form{
+  padding: 0 32px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.from-content{
+  border: solid 1px #000;
+  border-radius: 16px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.page-form-title {
+  width: 686px;
+  height: 84px;
+  line-height: 84px;
+  background: #f1e1cb;
+  border-bottom: 1px solid #000000;
+  padding-left: 24px;
+  font-size: 32px;
+  font-weight: bold;
+}
+.form-options {
+  height: 912px;
+  font-size: 28px;
+  padding: 24px;
+}
+
+.form-options-title{
+  font-weight: bold;
+  line-height: 32px;
+}
+
+.form-item{
+  padding-top: 32px;
+}
+.form-item-title{
+  padding: 16px 0;
+}
+.form-item input,
+.form-item select,
+.form-item option{
+  width: 638px;
+  height: 94px;
+  background: #FDF5EA;
+  border-radius: 68px;
+  border: 0;
+  font-size: 32px;
+  padding: 24px 32px;
+  color: rgba(0,0,0,0.35);
+  color: #000;
+  box-sizing: border-box;
+}
+
+.form-submit-btn{
+  width: 630px;
+  height: 112px;
+  background: #46D85C;
+  border-radius: 62px;
+  font-size: 32px;
+  color: #000;
+  text-align: center;
+  line-height: 112px;
+  margin-top: 56px;
+}
+
+.page-thank-content-icon{
+  background-image: url(../img/thank_icon.png);
+}
+.welcome-box{
+  padding: 0 32px;
+
+}
+.welcome-content{
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  line-height: 30px;
+  border: solid 1px #000;
+}
+
+.welcome-link{
+  color: #000;
+  word-break: break-all;
+  word-wrap: break-word;
+  border-bottom: solid 1px #46D85C;
+}
+.welcome-link-p{
+  font-size: 44px;
+  line-height: 1.4;
+  padding: 24px 0;
+}
+
+.welcome-notis{
+  color: rgba(0,0,0,0.55);
+  font-size: 18px;
+  padding-top: 32px;
+  line-height: 1.4;
 }

@@ -17,7 +17,8 @@ document.getElementById("sex-female").addEventListener("click", function () {
   document.getElementById("page-welcome").style.display = "flex";
 });
 document.getElementById("form-submit-btn").addEventListener("click", function () {
-  alert("谢谢参与");
+  document.getElementById("page-form").style.display = "none";
+  document.getElementById("page-thank").style.display = "flex";
 });
 
 // 获取当前wa列表
