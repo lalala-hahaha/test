@@ -114,27 +114,20 @@ img {
 }
 
 .page {
-  position: absolute;
   width: 100%;
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 60px;
 }
 
-.options-box {
-  display: flex;
+.container{
+  padding: 0 32px 90px 32px;
 }
 
-.options-item {
-  border: solid 1px #aaa;
-  padding: 20px;
-  margin: 0 6px;
-}
 
-.options-title {
-  padding: 12px 0;
-}
+
+
+
 
 .page-age-not,
 .page-sex,
@@ -160,9 +153,6 @@ img {
   width: 100%;
 }
 
-.page-age-content {
-  padding: 0 32px;
-}
 
 .age-options {
   border-radius: 16px;
@@ -198,13 +188,13 @@ img {
   border: 2px solid #e3e7ee;
   background-color: #fff;
 }
-.age-intro {
+.page-intro {
   margin-top: 24px;
   border-radius: 16px;
   border: 1px solid #000000;
   overflow: hidden;
 }
-.age-intro-title {
+.intro-title {
   height: 84px;
   line-height: 84px;
   padding-left: 24px;
@@ -214,19 +204,20 @@ img {
   font-weight: bold;
 }
 
-.age-intro-content {
+.intro-content {
   padding: 12px 24px 40px 24px;
+  background-color: #fff;
 }
-.age-intro-content dt {
+.intro-content dt {
   font-weight: bold;
   font-size: 28px;
   line-height: 32px;
   padding-top: 24px;
 }
-.age-intro-content dd {
+.intro-content dd {
   line-height: 28px;
 }
-.page-age-footer {
+.page-footer {
   line-height: 32px;
   padding-top: 48px;
 }
@@ -237,7 +228,7 @@ img {
   justify-content: center;
 }
 .age-not-content,.page-thank-content {
-  padding: 100px 32px 32px 32px;
+  padding-top: 100px;
   position: relative;
 }
 .age-not-content-icon,.page-thank-content-icon {
@@ -254,7 +245,6 @@ img {
   background-color: #fff;
   border-radius: 16px;
   width: 696px;
-  height: 332px;
   font-size: 36px;
   border: solid 1px #000;
   justify-content: center;
@@ -262,11 +252,13 @@ img {
   display: flex;
   text-align: center;
   line-height: 42px;
+  padding-top: 40px;
+  padding-top: 136px;
+  padding-bottom: 100px;
 }
 .page-sex {
   justify-content: center;
   align-items: center;
-  padding: 0 32px;
 }
 .sex-options {
   width: 686px;
@@ -284,6 +276,7 @@ img {
   font-weight: bold;
   line-height: 32px;
   text-align: center;
+  padding: 12px 0;
 }
 .sex-male {
   width: 520px;
@@ -375,6 +368,14 @@ img {
   color: #000;
   box-sizing: border-box;
 }
+.form-item select{
+  appearance: none;  /* 隐藏默认样式 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #FDF5EA url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="136" height="136" viewBox="0 0 6 6"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 24px center;
+  background-size: 16px;
+  padding-right: 40px;  /* 预留空间避免文字遮挡箭头 */
+}
 
 .form-submit-btn{
   width: 630px;
@@ -391,10 +392,7 @@ img {
 .page-thank-content-icon{
   background-image: url(../img/thank_icon.png);
 }
-.welcome-box{
-  padding: 0 32px;
 
-}
 .welcome-content{
   background-color: #fff;
   padding: 24px;
@@ -407,7 +405,7 @@ img {
   color: #000;
   word-break: break-all;
   word-wrap: break-word;
-  border-bottom: solid 1px #46D85C;
+  text-decoration: underline #46D85C;
 }
 .welcome-link-p{
   font-size: 44px;
