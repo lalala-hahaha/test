@@ -221,7 +221,9 @@ img {
   line-height: 32px;
   padding-top: 48px;
 }
-
+.page-footer a{
+  color: #000;
+}
 .page-age-not,
 .page-thank{
   align-items: center;
