@@ -12,6 +12,7 @@ import postcss from "postcss";
 import cssnano from "cssnano";
 import autoprefixer from "autoprefixer";
 
+
 // 转换图片为 Base64
 function encodeToBase64(filePath) {
   const fileBuffer = fs.readFileSync(filePath);
@@ -19,7 +20,6 @@ function encodeToBase64(filePath) {
   const ext = path.extname(filePath).substring(1);
   return `data:image/${ext};base64,${base64Data}`;
 }
-
 async function buildPage() {
   const srcDir = path.resolve("src/pages");
   const page = process.argv[2];
@@ -47,12 +47,13 @@ async function buildPage() {
   const imgDir = path.join(pageDir, "img");
   let base64Images = new Set();
 
-  // 处理 HTML 文件
+  /**
+   * 1. 处理 HTML 文件
+   */
   const htmlPath = path.join(pageDir, "index.html");
   if (fs.existsSync(htmlPath)) {
     let htmlContent = fs.readFileSync(htmlPath, "utf-8");
 
-    // 处理 HTML 中的图片，转换小于 10KB 的图片
     if (fs.existsSync(imgDir)) {
       const imageFiles = fs.readdirSync(imgDir);
       imageFiles.forEach((img) => {
@@ -61,7 +62,7 @@ async function buildPage() {
         if (fileSize < 10 * 1024) {
           const base64Img = encodeToBase64(imgPath);
           htmlContent = htmlContent.replace(new RegExp(img, "g"), base64Img);
-          base64Images.add(img); // 记录已转换的图片
+          base64Images.add(img);
           console.log(`已将 HTML 中的 ${img} 替换为 Base64`);
         }
       });
@@ -76,40 +77,57 @@ async function buildPage() {
     console.log(`已压缩 ${page} 页面中的 HTML 文件`);
   }
 
-  // 处理 CSS 文件
+  /**
+   * 2. 处理 CSS 文件（转换小图片为 Base64）
+   */
   const cssPath = path.join(pageDir, "css/style.css");
   const cssOutDir = path.join(outPageDir, "css");
+
   if (fs.existsSync(cssPath)) {
     let cssContent = fs.readFileSync(cssPath, "utf-8");
 
-    // 处理 CSS 内的图片
-    const imgRegex = /url\(["']?(img\/.*?\.(png|jpg|jpeg|gif|svg))["']?\)/g;
+    // 匹配 CSS 中的图片路径
+    const imgRegex = /url\(["']?(?:\.\.\/)?(img\/.*?\.(png|jpg|jpeg|gif|svg))["']?\)/g;
     let match;
+
     while ((match = imgRegex.exec(cssContent)) !== null) {
-      const imgPath = path.join(pageDir, match[1]);
+      const imgRelPath = match[1];
+      const imgPath = path.join(pageDir, imgRelPath);
+
       if (fs.existsSync(imgPath)) {
         const fileSize = fs.statSync(imgPath).size;
         if (fileSize < 10 * 1024) {
+          // 小于10KB的图片转为 Base64
           const base64Img = encodeToBase64(imgPath);
           cssContent = cssContent.replace(match[0], `url("${base64Img}")`);
-          base64Images.add(path.basename(match[1]));
-          console.log(`已将 CSS 中的 ${match[1]} 转换为 Base64`);
+          console.log(`已将 CSS 中的 ${imgRelPath} 转换为 Base64`);
+        } else {
+          // 大于10KB的图片拷贝到 dist 目录
+          const imgOutPath = path.join(outPageDir, imgRelPath);
+          if (!fs.existsSync(path.dirname(imgOutPath))) {
+            fs.mkdirSync(path.dirname(imgOutPath), { recursive: true });
+          }
+          fs.copyFileSync(imgPath, imgOutPath);
+          console.log(`拷贝未转换的图片: ${imgRelPath} 到 dist`);
         }
+      } else {
+        console.warn(`警告: CSS 引用的图片未找到 ${imgRelPath}`);
       }
     }
 
+    // 处理 CSS 兼容性与压缩
     const processedCss = await postcss([autoprefixer, cssnano]).process(cssContent, {
       from: undefined,
     });
 
     if (!fs.existsSync(cssOutDir)) fs.mkdirSync(cssOutDir, { recursive: true });
     fs.writeFileSync(path.join(cssOutDir, "style.css"), processedCss.css);
-    console.log(`已压缩并添加兼容前缀的 CSS 文件到 ${path.join(cssOutDir, "style.css")}`);
-  } else {
-    console.log(`CSS 文件未找到: ${cssPath}`);
+    console.log(`已优化并处理 CSS 文件：${path.join(cssOutDir, "style.css")}`);
   }
 
-  // 处理 JavaScript 文件
+  /**
+   * 3. 处理 JavaScript 文件
+   */
   const jsDir = path.join(pageDir, "js");
   const jsOutDir = path.join(outPageDir, "js");
   if (fs.existsSync(jsDir)) {
@@ -134,7 +152,9 @@ async function buildPage() {
     }
   }
 
-  // 处理图片（仅拷贝未被转换为 Base64 的）
+  /**
+   * 4. 处理图片（仅拷贝未被转换为 Base64 的）
+   */
   const outAssetsDir = path.join(outPageDir, "img");
   if (fs.existsSync(imgDir)) {
     fs.mkdirSync(outAssetsDir, { recursive: true });
