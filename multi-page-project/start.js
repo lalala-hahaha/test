@@ -38,7 +38,7 @@ if (!fs.existsSync(indexPath)) {
 
 // 启动 live-server
 exec(
-    `npx live-server ${pageDir} --host=${host} --port=${port} --entry-file=index.html`,
+    `npx live-server ${pageDir} --host=localhost --port=${port} --entry-file=index.html --open`,
     (error, stdout, stderr) => {
         if (error) {
             console.error(`启动失败: ${error.message}`);
@@ -53,3 +53,4 @@ exec(
         console.log(`- 本机 IP 访问: http://${localIP}:${port}/`);
     }
 );
+
