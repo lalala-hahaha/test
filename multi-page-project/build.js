@@ -132,16 +132,26 @@ async function buildPage() {
   const jsOutDir = path.join(outPageDir, "js");
   if (fs.existsSync(jsDir)) {
     if (!fs.existsSync(jsOutDir)) fs.mkdirSync(jsOutDir, { recursive: true });
-
+  
     const jsFiles = fs.readdirSync(jsDir).filter((file) => file.endsWith(".js"));
     for (const file of jsFiles) {
       const filePath = path.join(jsDir, file);
       const fileOutPath = path.join(jsOutDir, file);
-
+  
       const jsContent = fs.readFileSync(filePath, "utf-8");
       try {
         const es5JsContent = (await transformAsync(jsContent, { presets: ["@babel/preset-env"] })).code;
-        const minifiedJs = await terserMinify(es5JsContent);
+        
+        // 使用 terser 进行压缩，移除 console.log
+        const minifiedJs = await terserMinify(es5JsContent, {
+          compress: {
+            drop_console: true,  // 移除所有 console.log
+          },
+          output: {
+            comments: false,  // 移除注释
+          },
+        });
+  
         if (minifiedJs.code) {
           fs.writeFileSync(fileOutPath, minifiedJs.code);
           console.log(`已压缩 ${file} 文件到 ${fileOutPath}`);
