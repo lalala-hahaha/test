@@ -19,24 +19,6 @@ async function initializePage() {
 }
 
 // 为按钮添加点击事件监听器
-document.getElementById("age-not").addEventListener("click", function () {
-  document.getElementById("page-age").style.display = "none";
-  document.getElementById("page-age-not").style.display = "flex";
-  gtag('event', 'button_click', {
-    'button_name': 'age-not',
-    'button_value': '18-'
-  });
-  fbq('track', '18-');
-});
-document.getElementById("age-yes").addEventListener("click", function () {
-  document.getElementById("page-age").style.display = "none";
-  document.getElementById("page-sex").style.display = "flex";
-  gtag('event', 'button_click', {
-    'button_name': 'age-yes',
-    'button_value': '18+'
-  });
-  fbq('track', '18+');
-});
 document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-form").style.display = "flex";
@@ -70,8 +52,6 @@ document.getElementById("form-submit-btn").addEventListener("click", function ()
   fbq('track', 'submit_form');
 });
 document.getElementById("welcome-link").addEventListener("click", function () {
-  document.getElementById("page-form").style.display = "none";
-  document.getElementById("page-thank").style.display = "flex";
   gtag('event', 'button_click', {
     'button_name': 'welcome-link',
     'button_value': 'welcome'
@@ -106,7 +86,7 @@ async function finalPage() {
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
       targetEle.href = targetUrl;
-      targetEle.innerText = targetUrl;
+      // targetEle.innerText = targetUrl;
     }
   } catch (error) {
     console.error("Failed to initialize toggles:", error);

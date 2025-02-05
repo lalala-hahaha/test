@@ -122,15 +122,10 @@ img {
 
 .container{
   padding: 0 32px 90px 32px;
+  line-height: 1.4;
 }
 
 
-
-
-
-
-.page-age-not,
-.page-sex,
 .page-form,
 .page-thank,
 .page-welcome {
@@ -394,18 +389,38 @@ img {
   border: solid 1px #000;
 }
 
+.welcome-link-p{
+  height: 100px;
+  position: relative;
+}
 .welcome-link{
   color: #000;
-  word-break: break-all;
-  word-wrap: break-word;
-  text-decoration: underline #46D85C;
-}
-.welcome-link-p{
-  font-size: 44px;
-  line-height: 1.4;
-  padding: 24px 0;
+  background: #46d85c;
+  font-weight: bold;
+  position: absolute;
+  animation: breathing 1.8s linear infinite;
+  border-radius: 80px;
+  line-height: 36px;
+  padding: 24px 36px;
+  font-size: 28px;
+  display: block;
+  text-align: center;
+  top: 6px;
 }
 
+@keyframes breathing {
+  0% {
+    transform: scale(0.88);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.88);
+  }
+}
 .welcome-notis{
   color: rgba(0,0,0,0.55);
   font-size: 18px;
