@@ -157,7 +157,7 @@ img {
 .age-options {
   border-radius: 16px;
   border: solid 1px #000;
-  height: 332px;
+  padding: 40px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -264,7 +264,6 @@ img {
 }
 .sex-options {
   width: 686px;
-  height: 402px;
   border: solid 1px #000;
   border-radius: 16px;
   background-color: #fff;
@@ -272,6 +271,7 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 40px 0;
 }
 .sex-title {
   font-size: 28px;
@@ -340,9 +340,8 @@ img {
   font-weight: bold;
 }
 .form-options {
-  height: 912px;
   font-size: 28px;
-  padding: 24px;
+  padding:40px 24px;
 }
 
 .form-options-title{
@@ -370,14 +369,6 @@ img {
   color: #000;
   box-sizing: border-box;
 }
-.form-item select{
-  appearance: none;  /* 隐藏默认样式 */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: #FDF5EA url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="136" height="136" viewBox="0 0 6 6"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 24px center;
-  background-size: 16px;
-  padding-right: 40px;  /* 预留空间避免文字遮挡箭头 */
-}
 
 .form-submit-btn{
   width: 630px;
@@ -397,7 +388,7 @@ img {
 
 .welcome-content{
   background-color: #fff;
-  padding: 24px;
+  padding: 40px 24px;
   border-radius: 16px;
   line-height: 30px;
   border: solid 1px #000;

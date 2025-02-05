@@ -369,14 +369,6 @@ img {
   color: #000;
   box-sizing: border-box;
 }
-.form-item select{
-  appearance: none;  /* 隐藏默认样式 */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: #FDF5EA url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="136" height="136" viewBox="0 0 6 6"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 24px center;
-  background-size: 16px;
-  padding-right: 40px;  /* 预留空间避免文字遮挡箭头 */
-}
 
 .form-submit-btn{
   width: 630px;
