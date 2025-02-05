@@ -390,7 +390,7 @@ img {
 }
 
 .welcome-link-p{
-  height: 100px;
+  height: 120px;
   position: relative;
 }
 .welcome-link{
@@ -405,7 +405,8 @@ img {
   font-size: 28px;
   display: block;
   text-align: center;
-  top: 6px;
+  top: 26px;
+  width: 100%;
 }
 
 @keyframes breathing {
