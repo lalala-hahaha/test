@@ -53,6 +53,9 @@ document.getElementById("welcome-link").addEventListener("click", function () {
     'button_name': 'welcome-link',
     'button_value': 'welcome'
   });
+  fbq('track', 'Lead', {
+    event_source_url: window.location.href,
+  });
   fbq('track', 'B_welcome');
 });
 
