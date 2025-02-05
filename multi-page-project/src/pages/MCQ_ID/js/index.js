@@ -22,14 +22,26 @@ async function initializePage() {
 document.getElementById("age-not").addEventListener("click", function () {
   document.getElementById("page-age").style.display = "none";
   document.getElementById("page-age-not").style.display = "flex";
+  gtag('event', 'button_click', {
+    'button_name': 'age-not',
+    'button_value': '18-'
+  });
 });
 document.getElementById("age-yes").addEventListener("click", function () {
   document.getElementById("page-age").style.display = "none";
   document.getElementById("page-sex").style.display = "flex";
+  gtag('event', 'button_click', {
+    'button_name': 'age-yes',
+    'button_value': '18+'
+  });
 });
 document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-form").style.display = "flex";
+  gtag('event', 'button_click', {
+    'button_name': 'sex-male',
+    'button_value': 'male'
+  });
 });
 document.getElementById("sex-female").addEventListener("click", function () {
   if (switchValue == "1") {
@@ -39,13 +51,27 @@ document.getElementById("sex-female").addEventListener("click", function () {
     document.getElementById("page-sex").style.display = "none";
     document.getElementById("page-form").style.display = "flex";
   }
-});
-document
-  .getElementById("form-submit-btn")
-  .addEventListener("click", function () {
-    document.getElementById("page-form").style.display = "none";
-    document.getElementById("page-thank").style.display = "flex";
+  gtag('event', 'button_click', {
+    'button_name': 'sex-female',
+    'button_value': 'female'
   });
+});
+document.getElementById("form-submit-btn").addEventListener("click", function () {
+  document.getElementById("page-form").style.display = "none";
+  document.getElementById("page-thank").style.display = "flex";
+  gtag('event', 'button_click', {
+    'button_name': 'form-submit-btn',
+    'button_value': 'submit_form'
+  });
+});
+document.getElementById("welcome-link").addEventListener("click", function () {
+  document.getElementById("page-form").style.display = "none";
+  document.getElementById("page-thank").style.display = "flex";
+  gtag('event', 'button_click', {
+    'button_name': 'welcome-link',
+    'button_value': 'gotowa'
+  });
+});
 
 // 获取当前wa列表
 async function fetchWaLinks() {
