@@ -4,35 +4,23 @@ const pageid = "charming-melba-31ae66";
 document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-form").style.display = "flex";
-  gtag('event', 'button_click', {
-    'button_name': 'sex-male',
-    'button_value': 'male'
-  });
+  gtag('event', 'button_male');
   fbq('track', 'B_male');
 });
 document.getElementById("sex-female").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-welcome").style.display = "flex";
-  gtag('event', 'button_click', {
-    'button_name': 'sex-female',
-    'button_value': 'female'
-  });
+  gtag('event', 'button_female');
   fbq('track', 'B_female');
 });
 document.getElementById("form-submit-btn").addEventListener("click", function () {
   document.getElementById("page-form").style.display = "none";
   document.getElementById("page-thank").style.display = "flex";
-  gtag('event', 'button_click', {
-    'button_name': 'form-submit-btn',
-    'button_value': 'submit_form'
-  });
+  gtag('event', 'button_submit');
   fbq('track', 'B_submit_form');
 });
 document.getElementById("welcome-link").addEventListener("click", function () {
-  gtag('event', 'button_click', {
-    'button_name': 'welcome-link',
-    'button_value': 'welcome'
-  });
+  gtag('event', 'button_welcome');
   fbq('track', 'Lead', {
     event_source_url: window.location.href,
   });
