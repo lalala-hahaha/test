@@ -6,18 +6,21 @@ document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-form").style.display = "flex";
   gtag('event', 'button_male');
   fbq('track', 'C_male');
+  ttq.track('C_male');
 });
 document.getElementById("sex-female").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-welcome").style.display = "flex";
   gtag('event', 'button_female');
   fbq('track', 'C_female');
+  ttq.track('C_female');
 });
 document.getElementById("form-submit-btn").addEventListener("click", function () {
   document.getElementById("page-form").style.display = "none";
   document.getElementById("page-thank").style.display = "flex";
   gtag('event', 'button_submit');
   fbq('track', 'C_submit_form');
+  ttq.track('C_submit_form');
 });
 document.getElementById("welcome-link").addEventListener("click", function () {
   gtag('event', 'button_welcome');
@@ -25,6 +28,7 @@ document.getElementById("welcome-link").addEventListener("click", function () {
     event_source_url: window.location.href,
   });
   fbq('track', 'C_welcome');
+  ttq.track('C_welcome');
 });
 
 // 获取当前wa列表
