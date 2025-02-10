@@ -14,6 +14,7 @@ document.getElementById("sex-female").addEventListener("click", function () {
   gtag('event', 'button_female');
   fbq('track', 'C_female');
   ttq.track('C_female');
+  ttq.track('ClickButton');
 });
 document.getElementById("form-submit-btn").addEventListener("click", function () {
   document.getElementById("page-form").style.display = "none";
@@ -29,6 +30,7 @@ document.getElementById("welcome-link").addEventListener("click", function () {
   });
   fbq('track', 'C_welcome');
   ttq.track('C_welcome');
+  ttq.track('Contact');
 });
 
 // 获取当前wa列表
