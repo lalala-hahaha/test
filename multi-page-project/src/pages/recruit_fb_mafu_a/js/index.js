@@ -33,7 +33,7 @@ async function fetchWaLinks(channelName) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        channel: channelName,
+        action: 'getList',
       }),
     }
   );
@@ -45,8 +45,12 @@ async function fetchWaLinks(channelName) {
 async function finalPage() {
   try {
     const data = await fetchWaLinks('FB');
-    if (data?.url) {
-      const targetUrl = data.url;
+    if (data?.fbLinks) {
+      const links = data.fbLinks
+      let targetUrl = links[0];
+      if(links.length>1){
+        targetUrl = links[1]
+      }
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
       targetEle.href = targetUrl;
