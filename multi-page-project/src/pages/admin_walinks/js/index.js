@@ -1,30 +1,45 @@
 // 获取按钮和 textarea 元素
-const submitButton = document.getElementById("submit");
-const textarea = document.getElementById("newlist");
+const submitDefault = document.getElementById("submit-default");
+const newlistDefault = document.getElementById("newlist-default");
+const submitFB = document.getElementById("submit-fb");
+const newlistFB = document.getElementById("newlist-fb");
+const submitTK = document.getElementById("submit-tk");
+const newlistTK = document.getElementById("newlist-tk");
 
 // 为按钮添加点击事件监听器
-submitButton.addEventListener("click", function () {
+submitDefault.addEventListener("click", function () {
+  submitNewList(newlistDefault,'default');
+});
+submitFB.addEventListener("click", function () {
+  submitNewList(newlistFB,'FB');
+});
+submitTK.addEventListener("click", function () {
+  submitNewList(newlistTK,'TK');
+});
+const submitNewList = function (targetInput,targetList) {
   // 获取 textarea 中的值
-  const value = textarea.value;
+  const value = targetInput.value;
   if (value) {
     const newValue = value.replace(/\s+/g, "");
 
-    let regex = /http/i;  // "i" 表示忽略大小写
+    let regex = /http/i; // "i" 表示忽略大小写
     if (regex.test(newValue)) {
       console.log(newValue);
-      fetchWaLinks("setList", newValue);
+      fetchWaLinks("setList", newValue, targetList);
       setTimeout(() => {
-        initializeToggles()
+        initializeToggles();
       }, 3000);
     } else {
-      alert('请输入正确的网址')
+      alert("请输入正确的网址");
     }
   }
-});
+};
 
-const inseList = function (dataList) {
-  const walist = document.getElementById("walist");
-  walist.innerHTML = ''
+const dflist = document.getElementById("wa-df-list");
+const fblist = document.getElementById("wa-fb-list");
+const tklist = document.getElementById("wa-tk-list");
+const inseList = function (ele, dataList) {
+  ele.innerHTML = "";
   // 遍历数组，并将每个元素作为新的列表项插入
   dataList.forEach((item) => {
     const li = document.createElement("li"); // 创建一个 li 元素
@@ -39,11 +54,11 @@ const inseList = function (dataList) {
     li.appendChild(a);
 
     // 将 li 元素添加到 ul 中
-    walist.appendChild(li);
+    ele.appendChild(li);
   });
 };
 // 获取当前wa列表
-async function fetchWaLinks(action, newListValue) {
+async function fetchWaLinks(action, newListValue, targetList) {
   const response = await fetch(
     `https://wjqicpjvr34cvmzucfiocae3ie0irrxb.lambda-url.ap-southeast-1.on.aws/`,
     {
@@ -54,6 +69,7 @@ async function fetchWaLinks(action, newListValue) {
       body: JSON.stringify({
         action: action,
         newdata: newListValue,
+        target: targetList
       }),
     }
   );
@@ -65,8 +81,14 @@ async function fetchWaLinks(action, newListValue) {
 async function initializeToggles() {
   try {
     const data = await fetchWaLinks("getList");
-    if (data?.url) {
-      inseList(data.url);
+    if (data?.links) {
+      inseList(dflist, data.links);
+    }
+    if (data?.fbLinks) {
+      inseList(fblist, data.fbLinks);
+    }
+    if (data?.tkLinks) {
+      inseList(tklist, data.tkLinks);
     }
   } catch (error) {
     console.error("Failed to initialize toggles:", error);

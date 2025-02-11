@@ -18,19 +18,39 @@
 
 <body>
     <div class="curlist">
-        <p>当前列表</p>
-        <ul id="walist"></ul>
+        <p class="list-title">当前默认列表</p>
+        <ul id="wa-df-list"></ul>
+        <div class="list-change">
+            <p class="list-change-title">替换默认链接</p>
+            <textarea class="newlist" name="" id="newlist-default"></textarea>
+            <div class="submit" id="submit-default">提交</div>
+        </div>
     </div>
-    <div class="change-list">
-        <p>替换链接</p>
+    <div class="curlist">
+        <p class="list-title">当前FB列表</p>
+        <ul id="wa-fb-list"></ul>
+        <div class="list-change">
+            <p class="list-change-title">替换FB链接</p>
+            <textarea class="newlist" name="" id="newlist-fb"></textarea>
+            <div class="submit" id="submit-fb">提交</div>
+        </div>
+    </div>
+    <div class="curlist">
+        <p class="list-title">当前TK列表</p>
+        <ul id="wa-tk-list"></ul>
+        <div class="list-change">
+            <p class="list-change-title">替换TK链接</p>
+            <textarea class="newlist" name="" id="newlist-tk"></textarea>
+            <div class="submit" id="submit-tk">提交</div>
+        </div>
+    </div>
+    <div class="example-box">
         <div class="example">
             <p>注意格式！！</p>
             <p>连续的字符串链接1中间逗号隔开链接2中间逗号隔开……</p>
             <p>链接1,链接2,链接3,链接4</p>
             <pre>https://a.com/1,https://a.com/2,https://a.com/3,https://a.com/4,https://a.com/5</pre>
         </div>
-        <textarea class="newlist" name="" id="newlist"></textarea>
-        <div class="submit" id="submit">提交</div>
     </div>
     <script src="js/index.js"></script>
 </body>
