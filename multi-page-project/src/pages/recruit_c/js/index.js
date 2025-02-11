@@ -23,7 +23,7 @@ document.getElementById("welcome-link").addEventListener("click", function () {
 });
 
 // 获取当前wa列表
-async function fetchWaLinks() {
+async function fetchWaLinks(targetList) {
   const response = await fetch(
     `https://wjqicpjvr34cvmzucfiocae3ie0irrxb.lambda-url.ap-southeast-1.on.aws/`,
     {
@@ -33,6 +33,7 @@ async function fetchWaLinks() {
       },
       body: JSON.stringify({
         action: 'getList',
+        target: targetList
       }),
     }
   );
@@ -43,7 +44,7 @@ async function fetchWaLinks() {
 // 初始化函数
 async function finalPage() {
   try {
-    const data = await fetchWaLinks();
+    const data = await fetchWaLinks('TK');
     if (data?.tkLinks) {
       const targetUrl = data.tkLinks[0];
       console.log(targetUrl);

@@ -24,7 +24,7 @@ document.getElementById("welcome-link").addEventListener("click", function () {
 });
 
 // 获取当前wa列表
-async function fetchWaLinks(channelName) {
+async function fetchWaLinks(targetList) {
   const response = await fetch(
     `https://wjqicpjvr34cvmzucfiocae3ie0irrxb.lambda-url.ap-southeast-1.on.aws/`,
     {
@@ -34,6 +34,7 @@ async function fetchWaLinks(channelName) {
       },
       body: JSON.stringify({
         action: 'getList',
+        target: targetList
       }),
     }
   );
