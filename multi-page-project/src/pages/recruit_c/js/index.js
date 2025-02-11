@@ -4,31 +4,20 @@ const pageid = "rad-taiyaki-ed6dcd";
 document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-form").style.display = "flex";
-  gtag('event', 'button_male');
-  fbq('track', 'C_male');
   ttq.track('C_male');
 });
 document.getElementById("sex-female").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-welcome").style.display = "flex";
-  gtag('event', 'button_female');
-  fbq('track', 'C_female');
   ttq.track('C_female');
   ttq.track('ClickButton');
 });
 document.getElementById("form-submit-btn").addEventListener("click", function () {
   document.getElementById("page-form").style.display = "none";
   document.getElementById("page-thank").style.display = "flex";
-  gtag('event', 'button_submit');
-  fbq('track', 'C_submit_form');
   ttq.track('C_submit_form');
 });
 document.getElementById("welcome-link").addEventListener("click", function () {
-  gtag('event', 'button_welcome');
-  fbq('track', 'Lead', {
-    event_source_url: window.location.href,
-  });
-  fbq('track', 'C_welcome');
   ttq.track('C_welcome');
   ttq.track('Contact');
 });
@@ -42,6 +31,9 @@ async function fetchWaLinks() {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        action: 'getList',
+      }),
     }
   );
   const data = await response.json();
@@ -52,8 +44,8 @@ async function fetchWaLinks() {
 async function finalPage() {
   try {
     const data = await fetchWaLinks();
-    if (data?.url) {
-      const targetUrl = data.url;
+    if (data?.tkLinks) {
+      const targetUrl = data.tkLinks[0];
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
       targetEle.href = targetUrl;
