@@ -1,27 +1,15 @@
 const pageid = "charming-melba-31ae66";
+const targetPlatform = "FB";
+// function getQueryParam(name) {
+//   const match = window.location.search.match(new RegExp(`[?&]${name}=([^&]*)`));
+//   return match ? decodeURIComponent(match[1]) : null;
+// }
 
-// 为按钮添加点击事件监听器
-document.getElementById("sex-male").addEventListener("click", function () {
-  document.getElementById("page-sex").style.display = "none";
-  document.getElementById("page-form").style.display = "flex";
-  fbq('track', 'B_male');
-});
-document.getElementById("sex-female").addEventListener("click", function () {
-  document.getElementById("page-sex").style.display = "none";
-  document.getElementById("page-welcome").style.display = "flex";
-  fbq('track', 'B_female');
-});
-document.getElementById("form-submit-btn").addEventListener("click", function () {
-  document.getElementById("page-form").style.display = "none";
-  document.getElementById("page-thank").style.display = "flex";
-  fbq('track', 'B_submit_form');
-});
-document.getElementById("welcome-link").addEventListener("click", function () {
-  fbq('track', 'Lead', {
-    event_source_url: window.location.href,
-  });
-  fbq('track', 'B_welcome');
-});
+// const customPlatform = getQueryParam('platform');
+
+// if (customPlatform) {
+//   targetPlatform = customPlatform
+// }
 
 // 获取当前wa列表
 async function fetchWaLinks(targetList) {
@@ -33,8 +21,8 @@ async function fetchWaLinks(targetList) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        action: 'getList',
-        target: targetList
+        action: "getList",
+        target: targetList,
       }),
     }
   );
@@ -45,9 +33,9 @@ async function fetchWaLinks(targetList) {
 // 初始化函数
 async function finalPage() {
   try {
-    const data = await fetchWaLinks('FB');
-    if (data?.fbLinks) {
-      const targetUrl = data.fbLinks[0];
+    const data = await fetchWaLinks(targetPlatform);
+    if (data?.links) {
+      const targetUrl = data.links[0];
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
       targetEle.href = targetUrl;
@@ -60,3 +48,28 @@ async function finalPage() {
 
 // 调用初始化函数
 finalPage();
+
+// 为按钮添加点击事件监听器
+document.getElementById("sex-male").addEventListener("click", function () {
+  document.getElementById("page-sex").style.display = "none";
+  document.getElementById("page-form").style.display = "flex";
+  fbq("track", "B_male");
+});
+document.getElementById("sex-female").addEventListener("click", function () {
+  document.getElementById("page-sex").style.display = "none";
+  document.getElementById("page-welcome").style.display = "flex";
+  fbq("track", "B_female");
+});
+document
+  .getElementById("form-submit-btn")
+  .addEventListener("click", function () {
+    document.getElementById("page-form").style.display = "none";
+    document.getElementById("page-thank").style.display = "flex";
+    fbq("track", "B_submit_form");
+  });
+document.getElementById("welcome-link").addEventListener("click", function () {
+  fbq("track", "Lead", {
+    event_source_url: window.location.href,
+  });
+  fbq("track", "B_welcome");
+});
