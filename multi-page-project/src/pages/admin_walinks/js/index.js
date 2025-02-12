@@ -80,7 +80,7 @@ async function fetchWaLinks(action, newListValue, targetList) {
 // 初始化函数
 async function initializeToggles() {
   try {
-    const data = await fetchWaLinks("getList");
+    const data = await fetchWaLinks("getList",null,'ALL');
     if (data?.links) {
       inseList(dflist, data.links);
     }
