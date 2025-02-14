@@ -145,10 +145,16 @@ async function buildPage() {
         // 使用 terser 进行压缩，移除 console.log
         const minifiedJs = await terserMinify(es5JsContent, {
           compress: {
-            drop_console: true,  // 移除所有 console.log
+            drop_console: true, // 移除所有 console.log
+            dead_code: true,    // 移除死代码
+            unused: true,       // 移除未使用的代码
+          },
+          mangle: {
+            reserved: ['$', '_'], // 保留常见变量名，如 jQuery 等库可能会用到的变量
+            toplevel: true, // 混淆顶级作用域的变量名
           },
           output: {
-            comments: false,  // 移除注释
+            comments: false, // 移除注释
           },
         });
   
