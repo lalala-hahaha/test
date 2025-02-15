@@ -3,13 +3,13 @@ const targetPlatform = "TK";
 let isAppear = true;
 
 // 生成一个1到8之间的随机数
-const randomNum = Math.floor(Math.random() * 2) + 1;
+const randomNum = Math.floor(Math.random() * 10) + 1;
 
 // 封装随机上报逻辑
 function shouldTrackEvent() {
   console.log(randomNum);
   // 只有当随机数小于x时才进行上报
-  if (randomNum < 2) {
+  if (randomNum > 2) {
     console.log(randomNum, "正常上报");
     return true;
   } else {
