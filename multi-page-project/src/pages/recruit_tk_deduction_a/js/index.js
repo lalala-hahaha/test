@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("page-form").style.display = "flex";
     if (isAppear) {
       ttq.track("D_male");
+      ttq.track("ClickButton");
     }
   });
   document.getElementById("sex-female").addEventListener("click", function () {
@@ -89,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("page-welcome").style.display = "flex";
     if (isAppear) {
       ttq.track("D_female");
-      ttq.track("ClickButton");
+      ttq.track('ViewContent')
     }
   });
   document
