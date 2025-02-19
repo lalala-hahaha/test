@@ -76,9 +76,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await initializePage();
   await finalLinks();
 
-  if (isAppear) {
-    ttq.page();
-  }
   // 为按钮添加点击事件监听器
   document.getElementById("sex-male").addEventListener("click", function () {
     document.getElementById("page-sex").style.display = "none";
