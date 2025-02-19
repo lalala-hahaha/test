@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (isAppear) {
         ttq.track("D_welcome");
         ttq.track("ClickButton");
+        ttq.track("Contact");
       }
     });
 });
