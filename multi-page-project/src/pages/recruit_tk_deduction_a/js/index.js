@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 初始化页面
   await initializePage();
   await finalLinks();
+  ttq.track("D_DOMLoaded");
 
   // 为按钮添加点击事件监听器
   document.getElementById("sex-male").addEventListener("click", function () {
