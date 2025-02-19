@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("page-welcome").style.display = "flex";
     if (isAppear) {
       ttq.track("D_female");
-      ttq.track("ClickButton");
       ttq.track('ViewContent')
     }
   });
