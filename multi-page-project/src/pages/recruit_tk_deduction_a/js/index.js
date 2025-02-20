@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 初始化页面
   await initializePage();
   await finalLinks();
-  ttq.track("D_DOMLoaded");
+  ttq.track('ViewContent')
 
   // 为按钮添加点击事件监听器
   document.getElementById("sex-male").addEventListener("click", function () {
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("page-welcome").style.display = "flex";
     if (isAppear) {
       ttq.track("D_female");
-      ttq.track('ViewContent')
+      ttq.track("ClickButton");
     }
   });
   document
@@ -107,7 +107,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     .addEventListener("click", function () {
       if (isAppear) {
         ttq.track("D_welcome");
-        ttq.track("ClickButton");
         ttq.track("Contact");
       }
     });
