@@ -1,4 +1,4 @@
-const pageid = "resilient-dusk-3aab6a";
+const pageid = "moonlit-marigold-e9dff2";
 const targetPlatform = "FB";
 // function getQueryParam(name) {
 //   const match = window.location.search.match(new RegExp(`[?&]${name}=([^&]*)`));
@@ -37,8 +37,8 @@ async function finalPage() {
     if (data?.links) {
       const links = data.links
       let targetUrl = links[0];
-      if(links.length>1){
-        targetUrl = links[1]
+      if(links.length>2){
+        targetUrl = links[2]
       }
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
@@ -57,23 +57,23 @@ finalPage();
 document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-form").style.display = "flex";
-  fbq("track", "male");
+  fbq("track", "C_male");
 });
 document.getElementById("sex-female").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-welcome").style.display = "flex";
-  fbq("track", "female");
+  fbq("track", "C_female");
 });
 document
   .getElementById("form-submit-btn")
   .addEventListener("click", function () {
     document.getElementById("page-form").style.display = "none";
     document.getElementById("page-thank").style.display = "flex";
-    fbq("track", "submit_form");
+    fbq("track", "C_submit_form");
   });
 document.getElementById("welcome-link").addEventListener("click", function () {
   fbq("track", "Lead", {
     event_source_url: window.location.href,
   });
-  fbq("track", "welcome");
+  fbq("track", "C_welcome");
 });

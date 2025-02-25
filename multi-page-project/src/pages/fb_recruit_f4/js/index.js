@@ -1,15 +1,5 @@
-const pageid = "resilient-dusk-3aab6a";
+const pageid = "incredible-cheesecake-2e11be";
 const targetPlatform = "FB";
-// function getQueryParam(name) {
-//   const match = window.location.search.match(new RegExp(`[?&]${name}=([^&]*)`));
-//   return match ? decodeURIComponent(match[1]) : null;
-// }
-
-// const customPlatform = getQueryParam('platform');
-
-// if (customPlatform) {
-//   targetPlatform = customPlatform
-// }
 
 // 获取当前wa列表
 async function fetchWaLinks(targetList) {
@@ -37,8 +27,8 @@ async function finalPage() {
     if (data?.links) {
       const links = data.links
       let targetUrl = links[0];
-      if(links.length>1){
-        targetUrl = links[1]
+      if(links.length>3){
+        targetUrl = links[3]
       }
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
@@ -57,12 +47,12 @@ finalPage();
 document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-form").style.display = "flex";
-  fbq("track", "male");
+  fbq("track", "D_male");
 });
 document.getElementById("sex-female").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-welcome").style.display = "flex";
-  fbq("track", "female");
+  fbq("track", "D_female");
 });
 document
   .getElementById("form-submit-btn")
@@ -75,5 +65,5 @@ document.getElementById("welcome-link").addEventListener("click", function () {
   fbq("track", "Lead", {
     event_source_url: window.location.href,
   });
-  fbq("track", "welcome");
+  fbq("track", "D_welcome");
 });
