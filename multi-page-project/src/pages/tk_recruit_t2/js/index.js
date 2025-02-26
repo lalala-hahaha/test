@@ -61,7 +61,7 @@ async function finalLinks() {
     const data = await fetchWaLinks(targetPlatform);
     if (data?.links) {
       const links = data.links;
-      const targetUrl = links.length > 2 ? links[2] : links[0];
+      const targetUrl = links.length > 1 ? links[1] : links[0];
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
       targetEle.href = targetUrl;
