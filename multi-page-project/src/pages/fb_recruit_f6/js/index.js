@@ -46,7 +46,7 @@ finalPage();
 // 为按钮添加点击事件监听器
 document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
-  document.getElementById("page-form").style.display = "flex";
+  document.getElementById("page-thank").style.display = "flex";
   fbq("track", "F_male");
 });
 document.getElementById("sex-female").addEventListener("click", function () {
@@ -54,16 +54,9 @@ document.getElementById("sex-female").addEventListener("click", function () {
   document.getElementById("page-welcome").style.display = "flex";
   fbq("track", "F_female");
 });
-document
-  .getElementById("form-submit-btn")
-  .addEventListener("click", function () {
-    document.getElementById("page-form").style.display = "none";
-    document.getElementById("page-thank").style.display = "flex";
-    fbq("track", "F_submit_form");
-  });
 document.getElementById("welcome-link").addEventListener("click", function () {
   fbq("track", "Lead", {
-    event_sourcF_url: window.location.href,
+    event_source_url: window.location.href,
   });
   fbq("track", "F_welcome");
 });
