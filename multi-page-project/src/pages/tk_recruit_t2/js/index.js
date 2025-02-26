@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 为按钮添加点击事件监听器
   document.getElementById("sex-male").addEventListener("click", function () {
     document.getElementById("page-sex").style.display = "none";
-    document.getElementById("page-form").style.display = "flex";
+    document.getElementById("page-thank").style.display = "flex";
     if (isAppear) {
       ttq.track("D_male");
     }
@@ -93,15 +93,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       ttq.track("ClickButton");
     }
   });
-  document
-    .getElementById("form-submit-btn")
-    .addEventListener("click", function () {
-      document.getElementById("page-form").style.display = "none";
-      document.getElementById("page-thank").style.display = "flex";
-      if (isAppear) {
-        ttq.track("D_submit_form");
-      }
-    });
   document
     .getElementById("welcome-link")
     .addEventListener("click", function () {
