@@ -1,4 +1,4 @@
-const pageid = "incredible-cheesecake-2e11be";
+const pageid = "joyful-souffle-051975";
 const targetPlatform = "FB";
 
 // 获取当前wa列表
