@@ -1,4 +1,4 @@
-const pageid = "joyful-souffle-051975";
+const pageid = "gilded-lolly-b00975";
 const targetPlatform = "FB";
 
 // 获取当前wa列表
@@ -27,8 +27,8 @@ async function finalPage() {
     if (data?.links) {
       const links = data.links
       let targetUrl = links[0];
-      if(links.length>4){
-        targetUrl = links[4]
+      if(links.length>5){
+        targetUrl = links[5]
       }
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
@@ -47,23 +47,23 @@ finalPage();
 document.getElementById("sex-male").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-form").style.display = "flex";
-  fbq("track", "E_male");
+  fbq("track", "F_male");
 });
 document.getElementById("sex-female").addEventListener("click", function () {
   document.getElementById("page-sex").style.display = "none";
   document.getElementById("page-welcome").style.display = "flex";
-  fbq("track", "E_female");
+  fbq("track", "F_female");
 });
 document
   .getElementById("form-submit-btn")
   .addEventListener("click", function () {
     document.getElementById("page-form").style.display = "none";
     document.getElementById("page-thank").style.display = "flex";
-    fbq("track", "E_submit_form");
+    fbq("track", "F_submit_form");
   });
 document.getElementById("welcome-link").addEventListener("click", function () {
   fbq("track", "Lead", {
-    event_source_url: window.location.href,
+    event_sourcF_url: window.location.href,
   });
-  fbq("track", "E_welcome");
+  fbq("track", "F_welcome");
 });
