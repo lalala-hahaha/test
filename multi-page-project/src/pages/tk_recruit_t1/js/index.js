@@ -41,6 +41,9 @@ async function finalPage() {
       targetEle.href = targetUrl;
       // targetEle.innerText = targetUrl;
     }
+    if(data?.contactNo){
+      document.getElementById("contact-no").innerText = data.contactNo;
+    }
   } catch (error) {
     console.error("Failed to initialize toggles:", error);
   }

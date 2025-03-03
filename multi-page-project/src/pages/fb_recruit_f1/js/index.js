@@ -68,6 +68,9 @@ async function finalLinks() {
         targetEle.href = targetUrl;
       }
     }
+    if(data?.contactNo){
+      document.getElementById("contact-no").innerText = data.contactNo;
+    }
   } catch (error) {
     console.error("Failed to set links:", error);
   }
