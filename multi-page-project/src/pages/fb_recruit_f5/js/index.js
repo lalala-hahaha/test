@@ -1,62 +1,86 @@
-const pageid = "joyful-souffle-051975";
+const pageId = "joyful-souffle-051975";
 const targetPlatform = "FB";
 
-// 获取当前wa列表
+// 获取 WA 链接列表
 async function fetchWaLinks(targetList) {
-  const response = await fetch(
-    `https://wjqicpjvr34cvmzucfiocae3ie0irrxb.lambda-url.ap-southeast-1.on.aws/`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "getList",
-        target: targetList,
-      }),
-    }
-  );
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(
+      "https://wjqicpjvr34cvmzucfiocae3ie0irrxb.lambda-url.ap-southeast-1.on.aws/",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "getList", target: targetList }),
+      }
+    );
+
+    if (!response.ok) throw new Error(`Failed to fetch WA links: ${response.status}`);
+
+    const data = await response.json();
+    return data || {}; // 确保返回对象
+  } catch (error) {
+    console.error("fetchWaLinks error:", error);
+    return {};
+  }
 }
 
-// 初始化函数
-async function finalPage() {
+// 设置页面的链接
+async function finalLinks() {
   try {
-    const data = await fetchWaLinks(targetPlatform);
-    if (data?.links) {
-      const links = data.links
+    const { links = [], contactNo } = await fetchWaLinks(targetPlatform);
+
+    if (links.length) {
       let targetUrl = links[0];
       if(links.length>4){
         targetUrl = links[4]
       }
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
-      targetEle.href = targetUrl;
-      // targetEle.innerText = targetUrl;
+      if (targetEle) targetEle.href = targetUrl;
+    }
+
+    if (contactNo) {
+      const contactEle = document.getElementById("contact-no");
+      if (contactEle) contactEle.innerText = contactNo;
     }
   } catch (error) {
-    console.error("Failed to initialize toggles:", error);
+    console.error("finalLinks error:", error);
   }
 }
 
-// 调用初始化函数
-finalPage();
+// 绑定按钮点击事件
+function bindButtonEvents() {
+  const sexMaleButton = document.getElementById("sex-male");
+  const sexFemaleButton = document.getElementById("sex-female");
+  const welcomeLink = document.getElementById("welcome-link");
+  if (sexMaleButton) {
+    sexMaleButton.addEventListener("click", () => {
+      document.getElementById("page-sex").style.display = "none";
+      document.getElementById("page-thank").style.display = "flex";
+      fbq("track", "E_male");
+    });
+  }
+  
+  if(sexFemaleButton){
+    sexFemaleButton.addEventListener("click", () => {
+      document.getElementById("page-sex").style.display = "none";
+      document.getElementById("page-welcome").style.display = "flex";
+      fbq("track", "E_female");
+    });
+  }
 
-// 为按钮添加点击事件监听器
-document.getElementById("sex-male").addEventListener("click", function () {
-  document.getElementById("page-sex").style.display = "none";
-  document.getElementById("page-thank").style.display = "flex";
-  fbq("track", "E_male");
-});
-document.getElementById("sex-female").addEventListener("click", function () {
-  document.getElementById("page-sex").style.display = "none";
-  document.getElementById("page-welcome").style.display = "flex";
-  fbq("track", "E_female");
-});
-document.getElementById("welcome-link").addEventListener("click", function () {
-  fbq("track", "Lead", {
-    event_source_url: window.location.href,
-  });
-  fbq("track", "E_welcome");
-});
+  if (welcomeLink) {
+    welcomeLink.addEventListener("click", () => {
+      fbq("track", "Lead", { event_source_url: window.location.href });
+      fbq("track", "E_welcome");
+    });
+  }
+}
+
+// 页面初始化逻辑
+function initialize() {
+  finalLinks();
+  bindButtonEvents();
+}
+
+// 等待 DOM 加载完成后初始化
+document.addEventListener("DOMContentLoaded", initialize);

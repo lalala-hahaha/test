@@ -1,70 +1,84 @@
-const pageid = "rad-taiyaki-ed6dcd";
+const pageId = "rad-taiyaki-ed6dcd";
 const targetPlatform = "TK";
-// function getQueryParam(name) {
-//   const match = window.location.search.match(new RegExp(`[?&]${name}=([^&]*)`));
-//   return match ? decodeURIComponent(match[1]) : null;
-// }
 
-// const customPlatform = getQueryParam('platform');
-
-// if (customPlatform) {
-//   targetPlatform = customPlatform
-// }
-
-// 获取当前wa列表
+// 获取 WA 链接列表
 async function fetchWaLinks(targetList) {
-  const response = await fetch(
-    `https://wjqicpjvr34cvmzucfiocae3ie0irrxb.lambda-url.ap-southeast-1.on.aws/`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "getList",
-        target: targetList,
-      }),
-    }
-  );
-  const data = await response.json();
-  return data;
-}
-
-// 初始化函数
-async function finalPage() {
   try {
-    const data = await fetchWaLinks(targetPlatform);
-    if (data?.links) {
-      const targetUrl = data.links[0];
-      console.log(targetUrl);
-      const targetEle = document.getElementById("welcome-link");
-      targetEle.href = targetUrl;
-      // targetEle.innerText = targetUrl;
-    }
-    if(data?.contactNo){
-      document.getElementById("contact-no").innerText = data.contactNo;
-    }
+    const response = await fetch(
+      "https://wjqicpjvr34cvmzucfiocae3ie0irrxb.lambda-url.ap-southeast-1.on.aws/",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "getList", target: targetList }),
+      }
+    );
+
+    if (!response.ok) throw new Error(`Failed to fetch WA links: ${response.status}`);
+
+    const data = await response.json();
+    return data || {}; // 确保返回对象
   } catch (error) {
-    console.error("Failed to initialize toggles:", error);
+    console.error("fetchWaLinks error:", error);
+    return {};
   }
 }
 
-// 调用初始化函数
-finalPage();
+// 设置页面的链接
+async function finalLinks() {
+  try {
+    const { links = [], contactNo } = await fetchWaLinks(targetPlatform);
 
-// 为按钮添加点击事件监听器
-document.getElementById("sex-male").addEventListener("click", function () {
-  document.getElementById("page-sex").style.display = "none";
-  document.getElementById("page-thank").style.display = "flex";
-  ttq.track("C_male");
-});
-document.getElementById("sex-female").addEventListener("click", function () {
-  document.getElementById("page-sex").style.display = "none";
-  document.getElementById("page-welcome").style.display = "flex";
-  ttq.track("C_female");
-  ttq.track("ClickButton");
-});
-document.getElementById("welcome-link").addEventListener("click", function () {
-  ttq.track("C_welcome");
-  ttq.track("Contact");
-});
+    if (links.length) {
+      const targetUrl = data.links[0];
+      console.log(targetUrl);
+      const targetEle = document.getElementById("welcome-link");
+      if (targetEle) targetEle.href = targetUrl;
+    }
+
+    if (contactNo) {
+      const contactEle = document.getElementById("contact-no");
+      if (contactEle) contactEle.innerText = contactNo;
+    }
+  } catch (error) {
+    console.error("finalLinks error:", error);
+  }
+}
+
+// 绑定按钮点击事件
+function bindButtonEvents() {
+  const sexMaleButton = document.getElementById("sex-male");
+  const sexFemaleButton = document.getElementById("sex-female");
+  const welcomeLink = document.getElementById("welcome-link");
+  if (sexMaleButton) {
+    sexMaleButton.addEventListener("click", () => {
+      document.getElementById("page-sex").style.display = "none";
+      document.getElementById("page-thank").style.display = "flex";
+      ttq.track("C_male");
+    });
+  }
+  
+  if(sexFemaleButton){
+    sexFemaleButton.addEventListener("click", () => {
+      document.getElementById("page-sex").style.display = "none";
+      document.getElementById("page-welcome").style.display = "flex";
+      ttq.track("C_female");
+      ttq.track("ClickButton");
+    });
+  }
+
+  if (welcomeLink) {
+    welcomeLink.addEventListener("click", () => {
+      ttq.track("C_welcome");
+      ttq.track("Contact");
+    });
+  }
+}
+
+// 页面初始化逻辑
+function initialize() {
+  finalLinks();
+  bindButtonEvents();
+}
+
+// 等待 DOM 加载完成后初始化
+document.addEventListener("DOMContentLoaded", initialize);
