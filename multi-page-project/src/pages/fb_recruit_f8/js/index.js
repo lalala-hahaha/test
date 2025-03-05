@@ -1,5 +1,5 @@
-const pageId = "rad-taiyaki-ed6dcd";
-const targetPlatform = "TK";
+const pageId = "jolly-marshmallow-98faa6";
+const targetPlatform = "FB";
 
 // 获取 WA 链接列表
 async function fetchWaLinks(targetList) {
@@ -29,7 +29,10 @@ async function finalLinks() {
     const { links = [], contactNo } = await fetchWaLinks(targetPlatform);
 
     if (links.length) {
-      const targetUrl = links[0];
+      let targetUrl = links[0];
+      if(links.length>7){
+        targetUrl = links[7]
+      }
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
       if (targetEle) targetEle.href = targetUrl;
@@ -53,7 +56,7 @@ function bindButtonEvents() {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      ttq.track("C_male");
+      fbq("track", "H_male");
     });
   }
   
@@ -61,15 +64,14 @@ function bindButtonEvents() {
     sexFemaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
-      ttq.track("C_female");
-      ttq.track("ClickButton");
+      fbq("track", "H_female");
     });
   }
 
   if (welcomeLink) {
     welcomeLink.addEventListener("click", () => {
-      ttq.track("C_welcome");
-      ttq.track("Contact");
+      fbq("track", "Lead", { event_source_url: window.location.href });
+      fbq("track", "H_welcome");
     });
   }
 }
