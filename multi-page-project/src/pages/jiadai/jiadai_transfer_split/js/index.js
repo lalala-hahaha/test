@@ -2,7 +2,7 @@ const pageId = 'effortless-babka-8d1219'
 // 获取当前wa列表
 async function fetchWaLinks() {
     const response = await fetch(
-      `https://wjqicpjvr34cvmzucfiocae3ie0irrxb.lambda-url.ap-southeast-1.on.aws/`,
+      `https://5ddg43joymslsgw6f6gq4cumhi0oknjl.lambda-url.ap-southeast-1.on.aws/`,
       {
         method: "POST",
         headers: {
