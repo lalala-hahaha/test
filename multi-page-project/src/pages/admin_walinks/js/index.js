@@ -2,9 +2,11 @@
 const submitDefault = document.getElementById("submit-default");
 const newlistDefault = document.getElementById("newlist-default");
 const submitFB = document.getElementById("submit-fb");
-const newlistFB = document.getElementById("newlist-fb");
 const submitTK = document.getElementById("submit-tk");
+const submitWa = document.getElementById("submit-wa");
+const newlistFB = document.getElementById("newlist-fb");
 const newlistTK = document.getElementById("newlist-tk");
+const newWa = document.getElementById("new-wa");
 
 // 为按钮添加点击事件监听器
 submitDefault.addEventListener("click", function () {
@@ -15,6 +17,13 @@ submitFB.addEventListener("click", function () {
 });
 submitTK.addEventListener("click", function () {
   submitNewList(newlistTK,'TK');
+});
+submitWa.addEventListener("click", function () {
+  const value = newWa?.value;
+  fetchWaLinks("setWaNum", value);
+  setTimeout(() => {
+    initializeToggles();
+  }, 3000);
 });
 const submitNewList = function (targetInput,targetList) {
   // 获取 textarea 中的值
@@ -38,6 +47,7 @@ const submitNewList = function (targetInput,targetList) {
 const dflist = document.getElementById("wa-df-list");
 const fblist = document.getElementById("wa-fb-list");
 const tklist = document.getElementById("wa-tk-list");
+const footerWa = document.getElementById("footer-wa");
 const inseList = function (ele, dataList) {
   ele.innerHTML = "";
   // 遍历数组，并将每个元素作为新的列表项插入
@@ -89,6 +99,9 @@ async function initializeToggles() {
     }
     if (data?.tkLinks) {
       inseList(tklist, data.tkLinks);
+    }
+    if (data?.contactNo) {
+      footerWa.innerHTML = `${data.contactNo}`;
     }
   } catch (error) {
     console.error("Failed to initialize toggles:", error);
