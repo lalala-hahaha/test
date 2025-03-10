@@ -1,13 +1,14 @@
+const pageId = "moonlit-blancmange-1b9078";
 // 获取按钮和 textarea 元素
 const submitDefault = document.getElementById("submit-default");
 const newlistDefault = document.getElementById("newlist-default");
 
 // 为按钮添加点击事件监听器
 submitDefault.addEventListener("click", function () {
-  submitNewList(newlistDefault,'default');
+  submitNewList(newlistDefault, "default");
 });
 
-const submitNewList = function (targetInput,targetList) {
+const submitNewList = function (targetInput, targetList) {
   // 获取 textarea 中的值
   const value = targetInput.value;
   if (value) {
@@ -58,7 +59,7 @@ async function fetchWaLinks(action, newListValue, targetList) {
       body: JSON.stringify({
         action: action,
         newdata: newListValue,
-        target: targetList
+        target: targetList,
       }),
     }
   );
@@ -69,7 +70,7 @@ async function fetchWaLinks(action, newListValue, targetList) {
 // 初始化函数
 async function initializeToggles() {
   try {
-    const data = await fetchWaLinks("getList",null);
+    const data = await fetchWaLinks("getList", null);
     if (data?.links) {
       inseList(dflist, data.links);
     }
