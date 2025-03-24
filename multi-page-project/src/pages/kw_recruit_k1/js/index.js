@@ -53,9 +53,7 @@ function bindButtonEvents() {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      kwaiq.track('contentView', {
-        is_target: false
-      });
+      kwaiq.instance('274788097555305').track('buttonClick');
     });
   }
   
@@ -63,13 +61,13 @@ function bindButtonEvents() {
     sexFemaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
-      kwaiq.track('contentView');
+      kwaiq.instance('274788097555305').track('contentView');
     });
   }
 
   if (welcomeLink) {
     welcomeLink.addEventListener("click", () => {
-      kwaiq.track('contact');
+      kwaiq.instance('274788097555305').track('addToCart');
     });
   }
 }
