@@ -3,9 +3,11 @@ const submitDefault = document.getElementById("submit-default");
 const newlistDefault = document.getElementById("newlist-default");
 const submitFB = document.getElementById("submit-fb");
 const submitTK = document.getElementById("submit-tk");
+const submitKW = document.getElementById("submit-kw");
 const submitWa = document.getElementById("submit-wa");
 const newlistFB = document.getElementById("newlist-fb");
 const newlistTK = document.getElementById("newlist-tk");
+const newlistKW = document.getElementById("newlist-kw");
 const newWa = document.getElementById("new-wa");
 
 // 为按钮添加点击事件监听器
@@ -17,6 +19,9 @@ submitFB.addEventListener("click", function () {
 });
 submitTK.addEventListener("click", function () {
   submitNewList(newlistTK,'TK');
+});
+submitKW.addEventListener("click", function () {
+  submitNewList(newlistKW,'KW');
 });
 submitWa.addEventListener("click", function () {
   const value = newWa?.value;
@@ -47,6 +52,7 @@ const submitNewList = function (targetInput,targetList) {
 const dflist = document.getElementById("wa-df-list");
 const fblist = document.getElementById("wa-fb-list");
 const tklist = document.getElementById("wa-tk-list");
+const kwlist = document.getElementById("wa-kw-list");
 const footerWa = document.getElementById("footer-wa");
 const inseList = function (ele, dataList) {
   ele.innerHTML = "";
@@ -99,6 +105,9 @@ async function initializeToggles() {
     }
     if (data?.tkLinks) {
       inseList(tklist, data.tkLinks);
+    }
+    if (data?.kwLinks) {
+      inseList(kwlist, data.kwLinks);
     }
     if (data?.contactNo) {
       footerWa.innerHTML = `${data.contactNo}`;
