@@ -303,10 +303,12 @@ img {
   justify-content: center;
   align-items: center;
   margin-top: 16px;
+  color: #353535;
 }
 .sex-female span {
   padding-left: 40px;
   background: url(../img/female_icon.png) 0 50% no-repeat;
+  color: #353535;
 }
 
 .page-form{
