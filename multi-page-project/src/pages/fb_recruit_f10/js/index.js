@@ -30,8 +30,8 @@ async function finalLinks() {
 
     if (links.length) {
       let targetUrl = links[0];
-      if(links.length>7){
-        targetUrl = links[7]
+      if(links.length>9){
+        targetUrl = links[9]
       }
       console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
