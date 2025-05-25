@@ -1,5 +1,5 @@
-const pageId = "snazzy-bubblegum-0b3d90";
-const targetPlatform = "FB";
+const pageId = "stellar-sunburst-e50ac2";
+const targetPlatform = "TK";
 
 // 获取 WA 链接列表
 async function fetchWaLinks(targetList) {
@@ -53,7 +53,7 @@ function bindButtonEvents() {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      fbq("track", "B_male");
+      ttq.track("TK_male");
     });
   }
   
@@ -61,14 +61,15 @@ function bindButtonEvents() {
     sexFemaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
-      fbq("track", "B_female");
+      ttq.track("TK_female");
+      ttq.track("ClickButton");
     });
   }
 
   if (welcomeLink) {
     welcomeLink.addEventListener("click", () => {
-      fbq("track", "Lead", { event_source_url: window.location.href });
-      fbq("track", "B_welcome");
+      ttq.track("TK_welcome");
+      ttq.track("Contact");
     });
   }
 }
