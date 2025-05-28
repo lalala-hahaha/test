@@ -70,8 +70,8 @@ function bindButtonEvents() {
 
   if (welcomeLink) {
     welcomeLink.addEventListener("click", () => {
-      fbq("track", "Lead", { event_source_url: window.location.href });
-      fbq("track", "LK_EN_D_welcome", { event_source_url: window.location.href });
+      // fbq("track", "Lead", { event_source_url: window.location.href });
+      fbq("track", "LK_EN_D_welcome");
     });
   }
 }
