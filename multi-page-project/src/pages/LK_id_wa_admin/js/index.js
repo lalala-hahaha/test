@@ -1,3 +1,4 @@
+ const pageid = 'bright-kulfi-2fb39e'
 // 获取按钮和 textarea 元素
 const submitDefault = document.getElementById("submit-default");
 const newlistDefault = document.getElementById("newlist-default");
