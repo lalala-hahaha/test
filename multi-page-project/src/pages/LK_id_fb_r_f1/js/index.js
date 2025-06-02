@@ -1,4 +1,4 @@
-const pageId = "snazzy-bubblegum-0b3d90";
+const pageId = "venerable-duckanoo-d4175d";
 const targetPlatform = "FB";
 
 // 获取 WA 链接列表
