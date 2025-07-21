@@ -56,7 +56,7 @@ function bindButtonEvents() {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      fbq("track", "LK_ID_I_male");
+      fbq("track", "LK_ID_J_male");
     });
   }
   
@@ -64,14 +64,14 @@ function bindButtonEvents() {
     sexFemaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
-      fbq("track", "LK_ID_I_female");
+      fbq("track", "LK_ID_J_female");
     });
   }
 
   if (welcomeLink) {
     welcomeLink.addEventListener("click", () => {
       // fbq("track", "Lead", { event_source_url: window.location.href });
-      fbq("track", "LK_ID_I_welcome");
+      fbq("track", "LK_ID_J_welcome");
     });
   }
 }
