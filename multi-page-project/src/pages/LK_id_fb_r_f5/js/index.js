@@ -88,8 +88,8 @@ function thePlaces() {
   // 生成随机延迟（毫秒）
   function getDelay() {
     if (number > 10) {
-      // 0.5 ~ 1.5 秒
-      return Math.random() * 1000 + 500;
+      // 1 ~ 2 秒
+      return Math.random() * 1000 + 1000;
     } else {
       // 3 ~ 5 秒
       return Math.random() * 2000 + 3000;
@@ -160,16 +160,14 @@ function startFlashSaleCountdown() {
 
   const STORAGE_KEY = "flash_sale_end_time";
 
-  // 当前时间
   const now = Date.now();
 
-  // 检查 localStorage 是否有
   let endTime = localStorage.getItem(STORAGE_KEY);
 
   if (!endTime || Number(endTime) <= now) {
-    // 没有记录或已经过期，重新生成
-    const minMs = 30 * 60 * 1000; // 30分钟
-    const maxMs = 60 * 60 * 1000 - 1000; // 59分59秒
+    // 随机 5~10 分钟
+    const minMs = 5 * 60 * 1000; // 5分钟
+    const maxMs = 10 * 60 * 1000; // 10分钟
     const countdownMs = Math.floor(Math.random() * (maxMs - minMs) + minMs);
 
     endTime = now + countdownMs;
@@ -190,15 +188,13 @@ function startFlashSaleCountdown() {
 
     const minutes = Math.floor(remaining / 60000);
     const seconds = Math.floor((remaining % 60000) / 1000);
-    const centiseconds = Math.floor((remaining % 1000) / 10);
 
     el.textContent =
+      `00:` +
       String(minutes).padStart(2, "0") +
       ":" +
-      String(seconds).padStart(2, "0") +
-      ":" +
-      String(centiseconds).padStart(2, "0");
-  }, 10);
+      String(seconds).padStart(2, "0");
+  }, 500);
 }
 
 // 页面初始化逻辑
