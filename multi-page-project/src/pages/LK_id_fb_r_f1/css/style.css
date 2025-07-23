@@ -121,7 +121,7 @@ img {
 }
 
 .container{
-  padding: 0 32px 90px 32px;
+  padding: 32px 32px 90px 32px;
   line-height: 1.4;
 }
 
@@ -145,8 +145,36 @@ img {
   background: url(../img/banner.png) no-repeat;
   height: 407px;
   width: 100%;
+  position: relative;
 }
-
+.urgency{
+  padding: 60px 0;
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  color: white;
+  text-align: center;
+  line-height: 1.4;
+}
+.urgency-content-title{
+  font-size: 52px;
+  line-height: 1.4;
+}
+.urgency-content-p{
+  font-size: 28px;
+  padding: 12px 0;
+}
+.urgency-stats{
+  width: 100%;
+  font-size: 40px;
+}
+.urgency-stats .stat{
+  width: 50%;
+  float: left;
+}
+.stat-number{
+  display: block;
+  font-weight: bold;
+  color: #FFD700;
+}
 
 .age-options {
   border-radius: 16px;
