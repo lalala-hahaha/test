@@ -62,6 +62,7 @@ function bindButtonEvents() {
     sexFemaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
+      fbq("track", "ViewContent");
       fbq("track", "LK_ID_A_female");
     });
   }

@@ -145,7 +145,6 @@ img {
   background: url(../img/banner.png) no-repeat;
   height: 407px;
   width: 100%;
-  position: relative;
 }
 .urgency{
   padding: 60px 0;
