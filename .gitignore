@@ -1,1 +1,10 @@
+.vscode/launch.json
+node_modules
 .DS_Store
+node_modules/
+.idea/
+.git/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+**/*.log
