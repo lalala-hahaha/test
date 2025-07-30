@@ -31,10 +31,10 @@ async function finalLinks() {
 
     if (links.length) {
       let targetUrl = links[0];
-      if (links.length > 8) {
-        targetUrl = links[8];
-      }
-      console.log(targetUrl);
+      // if (links.length > 8) {
+      //   targetUrl = links[8];
+      // }
+      // console.log(targetUrl);
       const targetEle = document.getElementById("welcome-link");
       if (targetEle) targetEle.href = targetUrl;
     }
@@ -66,7 +66,7 @@ function bindButtonEvents() {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
       ttq.track("female");
-      ttq.track("ClickButton");
+      ttq.track("ViewContent");
     });
   }
 

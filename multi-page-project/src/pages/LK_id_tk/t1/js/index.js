@@ -70,11 +70,10 @@ function _finalLinks() {
           links = _yield$fetchWaLinks$l === void 0 ? [] : _yield$fetchWaLinks$l;
           contactNo = _yield$fetchWaLinks.contactNo;
           if (links.length) {
-            targetUrl = links[0];
-            if (links.length > 8) {
-              targetUrl = links[8];
-            }
-            console.log(targetUrl);
+            targetUrl = links[0]; // if (links.length > 8) {
+            //   targetUrl = links[8];
+            // }
+            // console.log(targetUrl);
             targetEle = document.getElementById("welcome-link");
             if (targetEle) targetEle.href = targetUrl;
           }
@@ -111,7 +110,7 @@ function bindButtonEvents() {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
       ttq.track("female");
-      ttq.track("ClickButton");
+      ttq.track("ViewContent");
     });
   }
   if (welcomeLink) {
