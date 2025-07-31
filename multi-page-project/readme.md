@@ -13,5 +13,9 @@
 2. 打开 `http://localhost:3000` 或 `http://本机IP:3000` 进行访问
 3. 如同时开发多个项目，则 `http://localhost:3001` 进行访问，以此类推
 ### 打包
-1. 执行 `gulp build --cwd.`
-2. 产物见项目目录下的 `/release/`
+1. 打包压缩并hash
+- 执行 `gulp build --cwd.`
+2. 只打包压缩保持原指定命名
+- 执行 `gulp build -a --cwd.`
+3. 产物见项目目录下的 `/release/`
+
