@@ -1,6 +1,11 @@
 const path = require('path')
 const projectRoot = process.cwd()
-const outputDir = path.join(projectRoot, 'release')
+let outputDir = path.join(projectRoot, 'release')
+const argv = require('minimist')(process.argv.slice(2))
+const isPre = argv._[0]==='pre' ? true : false;
+if (isPre) {
+  outputDir = path.join(projectRoot, 'pre');
+}
 
 module.exports = {
   projectRoot,

@@ -10,7 +10,7 @@ const rev = require('gulp-rev')
 const revReplace = require('gulp-rev-replace')
 const argv = require('minimist')(process.argv.slice(2))
 const _a = argv.a ? true : false;
-const { ensureDir } = require('../utils')
+const { ensureDir,hasFiles } = require('../utils')
 const { paths, outputDir } = require('../config')
 const path = require('path')
 
@@ -18,7 +18,11 @@ const path = require('path')
 gulp.task('clean', () => del([outputDir]))
 
 // 图片压缩并 hash
-gulp.task('images-rev', () => {
+gulp.task('images-rev', (done) => {
+  if (!hasFiles(paths.imgs)) {
+    console.log('🔍 没有 img 文件，跳过 图片处理 任务')
+    return done()
+  }
   ensureDir(outputDir)
   return gulp
     .src(paths.imgs, { encoding: false })
@@ -29,7 +33,11 @@ gulp.task('images-rev', () => {
     .pipe(gulp.dest(outputDir))
 })
 // 图片压缩
-gulp.task('images', () => {
+gulp.task('images', (done) => {
+  if (!hasFiles(paths.imgs)) {
+    console.log('🔍 没有 img 文件，跳过 图片处理 任务')
+    return done()
+  }
   ensureDir(outputDir)
   return gulp
     .src(paths.imgs, { encoding: false })
@@ -65,7 +73,11 @@ gulp.task('assets', () => {
 })
 
 // 替换 hash 图片路径
-gulp.task('revReplaceImages', () => {
+gulp.task('revReplaceImages', (done) => {
+  if (!hasFiles(paths.imgs)) {
+    console.log('🔍 没有 img 文件，跳过 图片处理 任务')
+    return done()
+  }
   const manifest = gulp.src(path.join(outputDir, 'rev-img.json'))
   return gulp.src(path.join(outputDir, '**/*.{html,css,js}')).pipe(revReplace({ manifest })).pipe(gulp.dest(outputDir))
 })
@@ -96,3 +108,5 @@ gulp.task('build', done => {
     )(done);
   }
 })
+
+gulp.task('pre', gulp.series('build'));
