@@ -9,10 +9,14 @@ const notify = require('gulp-notify')
 const browserSync = require('browser-sync').create()
 
 const { paths, projectRoot } = require('../config')
-const { ensureDir } = require('../utils')
+const { ensureDir,hasFiles } = require('../utils')
 
 // SCSS 编译
-gulp.task('styles', () => {
+gulp.task('styles', (done) => {
+  if (!hasFiles(paths.scss)) {
+    console.log('🔍 没有 SCSS 文件，跳过 styles 任务')
+    return done()
+  }
   ensureDir(paths.cssDest)
   return gulp
     .src(paths.scss)
@@ -25,7 +29,11 @@ gulp.task('styles', () => {
 })
 
 // JS 编译
-gulp.task('scripts', () => {
+gulp.task('scripts', (done) => {
+  if (!hasFiles(paths.es6)) {
+    console.log('🔍 没有 JS 文件，跳过 scripts 任务')
+    return done()
+  }
   ensureDir(paths.jsDest)
   return gulp
     .src(paths.es6)

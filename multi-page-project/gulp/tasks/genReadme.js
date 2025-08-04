@@ -76,10 +76,8 @@ gulp.task('createReadme', done => {
 
   const content = `# 页面信息说明
 
-- 创建人：${creator}
 - 创建时间：${createdTime}
 
-- 最后修改人：${username}
 - 最后修改时间：${modifiedTime}
 
 ${accessUrl}
