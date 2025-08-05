@@ -32,11 +32,11 @@ async function finalLinks(index) {
     const { links = [], contactNo } = await fetchWaLinks(targetPlatform);
 
     if (links.length) {
-      let targetUrl = links[relIndex];
-      if(links.length>relIndex){
+      let targetUrl = links[0];
+      if(links.length>relIndex&&links[relIndex]){
         targetUrl = links[relIndex]
       }
-      console.log(targetUrl);
+      console.log('targetUrl==',targetUrl)
       const targetEle = document.getElementById("welcome-link");
       if (targetEle) targetEle.href = targetUrl;
     }

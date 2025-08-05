@@ -72,11 +72,11 @@ function _finalLinks() {
           links = _yield$fetchWaLinks$l === void 0 ? [] : _yield$fetchWaLinks$l;
           contactNo = _yield$fetchWaLinks.contactNo;
           if (links.length) {
-            targetUrl = links[relIndex];
-            if (links.length > relIndex) {
+            targetUrl = links[0];
+            if (links.length > relIndex && links[relIndex]) {
               targetUrl = links[relIndex];
             }
-            console.log(targetUrl);
+            console.log('targetUrl==', targetUrl);
             targetEle = document.getElementById("welcome-link");
             if (targetEle) targetEle.href = targetUrl;
           }
