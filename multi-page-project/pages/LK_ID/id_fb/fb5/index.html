@@ -3,13 +3,48 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>selamat datang</title>
+  <title>Premata Agency</title>
   <meta http-equiv="Content-type" content="text/html" />
   <meta content="yes" name="apple-mobile-web-app-capable" />
   <meta content="yes" name="apple-touch-fullscreen" />
   <meta name="viewport" content="width=750">
-  <link rel="stylesheet" href="css/style.css">
-  <script>window.mobileUtil = function (i, e) { var t = navigator.userAgent, n = /android|adr/gi.test(t), a = /iphone|ipod|ipad/gi.test(t) && !n, r = n || a; return { isAndroid: n, isIos: a, isMobile: r, fixScreen: function () { function t(i) { return "initial-scale=" + i + ",maximum-scale=" + i + ",minimum-scale=" + i } var n = e.querySelector('meta[name="viewport"]'), a = n ? n.content : "", d = a.match(/initial\-scale=([\d\.]+)/), o = a.match(/width=([^,\s]+)/); if (r && !d && o && "device-width" != o[1]) { var c = parseInt(o[1]), s = i.innerWidth || c, m = i.screen.width || s, l = m / c; n.content = a + ",target-densitydpi=device-dpi," + t(l) } } } }(window, document), mobileUtil.fixScreen();</script>
+  <!-- build:css css/index.css -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- endbuild -->
+  <script>
+    (window.mobileUtil = (function (i, e) {
+      var t = navigator.userAgent,
+        n = /android|adr/gi.test(t),
+        a = /iphone|ipod|ipad/gi.test(t) && !n,
+        r = n || a;
+      return {
+        fixScreen: function () {
+          function t(i) {
+            return (
+              "initial-scale=" +
+              i +
+              ",maximum-scale=" +
+              i +
+              ",minimum-scale=" +
+              i
+            );
+          }
+          var n = e.querySelector('meta[name="viewport"]'),
+            a = n ? n.content : "",
+            d = a.match(/initial\-scale=([\d\.]+)/),
+            o = a.match(/width=([^,\s]+)/);
+          if (r && !d && o && "device-width" != o[1]) {
+            var c = parseInt(o[1]),
+              s = i.innerWidth || c,
+              m = i.screen.width || s,
+              l = m / c;
+            n.content = a + ",target-densitydpi=device-dpi," + t(l);
+          }
+        },
+      };
+    })(window, document)),
+      mobileUtil.fixScreen();
+  </script>
 </head>
 
 <body>
@@ -83,48 +118,50 @@
           <dd>Premata Agency adalah agensi yang membantu berbagai produk sosial untuk merekrut host di Indonesia.</dd>
           <dt>Posisi Rekrutmen:</dt>
           <dd>
-            <p><strong>[Nama Produk]</strong></p>
-            <p>· Linky</p>
+            <p><strong>[Standar Gaji]</strong></p>
+            <p>· Chat 1v1* membalas pesan</p>
+            <p class="text-indent2">· 1-9 pesan = <span class="text-prominent">Rp.30/pesan</span></p>
+            <p class="text-indent2">· 10-30 pesan = <span class="text-prominent">Rp.65/pesan</span></p>
+            <p class="text-indent2">· lebih dari 31 pesan = <span class="text-prominent">Rp.100/pesan</span></p>
+            <p>· Voice call = <span class="text-prominent">Rp.960/menit</span></p>
+            <p>· unlock image = <span class="text-prominent">Rp.800/ima</span></p>
+            <p>· Pendapatan Hadiah = <span class="text-prominent">Rp.30-319,000/pcs</span></p>
             <br>
-            <p><strong>[Kebijakan Produk]</strong></p>
-            <p>· Chat 1v1* harga pesan:1</p>
-            <p class="text-indent2">· Pesan ke-1 hingga ke-9 = 10💎/pesan; </p>
-            <p class="text-indent2">· Pesan ke-10 hingga ke-30 = 20💎/pesan;</p>
-            <p class="text-indent2">· Setelah pesan ke-31 = 30💎/pesan;</p>
-            <p>· Panggilan suara (300💎/menit);</p>
-            <p>· Hadiah (10–99990💎);</p>
-            <p>· Jumlah minimum penarikan**2500💎 = 0.5$ = Rp.7500</p>
-            <br>
-            <p><strong>Persyaratan Rekrutmen</strong></p>
+            <p><strong>[Persyaratan Rekrutmen]</strong></p>
             <p>· Usia 18 tahun ke atas</p>
             <br>
-            <p><strong>Catatan</strong></p>
-            <p>Pendapatan tergantung pada usaha pribadi</p>
+            <p><strong>[Catatan]</strong></p>
+            <p>· Pendapatan tergantung pada usaha pribadi</p>
           </dd>
         </dl>
       </div>
 
-      <div class="page-footer">Jika Anda tertarik, silakan hubungi WhatsApp:<span id="contact-no">+85296793564</span>
+      <div class="page-footer">Jika Anda tertarik, silakan hubungi WhatsApp:<span id="contact-no">+852 5691 6687</span>
       </div>
     </div>
   </div>
+  <!-- build:js js/index.js -->
+  <script src="js/common.js"></script>
   <script src="js/index.js"></script>
+  <!-- endbuild -->
   <!-- Meta Pixel Code -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
     fbq("track", "PageView");
     fbq('init', '1157157668750576');
   </script>
   <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1157157668750576&ev=PageView&noscript=1"
-  /></noscript>
+      src="https://www.facebook.com/tr?id=1157157668750576&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
 </body>
 
