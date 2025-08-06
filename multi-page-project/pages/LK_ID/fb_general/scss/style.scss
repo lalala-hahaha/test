@@ -277,7 +277,7 @@ img {
   display: flex;
   text-align: center;
   line-height: 42px;
-  padding: 136px 32px 100px 32px;
+  padding: 116px 32px 100px 32px;
 }
 .page-sex {
   justify-content: center;
@@ -458,4 +458,12 @@ img {
 
 .text-indent2{
   text-indent: 1em;
+}
+.welcome-txt p{
+  line-height: 1.6;
+}
+.welcome-txt-guide{
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 1.4;
 }
