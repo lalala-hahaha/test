@@ -51,7 +51,7 @@ gulp.task("assets-rev", () => {
   return gulp
     .src(paths.html)
     .pipe(useref())
-    .pipe(gulpIf("*.js", uglify({ compress: { drop_console: true } })))
+    .pipe(gulpIf("*.js", uglify({ compress: { drop_console: true, drop_debugger: true, passes: 2 } })))
     .pipe(gulpIf("*.css", cleanCSS()))
     .pipe(gulpIf(/\.(js|css)$/, rev()))
     .pipe(revReplace())
@@ -75,7 +75,7 @@ gulp.task("assets", () => {
   return gulp
     .src(paths.html)
     .pipe(useref())
-    .pipe(gulpIf("*.js", uglify({ compress: { drop_console: true } })))
+    .pipe(gulpIf("*.js", uglify({ compress: { drop_console: true, drop_debugger: true, passes: 2 } })))
     .pipe(gulpIf("*.css", cleanCSS()))
     .pipe(gulpIf(/\.(js|css)$/, gulp.dest(outputDir)))
     .pipe(
