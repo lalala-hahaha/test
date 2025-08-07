@@ -1,6 +1,8 @@
-const pageId = "fabulous-starship-ee09ad";
-const linkIndex = 1
-const eventStr = ''
+"use strict";
+
+var pageId = "fabulous-starship-ee09ad";
+var linkIndex = 1;
+var eventStr = '';
 
 // 页面初始化逻辑
 function initialize() {
