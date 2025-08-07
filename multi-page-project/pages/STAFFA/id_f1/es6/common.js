@@ -1,6 +1,4 @@
-const pageId = "darling-starship-8f3cb4";
 const targetPlatform = "FB";
-
 // 获取 WA 链接列表
 async function fetchWaLinks(targetList) {
   try {
@@ -13,8 +11,7 @@ async function fetchWaLinks(targetList) {
       }
     );
 
-    if (!response.ok)
-      throw new Error(`Failed to fetch WA links: ${response.status}`);
+    if (!response.ok) throw new Error(`Failed to fetch WA links: ${response.status}`);
 
     const data = await response.json();
     return data || {}; // 确保返回对象
@@ -24,14 +21,22 @@ async function fetchWaLinks(targetList) {
   }
 }
 
+
 // 设置页面的链接
-async function finalLinks() {
+async function finalLinks(index) {
+  let relIndex = index - 1
+  if(relIndex<0){
+    relIndex = 0
+  }
   try {
     const { links = [], contactNo } = await fetchWaLinks(targetPlatform);
 
     if (links.length) {
-      const targetUrl = links[0];
-      console.log(targetUrl);
+      let targetUrl = links[0];
+      if(links.length>relIndex&&links[relIndex]){
+        targetUrl = links[relIndex]
+      }
+      console.log('targetUrl==',targetUrl)
       const targetEle = document.getElementById("welcome-link");
       if (targetEle) targetEle.href = targetUrl;
     }
@@ -45,8 +50,9 @@ async function finalLinks() {
   }
 }
 
+
 // 绑定按钮点击事件
-function bindButtonEvents() {
+function bindButtonEvents(eventStrCode) {
   const sexMaleButton = document.getElementById("sex-male");
   const sexFemaleButton = document.getElementById("sex-female");
   const welcomeLink = document.getElementById("welcome-link");
@@ -56,8 +62,8 @@ function bindButtonEvents() {
       document.getElementById("page-thank").style.display = "flex";
     });
   }
-
-  if (sexFemaleButton) {
+  
+  if(sexFemaleButton){
     sexFemaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
@@ -191,19 +197,3 @@ function startFlashSaleCountdown() {
       String(seconds).padStart(2, "0");
   }, 500);
 }
-
-
-// 页面初始化逻辑
-function initialize() {
-  // 获取 WA 链接列表
-  finalLinks();
-  // 绑定按钮点击事件
-  bindButtonEvents();
-  // 剩余名额
-  thePlaces();
-  // 倒计时
-  startFlashSaleCountdown();
-}
-
-// 等待 DOM 加载完成后初始化
-document.addEventListener("DOMContentLoaded", initialize);
