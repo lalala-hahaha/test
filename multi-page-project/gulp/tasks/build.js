@@ -116,13 +116,19 @@ export const assetsRev = () => {
         "*.js",
         terser({
           compress: {
-            drop_console: true, // 去掉所有 console.*
-            drop_debugger: true, // 去掉 debugger 语句
+            unused: true,       // 删除未使用的变量/函数（默认 true）
+            dead_code: true,    // 删除不可达代码（默认 true）
+            drop_debugger: true,// 删除 debugger 语句
+            drop_console: true, // 删除 console.log 等
+            toplevel: true,     // 允许删除顶层未用到的函数/变量（很关键）
+            passes: 2
           },
           format: {
             comments: false, // 去掉注释
           },
-          mangle: true, // 混淆变量名，建议开启
+          mangle: {
+            toplevel: true // 混淆顶层变量/函数名（可选）
+          },
           ecma: 5, // 指定 ECMAScript 版本
           keep_classnames: false, // 混淆时不保留类名
           keep_fnames: false, // 混淆时不保留函数名
@@ -158,13 +164,19 @@ export const assets = () => {
         "*.js",
         terser({
           compress: {
-            drop_console: true, // 去掉所有 console.*
-            drop_debugger: true, // 去掉 debugger 语句
+            unused: true,       // 删除未使用的变量/函数（默认 true）
+            dead_code: true,    // 删除不可达代码（默认 true）
+            drop_debugger: true,// 删除 debugger 语句
+            drop_console: true, // 删除 console.log 等
+            toplevel: true,     // 允许删除顶层未用到的函数/变量（很关键）
+            passes: 2
           },
           format: {
             comments: false, // 去掉注释
           },
-          mangle: true, // 混淆变量名，建议开启
+          mangle: {
+            toplevel: true // 混淆顶层变量/函数名（可选）
+          },
           ecma: 5, // 指定 ECMAScript 版本
           keep_classnames: false, // 混淆时不保留类名
           keep_fnames: false, // 混淆时不保留函数名
