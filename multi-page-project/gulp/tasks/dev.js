@@ -1,56 +1,71 @@
-const gulp = require('gulp')
-const sass = require('gulp-sass')(require('sass'))
-const postcss = require('gulp-postcss')
-const autoprefixer = require('autoprefixer')
-const base64 = require('gulp-base64')
-const babel = require('gulp-babel')
-const plumber = require('gulp-plumber')
-const notify = require('gulp-notify')
-const browserSync = require('browser-sync').create()
+import gulp from "gulp";
+import gulpSass from "gulp-sass";
+import * as dartSass from "sass";
+import postcss from "gulp-postcss";
+import autoprefixer from "autoprefixer";
+import base64 from "gulp-base64";
+import babel from "gulp-babel";
+import plumber from "gulp-plumber";
+import notify from "gulp-notify";
+import browserSyncLib from "browser-sync";
 
-const { paths, projectRoot } = require('../config')
-const { ensureDir,hasFiles } = require('../utils')
+import { paths, projectRoot } from "../config.js";
+import { ensureDir, hasFiles } from "../utils.js";
+
+const sass = gulpSass(dartSass);
+const browserSync = browserSyncLib.create();
 
 // SCSS 编译
-gulp.task('styles', (done) => {
+export const styles = () => {
   if (!hasFiles(paths.scss)) {
-    console.log('🔍 没有 SCSS 文件，跳过 styles 任务')
-    return done()
+    console.log("🔍 没有 SCSS 文件，跳过 styles 任务");
+    return Promise.resolve();
   }
-  ensureDir(paths.cssDest)
+  ensureDir(paths.cssDest);
   return gulp
     .src(paths.scss)
-    .pipe(plumber({ errorHandler: notify.onError('SCSS 编译错误: <%= error.message %>') }))
-    .pipe(sass().on('error', sass.logError))
+    .pipe(
+      plumber({
+        errorHandler: notify.onError("SCSS 编译错误: <%= error.message %>"),
+      })
+    )
+    .pipe(sass().on("error", sass.logError))
     .pipe(postcss([autoprefixer()]))
     .pipe(base64({ maxImageSize: 8 * 1024 }))
     .pipe(gulp.dest(paths.cssDest))
-    .pipe(browserSync.stream())
-})
+    .pipe(browserSync.stream());
+};
 
 // JS 编译
-gulp.task('scripts', (done) => {
+export const scripts = () => {
   if (!hasFiles(paths.es6)) {
-    console.log('🔍 没有 JS 文件，跳过 scripts 任务')
-    return done()
+    console.log("🔍 没有 JS 文件，跳过 scripts 任务");
+    return Promise.resolve();
   }
-  ensureDir(paths.jsDest)
+  ensureDir(paths.jsDest);
   return gulp
     .src(paths.es6)
-    .pipe(plumber({ errorHandler: notify.onError('JS 编译错误: <%= error.message %>') }))
-    .pipe(babel({ presets: ['@babel/preset-env'] }))
+    .pipe(
+      plumber({
+        errorHandler: notify.onError("JS 编译错误: <%= error.message %>"),
+      })
+    )
+    .pipe(babel({ presets: ["@babel/preset-env"] }))
     .pipe(gulp.dest(paths.jsDest))
-    .pipe(browserSync.stream())
-})
+    .pipe(browserSync.stream());
+};
 
 // 热更新服务
-gulp.task('serve', () => {
-  browserSync.init({ server: { baseDir: projectRoot }, port: 3000, open: false })
-
-  gulp.watch(paths.scss, gulp.series('styles'))
-  gulp.watch(paths.es6, gulp.series('scripts'))
-  gulp.watch(paths.html).on('change', browserSync.reload)
-})
+export const serve = async () => {
+  browserSync.init({
+    server: { baseDir: projectRoot },
+    port: 3000,
+    open: false,
+  });
+  gulp.watch(paths.scss, styles);
+  gulp.watch(paths.es6, scripts);
+  gulp.watch(paths.html).on("change", browserSync.reload);
+};
 
 // 开发任务总入口
-gulp.task('dev', gulp.series('styles', 'scripts', 'serve'))
+export const dev = gulp.series(styles, scripts, serve);
