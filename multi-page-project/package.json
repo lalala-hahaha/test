@@ -45,7 +45,8 @@
     "gulp-watch": "^5.0.1",
     "minimist": "^1.2.8",
     "postcss": "^8",
-    "sass": "^1.90.0"
+    "sass": "^1.90.0",
+    "vinyl": "^3.0.1"
   },
   "browserslist": [
     "> 0.2%",
@@ -55,5 +56,8 @@
     "ChromeAndroid >= 37",
     "Android >= 5",
     "ie >=10"
-  ]
+  ],
+  "dependencies": {
+    "fs-extra": "^11.3.1"
+  }
 }
