@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { projectRoot, paths } from "../config.js";
-import { hasFiles } from "../utils.js";
+import { hasFiles,logger } from "../utils.js";
 
 // 向上查找直到 /pages 目录为止
 function findHtmlRootDir() {
@@ -103,6 +103,6 @@ export const createReadme = () => {
 
 ${pageId ? `- 页面ID：${pageId}` : ""}`;
   fs.writeFileSync(readmePath, content, "utf8");
-  console.log("📄 README.md 已更新");
+  logger.content('📄 README.md 已更新')
   return Promise.resolve();
 };

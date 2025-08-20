@@ -11,10 +11,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      fs-extra:
-        specifier: ^11.3.1
-        version: 11.3.1
     devDependencies:
       '@babel/core':
         specifier: ^7.28.0
@@ -34,6 +30,12 @@ importers:
       del:
         specifier: ^8.0.0
         version: 8.0.0
+      fs-extra:
+        specifier: ^11.3.1
+        version: 11.3.1
+      gradient-string:
+        specifier: ^3.0.0
+        version: 3.0.0
       gulp:
         specifier: ^5.0.1
         version: 5.0.1
@@ -64,9 +66,6 @@ importers:
       gulp-postcss:
         specifier: ^10.0.0
         version: 10.0.0(postcss@8.5.6)
-      gulp-rename:
-        specifier: ^2.1.0
-        version: 2.1.0
       gulp-rev:
         specifier: ^11.0.0
         version: 11.0.0(gulp@5.0.1)
@@ -663,36 +662,42 @@ packages:
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   '@parcel/watcher-linux-arm-musl@2.5.1':
     resolution: {integrity: sha512-6E+m/Mm1t1yhB8X412stiKFG3XykmgdIOqhjWj+VL8oHkKABfu/gjFj8DvLrYVHSBNC+/u5PeNrujiSQ1zwd1Q==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
+    libc: [musl]
 
   '@parcel/watcher-linux-arm64-glibc@2.5.1':
     resolution: {integrity: sha512-LrGp+f02yU3BN9A+DGuY3v3bmnFUggAITBGriZHUREfNEzZh/GO06FF5u2kx8x+GBEUYfyTGamol4j3m9ANe8w==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@parcel/watcher-linux-arm64-musl@2.5.1':
     resolution: {integrity: sha512-cFOjABi92pMYRXS7AcQv9/M1YuKRw8SZniCDw0ssQb/noPkRzA+HBDkwmyOJYp5wXcsTrhxO0zq1U11cK9jsFg==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@parcel/watcher-linux-x64-glibc@2.5.1':
     resolution: {integrity: sha512-GcESn8NZySmfwlTsIur+49yDqSny2IhPeZfXunQi48DMugKeZ7uy1FX83pO0X22sHntJ4Ub+9k34XQCX+oHt2A==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@parcel/watcher-linux-x64-musl@2.5.1':
     resolution: {integrity: sha512-n0E2EQbatQ3bXhcH2D1XIAANAcTZkQICBPVaxMeaCVBtOpBZpWJuf7LwyWPSBDITb7In8mqQgJ7gH8CILCURXg==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@parcel/watcher-win32-arm64@2.5.1':
     resolution: {integrity: sha512-RFzklRvmc3PkjKjry3hLF9wD7ppR4AKcWNzH7kXR7GUe0Igb3Nz8fyPwtZCSquGrhU5HhUNDr/mKBqj7tqA2Vw==}
@@ -755,6 +760,9 @@ packages:
 
   '@types/responselike@1.0.3':
     resolution: {integrity: sha512-H/+L+UkTV33uf49PH5pCAUBVPNj2nDBXTN+qS1dOwyyg24l3CcicicCA7ca+HMvJBZcFgl5r8e+RR6elsb4Lyw==}
+
+  '@types/tinycolor2@1.4.6':
+    resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
 
   '@types/vinyl@2.0.12':
     resolution: {integrity: sha512-Sr2fYMBUVGYq8kj3UthXFAu5UN6ZW+rYr4NACjZQJvHvj+c8lYv0CahmZ2P/r7iUkN44gGUBwqxZkrKXYPb7cw==}
@@ -2004,6 +2012,10 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  gradient-string@3.0.0:
+    resolution: {integrity: sha512-frdKI4Qi8Ihp4C6wZNB565de/THpIaw3DjP5ku87M+N9rNSGmPTjfkq61SdRXB7eCaL8O1hkKDvf6CDMtOzIAg==}
+    engines: {node: '>=14'}
+
   growly@1.3.0:
     resolution: {integrity: sha512-+xGQY0YyAWCnqy7Cd++hc2JqMYzlm0dG30Jd0beaA64sROr8C4nt8Yc9V5Ro3avlSUDTN0ulqP/VBKi1/lLygw==}
 
@@ -2068,10 +2080,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       postcss: ^8.0.0
-
-  gulp-rename@2.1.0:
-    resolution: {integrity: sha512-dGuzuH8jQGqCMqC544IEPhs5+O2l+IkdoSZsgd4kY97M1CxQeI3qrmweQBIrxLBbjbe/8uEWK8HHcNBc3OCy4g==}
-    engines: {node: '>=4'}
 
   gulp-rev-replace@0.4.4:
     resolution: {integrity: sha512-2yiDel/TGamn/HgHyo8H1rYEEL2zLsOYODerItoX8batOo0gPAe7uX7t6NlaqB7FEHpS5tGzUr5CKUEmrgdHyQ==}
@@ -3755,6 +3763,12 @@ packages:
     resolution: {integrity: sha512-G7r3AhovYtr5YKOWQkta8RKAPb+J9IsO4uVmzjl8AZwfhs8UcUwTiD6gcJYSgOtzyjvQKrKYn41syHbUWMkafA==}
     engines: {node: '>=0.10.0'}
 
+  tinycolor2@1.6.0:
+    resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
+
+  tinygradient@1.1.5:
+    resolution: {integrity: sha512-8nIfc2vgQ4TeLnk2lFj4tRLvvJwEfQuabdsmvDdQPT0xlk9TaNtpGd6nNRxXoK6vQhN6RSzj+Cnp5tTQmpxmbw==}
+
   tldts-core@7.0.12:
     resolution: {integrity: sha512-3K76aXywJFduGRsOYoY5JzINLs/WMlOkeDwPL+8OCPq2Rh39gkSDtWAxdJQlWjpun/xF/LHf29yqCi6VC/rHDA==}
 
@@ -4890,6 +4904,8 @@ snapshots:
     dependencies:
       '@types/node': 24.3.0
     optional: true
+
+  '@types/tinycolor2@1.4.6': {}
 
   '@types/vinyl@2.0.12':
     dependencies:
@@ -6544,6 +6560,11 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  gradient-string@3.0.0:
+    dependencies:
+      chalk: 5.6.0
+      tinygradient: 1.1.5
+
   growly@1.3.0: {}
 
   gulp-babel@8.0.0(@babel/core@7.28.3):
@@ -6660,8 +6681,6 @@ snapshots:
     transitivePeerDependencies:
       - jiti
       - tsx
-
-  gulp-rename@2.1.0: {}
 
   gulp-rev-replace@0.4.4:
     dependencies:
@@ -8463,6 +8482,13 @@ snapshots:
 
   timed-out@4.0.1:
     optional: true
+
+  tinycolor2@1.6.0: {}
+
+  tinygradient@1.1.5:
+    dependencies:
+      '@types/tinycolor2': 1.4.6
+      tinycolor2: 1.6.0
 
   tldts-core@7.0.12:
     optional: true

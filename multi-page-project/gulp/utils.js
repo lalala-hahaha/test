@@ -1,6 +1,8 @@
+import gulp from 'gulp'
 import fs from 'fs'
 import glob from 'glob'
 import crypto from 'crypto'
+import { pastel, morning } from 'gradient-string'
 
 export function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
@@ -34,4 +36,36 @@ export function fileHash(filePath) {
   return crypto.createHash('md5').update(buffer).digest('hex')
 }
 
+// logger
+export const logger = {
+  title: msg => console.log(pastel(`✨🚀✨ ■■■■■■■■■■■■■■■■■■■■■■■■■ ${msg} ■■■■■■■■■■■■■■■■■■■■■■■■■ ✨🌟✨`)),
+  content: msg => console.log(morning(` ${msg}`)),
+}
 
+// 全局 hook：自动在 build 任务 start/end 打印
+gulp.on('start', (evt) => {
+  if (evt.name === 'dev') {
+    logger.title('启动 dev 模式')
+  }
+  if (evt.name === 'build') {
+    logger.title('build start')
+  }
+  if (evt.name === 'pre') {
+    logger.title('pre start')
+  }
+  if (evt.name === 'processImages') {
+    logger.content('🖼️  处理图片 start')
+  }
+})
+
+gulp.on('stop', (evt) => {
+  if (evt.name === 'build') {
+    logger.title('build end')
+  }
+  if (evt.name === 'pre') {
+    logger.title('pre end')
+  }
+  if (evt.name === 'processImages') {
+    logger.content('🖼️  处理图片 end')
+  }
+})

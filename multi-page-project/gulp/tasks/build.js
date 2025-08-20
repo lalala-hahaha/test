@@ -7,7 +7,7 @@ import gulpIf from 'gulp-if'
 import terser from 'gulp-terser'
 import cleanCSS from 'gulp-clean-css'
 import htmlmin from 'gulp-htmlmin'
-import imagemin from 'gulp-imagemin'
+import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin'
 import rev from 'gulp-rev'
 import revReplace from 'gulp-rev-replace'
 import minimist from 'minimist'
@@ -15,7 +15,7 @@ import path from 'path'
 import Vinyl from 'vinyl'
 import { Readable } from 'stream'
 
-import { ensureDir, hasFiles, loadCache, saveCache, fileHash } from '../utils.js'
+import { ensureDir, hasFiles, loadCache, saveCache, fileHash, logger } from '../utils.js'
 import { paths, outputDir, projectRoot } from '../config.js'
 
 import { styles, scripts } from './dev.js'
@@ -30,7 +30,7 @@ const useHash = !isHasA
 const tmpImagesDir = path.join(projectRoot, '.tmp_images')
 const destDir = path.join(outputDir, 'img')
 
-// 备份旧图片到临时目录
+// 备份上次打包的图片到临时目录
 export async function backupOldImages() {
   if (fs.existsSync(destDir)) {
     ensureDir(tmpImagesDir)
@@ -39,7 +39,7 @@ export async function backupOldImages() {
     } catch (err) {
       console.error(err)
     }
-    console.log('📦 备份上次构建的图片到 .tmp_images')
+    logger.content('📦 备份上次处理过的图片到临时目录')
   }
 }
 
@@ -47,7 +47,7 @@ export async function backupOldImages() {
 export async function removeTmpImages() {
   if (fs.existsSync(tmpImagesDir)) {
     await fse.remove(tmpImagesDir)
-    console.log('🗑️  清理临时图片目录')
+    logger.content('🗑️  清理临时图片目录')
   }
 }
 
@@ -59,14 +59,13 @@ export async function clean() {
 // 处理图片
 export const processImages = () => {
   if (!hasFiles(paths.imgs)) {
-    console.log('🔍 没有 img 文件，跳过「图片处理」任务')
+    logger.content('🔍 没有 img 文件，跳过「图片处理」任务')
     return Promise.resolve()
   }
 
   ensureDir(destDir)
   const oldCache = loadCache()
   const newCache = {}
-  console.log('🏞️  开始「处理图片任务」')
 
   return gulp
     .src(paths.imgs, {
@@ -74,50 +73,68 @@ export const processImages = () => {
       base: paths.imgsBase || paths.imgs.replace(/(\*\*\/\*.*)$/, ''),
     })
     .pipe(
-      gulpIf(file => {
-        // 文件名
-        const rel = file.relative.replace(/\\/g, '/')
-        // 当前文件hash
-        const currentHash = fileHash(file.path)
-        // 上次打包产物信息
-        const oldFileInfo = oldCache[rel]
-        // 此次打包是否需要rev
-        file._needsRev = useHash
+      gulpIf(
+        file => {
+          // 文件名
+          const rel = file.relative.replace(/\\/g, '/')
+          // 当前文件hash
+          const currentHash = fileHash(file.path)
+          // 上次打包产物信息
+          const oldFileInfo = oldCache[rel]
+          // 此次打包是否需要rev
+          file._needsRev = useHash
 
-        // 输出文件名：
-        const outName = useHash ? oldFileInfo?.rev : rel
+          // 输出文件名：
+          const outName = useHash ? oldFileInfo?.rev : rel
 
-        // 按 oldFileInfo.rev 查备份到临时目录的图片是否存在
-        const candidate = (oldFileInfo?.rev && path.join(tmpImagesDir, oldFileInfo?.rev)) || null
+          // 按 oldFileInfo.rev 查备份到临时目录的图片是否存在
+          const candidate = (oldFileInfo?.rev && path.join(tmpImagesDir, oldFileInfo?.rev)) || null
 
-        // 新文件或内容变更 → 压缩
-        if (!oldFileInfo || oldFileInfo.hash !== currentHash) {
-          console.log('// 新文件或变更文件 → 压缩')
+          // 新文件或内容变更 → 压缩
+          if (!oldFileInfo || oldFileInfo.hash !== currentHash) {
+            newCache[rel] = { hash: currentHash, rev: outName }
+            return true
+          }
+          if (candidate && fs.existsSync(candidate)) {
+            // 命中旧产物，直接复用其内容
+            file.contents = fs.readFileSync(candidate)
+            if (useHash && rel === oldFileInfo.rev) {
+              // -a ==> hash，需要rev
+              file._needsRev = true
+            } else if (!useHash) {
+              // hash ==> -a，无需rev
+              file._needsRev = false
+              file.path = path.join(file.base, rel)
+            } else {
+              // 打包方式没变，文件没变，保留旧的文件名
+              file._needsRev = false
+              file.path = path.join(file.base, oldFileInfo.rev)
+            }
+            newCache[rel] = { hash: currentHash, rev: outName }
+            return false
+          }
+          // 没找到旧产物 → 压缩并重新生成 rev
           newCache[rel] = { hash: currentHash, rev: outName }
           return true
-        }
-        if (candidate && fs.existsSync(candidate)) {
-          // 命中旧产物，直接复用其内容
-          file.contents = fs.readFileSync(candidate)
-          if (useHash && rel === oldFileInfo.rev) {
-            // -a ==> hash，需要rev
-            file._needsRev = true
-          } else if (!useHash) {
-            // hash ==> -a，无需rev
-            file._needsRev = false
-            file.path = path.join(file.base, rel)
-          } else {
-            // 打包方式没变，文件没变，保留旧的文件名
-            file._needsRev = false
-            file.path = path.join(file.base, oldFileInfo.rev)
-          }
-          newCache[rel] = { hash: currentHash, rev: outName }
-          return false
-        }
-        // 没找到旧产物 → 压缩并重新生成 rev
-        newCache[rel] = { hash: currentHash, rev: outName }
-        return true
-      }, imagemin()),
+        },
+        imagemin(
+          [
+            gifsicle({ interlaced: true }), // GIF 支持交错
+            mozjpeg({ quality: 75, progressive: true }), // JPG 压缩，渐进式加载
+            optipng({ optimizationLevel: 5 }), // PNG 压缩等级 0-7
+            svgo({
+              // SVG 优化
+              plugins: [
+                { name: 'removeViewBox', active: false }, // 保留 viewBox 避免缩放问题
+                { name: 'cleanupIDs', active: false }, // 可选关闭
+              ],
+            }),
+          ],
+          {
+            verbose: true, // 打印压缩信息
+          },
+        ),
+      ),
     )
     .pipe(gulpIf(file => file._needsRev, rev()))
     .pipe(gulp.dest(destDir))
@@ -135,7 +152,6 @@ export const processImages = () => {
     )
     .on('end', () => {
       saveCache(newCache)
-      console.log('✅ 图片处理完成，缓存已更新')
     })
 }
 
@@ -190,11 +206,9 @@ const processAssets = () => {
 // 替换 hash 图片路径
 export const revReplaceImages = () => {
   if (!useHash) {
-    console.log('🚀 --a不hash，跳过「替换hash图片路径」任务')
     return Promise.resolve()
   }
   if (!hasFiles(paths.imgs)) {
-    console.log('🔍 没有 img 文件，跳过「图片替换」任务')
     return Promise.resolve()
   }
 
@@ -221,9 +235,6 @@ export const revReplaceImages = () => {
     .src(path.join(outputDir, '**/*.{html,css,js}'))
     .pipe(revReplace({ manifest: manifestStream }))
     .pipe(gulp.dest(outputDir))
-    .on('end', () => {
-      console.log('✅ 已完成 hash 图片路径替换')
-    })
 }
 
 // 构建任务
