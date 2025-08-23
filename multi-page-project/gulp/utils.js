@@ -1,6 +1,6 @@
 import gulp from 'gulp'
 import fs from 'fs'
-import glob from 'glob'
+import {glob} from 'glob'
 import crypto from 'crypto'
 import { pastel, morning } from 'gradient-string'
 
