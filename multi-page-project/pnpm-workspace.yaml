@@ -1,0 +1,7 @@
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - fsevents
+  - gifsicle
+  - mozjpeg
+  - optipng-bin
