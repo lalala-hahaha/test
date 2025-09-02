@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Premata Agency</title>
+  <meta http-equiv="Content-type" content="text/html" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="yes" name="apple-touch-fullscreen" />
+  <meta name="viewport" content="width=750">
+  <!-- build:css css/index.css -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- endbuild -->
+  <script>
+    (window.mobileUtil = (function (i, e) {
+      var t = navigator.userAgent,
+        n = /android|adr/gi.test(t),
+        a = /iphone|ipod|ipad/gi.test(t) && !n,
+        r = n || a;
+      return {
+        fixScreen: function () {
+          function t(i) {
+            return (
+              "initial-scale=" +
+              i +
+              ",maximum-scale=" +
+              i +
+              ",minimum-scale=" +
+              i
+            );
+          }
+          var n = e.querySelector('meta[name="viewport"]'),
+            a = n ? n.content : "",
+            d = a.match(/initial\-scale=([\d\.]+)/),
+            o = a.match(/width=([^,\s]+)/);
+          if (r && !d && o && "device-width" != o[1]) {
+            var c = parseInt(o[1]),
+              s = i.innerWidth || c,
+              m = i.screen.width || s,
+              l = m / c;
+            n.content = a + ",target-densitydpi=device-dpi," + t(l);
+          }
+        },
+      };
+    })(window, document)),
+      mobileUtil.fixScreen();
+  </script>
+  <script>
+    function getQueryParam(name) {
+      var query = window.location.search.substring(1);
+      var pairs = query.split("&");
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split("=");
+        if (decodeURIComponent(pair[0]) === name) {
+          return decodeURIComponent(pair[1] || "");
+        }
+      }
+      return null;
+    }
+  </script>
+</head>
+
+<body>
+  <div class="page">
+    <div class="banner"></div>
+    <div class="urgency">
+      <div class="urgency-content">
+        <h2 class="urgency-content-title">⏰ Limited Opportunity</h2>
+        <p class="urgency-content-p">Limited quota, only for the first 100 registrants</p>
+        <div class="urgency-stats clf">
+          <div class="stat">
+            <p class="stat-number" id="remaining-spots">&nbsp;</p>
+            <p class="stat-label">Remaining Quota</p>
+          </div>
+          <div class="stat">
+            <p class="stat-number" id="stat-timer">&nbsp;</p>
+            <p class="stat-label">End Time</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="page-sex" id="page-sex">
+        <div class="sex-options">
+          <p class="sex-title">Are you male or female?</p>
+          <div class="sex-female" id="sex-female">
+            <p>female</p>
+          </div>
+          <div class="sex-male" id="sex-male">
+            <p>male</p>
+          </div>
+        </div>
+      </div>
+      <div class="page-thank" id="page-thank">
+        <div class="page-thank-content">
+          <i class="page-thank-content-icon"></i>
+          <div class="page-thank-content-txt">
+            <p>We have received the application and will contact you if we have a suitable job opportunity.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="page-welcome" id="page-welcome">
+        <div class="welcome-box">
+          <div class="welcome-content">
+            <div class="welcome-txt">
+              <p>· 📱 Chatting casually on the phone, working every day.</p>
+              <p>· 🛜 Just One Mobile + Internet.</p>
+              <p>· ⏰ Learn in 5 minutes, you can immediately work and earn money.</p>
+              <p>· 🏠 Now can get a small allowance at home, peaceful and comfortable.</p>
+              <p class="welcome-txt-guide">👇 Want to learn how to work part-time? Click below to join the group! There is daily special guidance!</p>
+              <p class="welcome-link-p"><a id="welcome-link" target="_blank"
+                  class="welcome-link" href="https://dulcet-rabanadas-f728b9.netlify.app/">Click to contact us</a></p>
+            </div>
+            <div class="welcome-notis">
+              <p>Note:</p>
+              <p>We do not charge any fees for the entire process! If you have any questions, please refer to the group administrator! Beware of scams!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-intro">
+        <p class="intro-title">About Us</p>
+        <dl class="intro-content">
+          <dt>Company Background:</dt>
+          <dd>Premata Agency is an agency that assists various social products in recruiting hosts in Indonesia.</dd>
+          <dt>Recruitment Position:</dt>
+          <dd>
+            <p><strong>[Wage Standards]</strong></p>
+            <p>· Chat 1v1* replies to a message</p>
+            <p class="text-indent2">· 1-9 message = <span class="text-prominent">$0.0018/message</span></p>
+            <p class="text-indent2">· 10-30 message = <span class="text-prominent">$0.004/message</span></p>
+            <p class="text-indent2">· more than 31 messages = <span class="text-prominent">$0.006/message</span></p>
+            <p>· Voice call = <span class="text-prominent">$0.06/minute</span></p>
+            <p>· Unlock image = <span class="text-prominent">$0.05/image</span></p>
+            <p>· Prize Income = <span class="text-prominent">$0.0018-$19.46/pieces</span></p>
+            <br>
+            <p><strong>[Recruitment Requirements]</strong></p>
+            <p>· Age 18 and above</p>
+            <br>
+            <p><strong>[Note]</strong></p>
+            <p>· Income depends on personal effort</p>
+          </dd>
+        </dl>
+      </div>
+
+      <div class="page-footer">If you are interested, please contact WhatsApp:<span id="contact-no">+852 5691 6687</span>
+      </div>
+    </div>
+  </div>
+  <!-- build:js js/index.js -->
+  <script src="js/common.js"></script>
+  <script src="js/index.js"></script>
+  <!-- endbuild -->
+
+  <!-- TikTok Pixel Code Start -->
+<script>
+  var aid = getQueryParam("aid");
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+  var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+  ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  
+    ttq.load(aid);
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- TikTok Pixel Code End -->
+</body>
+
+</html>
