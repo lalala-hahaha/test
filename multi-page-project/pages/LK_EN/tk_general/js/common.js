@@ -76,7 +76,7 @@ function _finalLinks() {
             if (links.length > relIndex && links[relIndex]) {
               targetUrl = links[relIndex];
             }
-            console.log('targetUrl==', targetUrl);
+            console.log("targetUrl==", targetUrl);
             targetEle = document.getElementById("welcome-link");
             if (targetEle) targetEle.href = targetUrl;
           }
@@ -112,15 +112,29 @@ function bindButtonEvents(eventStrCode) {
     sexFemaleButton.addEventListener("click", function () {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
-      ttq.track('ViewContent');
-      ttq.track('LK_EN_female');
+      ttq.track("ViewContent", {
+        contents: [{
+          content_id: "666" // string. ID of the product. Example: "1077218".
+        }],
+        value: "1",
+        // number. Value of the order or items sold. Example: 100.
+        currency: "USD" // string. The 4217 currency code. Example: "USD".
+      });
+      ttq.track("LK_EN_female", {});
     });
   }
   if (welcomeLink) {
     welcomeLink.addEventListener("click", function () {
-      ttq.track("AddToCart");
-      ttq.track("Contact");
-      ttq.track("LK_EN_welcome");
+      ttq.track("AddToCart", {
+        contents: [{
+          content_id: "666" // string. ID of the product. Example: "1077218".
+        }],
+        value: "1",
+        // number. Value of the order or items sold. Example: 100.
+        currency: "USD" // string. The 4217 currency code. Example: "USD".
+      });
+      ttq.track("Contact", {});
+      ttq.track("LK_EN_welcome", {});
     });
   }
 }

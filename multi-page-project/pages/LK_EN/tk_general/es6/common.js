@@ -11,7 +11,8 @@ async function fetchWaLinks(targetList) {
       }
     );
 
-    if (!response.ok) throw new Error(`Failed to fetch WA links: ${response.status}`);
+    if (!response.ok)
+      throw new Error(`Failed to fetch WA links: ${response.status}`);
 
     const data = await response.json();
     return data || {}; // 确保返回对象
@@ -21,22 +22,21 @@ async function fetchWaLinks(targetList) {
   }
 }
 
-
 // 设置页面的链接
 async function finalLinks(index) {
-  let relIndex = index - 1
-  if(relIndex<0){
-    relIndex = 0
+  let relIndex = index - 1;
+  if (relIndex < 0) {
+    relIndex = 0;
   }
   try {
     const { links = [], contactNo } = await fetchWaLinks(targetPlatform);
 
     if (links.length) {
       let targetUrl = links[0];
-      if(links.length>relIndex&&links[relIndex]){
-        targetUrl = links[relIndex]
+      if (links.length > relIndex && links[relIndex]) {
+        targetUrl = links[relIndex];
       }
-      console.log('targetUrl==',targetUrl)
+      console.log("targetUrl==", targetUrl);
       const targetEle = document.getElementById("welcome-link");
       if (targetEle) targetEle.href = targetUrl;
     }
@@ -50,7 +50,6 @@ async function finalLinks(index) {
   }
 }
 
-
 // 绑定按钮点击事件
 function bindButtonEvents(eventStrCode) {
   const sexMaleButton = document.getElementById("sex-male");
@@ -63,21 +62,38 @@ function bindButtonEvents(eventStrCode) {
       ttq.track("LK_EN_male");
     });
   }
-  
-  if(sexFemaleButton){
+
+  if (sexFemaleButton) {
     sexFemaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
-      ttq.track('ViewContent')
-      ttq.track('LK_EN_female')
+      ttq.track("ViewContent", {
+        contents: [
+          {
+            content_id: "666", // string. ID of the product. Example: "1077218".
+          },
+        ],
+        value: "1", // number. Value of the order or items sold. Example: 100.
+        currency: "USD", // string. The 4217 currency code. Example: "USD".
+      });
+      ttq.track("LK_EN_female", {});
     });
   }
 
   if (welcomeLink) {
     welcomeLink.addEventListener("click", () => {
-      ttq.track("AddToCart");
-      ttq.track("Contact");
-      ttq.track("LK_EN_welcome");
+      ttq.track("AddToCart", {
+        contents: [
+          {
+            content_id: "666", // string. ID of the product. Example: "1077218".
+          },
+        ],
+        value: "1", // number. Value of the order or items sold. Example: 100.
+        currency: "USD", // string. The 4217 currency code. Example: "USD".
+      });
+
+      ttq.track("Contact", {});
+      ttq.track("LK_EN_welcome", {});
     });
   }
 }
