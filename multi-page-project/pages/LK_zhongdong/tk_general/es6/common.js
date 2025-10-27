@@ -3,7 +3,7 @@ const targetPlatform = "TK";
 async function fetchWaLinks(targetList) {
   try {
     const response = await fetch(
-      `https://xigsl672nrkvzjhuu2caw5h2340trkiy.lambda-url.ap-southeast-1.on.aws/`,
+      `https://pz4ccil4iqhrps7h5t7ecggfhi0glowz.lambda-url.ap-southeast-1.on.aws/`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -59,7 +59,7 @@ function bindButtonEvents(eventStrCode) {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      ttq.track("LK_EN_male");
+      ttq.track("LK_ME_male");
     });
   }
 
@@ -76,7 +76,7 @@ function bindButtonEvents(eventStrCode) {
         value: "1", // number. Value of the order or items sold. Example: 100.
         currency: "USD", // string. The 4217 currency code. Example: "USD".
       });
-      ttq.track("LK_EN_female", {});
+      ttq.track("LK_ME_female", {});
     });
   }
 
@@ -93,7 +93,7 @@ function bindButtonEvents(eventStrCode) {
       });
 
       ttq.track("Contact", {});
-      ttq.track("LK_EN_welcome", {});
+      ttq.track("LK_ME_welcome", {});
     });
   }
 }

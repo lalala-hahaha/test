@@ -17,7 +17,7 @@ function _fetchWaLinks() {
         case 0:
           _context.p = 0;
           _context.n = 1;
-          return fetch("https://xigsl672nrkvzjhuu2caw5h2340trkiy.lambda-url.ap-southeast-1.on.aws/", {
+          return fetch("https://pz4ccil4iqhrps7h5t7ecggfhi0glowz.lambda-url.ap-southeast-1.on.aws/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -105,7 +105,7 @@ function bindButtonEvents(eventStrCode) {
     sexMaleButton.addEventListener("click", function () {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      ttq.track("LK_EN_male");
+      ttq.track("LK_ME_male");
     });
   }
   if (sexFemaleButton) {
@@ -120,7 +120,7 @@ function bindButtonEvents(eventStrCode) {
         // number. Value of the order or items sold. Example: 100.
         currency: "USD" // string. The 4217 currency code. Example: "USD".
       });
-      ttq.track("LK_EN_female", {});
+      ttq.track("LK_ME_female", {});
     });
   }
   if (welcomeLink) {
@@ -134,7 +134,7 @@ function bindButtonEvents(eventStrCode) {
         currency: "USD" // string. The 4217 currency code. Example: "USD".
       });
       ttq.track("Contact", {});
-      ttq.track("LK_EN_welcome", {});
+      ttq.track("LK_ME_welcome", {});
     });
   }
 }

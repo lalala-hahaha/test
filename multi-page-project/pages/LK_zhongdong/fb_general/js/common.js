@@ -17,7 +17,7 @@ function _fetchWaLinks() {
         case 0:
           _context.p = 0;
           _context.n = 1;
-          return fetch("https://xigsl672nrkvzjhuu2caw5h2340trkiy.lambda-url.ap-southeast-1.on.aws/", {
+          return fetch("https://pz4ccil4iqhrps7h5t7ecggfhi0glowz.lambda-url.ap-southeast-1.on.aws/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -76,7 +76,7 @@ function _finalLinks() {
             if (links.length > relIndex && links[relIndex]) {
               targetUrl = links[relIndex];
             }
-            console.log('targetUrl==', targetUrl);
+            console.log("targetUrl==", targetUrl);
             targetEle = document.getElementById("welcome-link");
             if (targetEle) targetEle.href = targetUrl;
           }
@@ -105,7 +105,7 @@ function bindButtonEvents(eventStrCode) {
     sexMaleButton.addEventListener("click", function () {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      fbq("track", "LK_EN_male");
+      fbq("track", "LK_ME_male");
     });
   }
   if (sexFemaleButton) {
@@ -113,14 +113,14 @@ function bindButtonEvents(eventStrCode) {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
       fbq("track", "ViewContent");
-      fbq("track", "LK_EN_female");
+      fbq("track", "LK_ME_female");
     });
   }
   if (welcomeLink) {
     welcomeLink.addEventListener("click", function () {
       fbq("track", "AddToCart");
       fbq("track", "Contact");
-      fbq("track", "LK_EN_welcome");
+      fbq("track", "LK_ME_welcome");
     });
   }
 }

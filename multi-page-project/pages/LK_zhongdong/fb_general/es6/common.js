@@ -3,7 +3,7 @@ const targetPlatform = "FB";
 async function fetchWaLinks(targetList) {
   try {
     const response = await fetch(
-      `https://xigsl672nrkvzjhuu2caw5h2340trkiy.lambda-url.ap-southeast-1.on.aws/`,
+      `https://pz4ccil4iqhrps7h5t7ecggfhi0glowz.lambda-url.ap-southeast-1.on.aws/`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -11,7 +11,8 @@ async function fetchWaLinks(targetList) {
       }
     );
 
-    if (!response.ok) throw new Error(`Failed to fetch WA links: ${response.status}`);
+    if (!response.ok)
+      throw new Error(`Failed to fetch WA links: ${response.status}`);
 
     const data = await response.json();
     return data || {}; // 确保返回对象
@@ -21,22 +22,21 @@ async function fetchWaLinks(targetList) {
   }
 }
 
-
 // 设置页面的链接
 async function finalLinks(index) {
-  let relIndex = index - 1
-  if(relIndex<0){
-    relIndex = 0
+  let relIndex = index - 1;
+  if (relIndex < 0) {
+    relIndex = 0;
   }
   try {
     const { links = [], contactNo } = await fetchWaLinks(targetPlatform);
 
     if (links.length) {
       let targetUrl = links[0];
-      if(links.length>relIndex&&links[relIndex]){
-        targetUrl = links[relIndex]
+      if (links.length > relIndex && links[relIndex]) {
+        targetUrl = links[relIndex];
       }
-      console.log('targetUrl==',targetUrl)
+      console.log("targetUrl==", targetUrl);
       const targetEle = document.getElementById("welcome-link");
       if (targetEle) targetEle.href = targetUrl;
     }
@@ -50,7 +50,6 @@ async function finalLinks(index) {
   }
 }
 
-
 // 绑定按钮点击事件
 function bindButtonEvents(eventStrCode) {
   const sexMaleButton = document.getElementById("sex-male");
@@ -60,16 +59,16 @@ function bindButtonEvents(eventStrCode) {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      fbq("track", `LK_EN_male`);
+      fbq("track", `LK_ME_male`);
     });
   }
-  
-  if(sexFemaleButton){
+
+  if (sexFemaleButton) {
     sexFemaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
       fbq("track", "ViewContent");
-      fbq("track", `LK_EN_female`);
+      fbq("track", `LK_ME_female`);
     });
   }
 
@@ -77,7 +76,7 @@ function bindButtonEvents(eventStrCode) {
     welcomeLink.addEventListener("click", () => {
       fbq("track", "AddToCart");
       fbq("track", "Contact");
-      fbq("track", `LK_EN_welcome`);
+      fbq("track", `LK_ME_welcome`);
     });
   }
 }
