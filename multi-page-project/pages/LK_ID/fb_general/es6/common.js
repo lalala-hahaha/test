@@ -38,7 +38,10 @@ async function finalLinks(index) {
       }
       console.log("targetUrl==", targetUrl);
       const targetEle = document.getElementById("welcome-link");
-      if (targetEle) targetEle.innerText = targetUrl;
+      if (targetEle){
+        targetEle.href = targetUrl;
+        targetEle.innerText = targetUrl;
+      }
     }
 
     if (contactNo) {

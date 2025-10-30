@@ -78,7 +78,10 @@ function _finalLinks() {
             }
             console.log("targetUrl==", targetUrl);
             targetEle = document.getElementById("welcome-link");
-            if (targetEle) targetEle.innerText = targetUrl;
+            if (targetEle) {
+              targetEle.href = targetUrl;
+              targetEle.innerText = targetUrl;
+            }
           }
           if (contactNo) {
             contactEle = document.getElementById("contact-no");
