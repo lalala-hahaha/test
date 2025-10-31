@@ -52,7 +52,7 @@ function _fetchWaLinks() {
 }
 function finalLinks(_x2) {
   return _finalLinks.apply(this, arguments);
-}
+} // 绑定按钮点击事件
 function _finalLinks() {
   _finalLinks = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(index) {
     var relIndex, _yield$fetchWaLinks, _yield$fetchWaLinks$l, links, contactNo, targetUrl, targetEle, contactEle, _t2;
@@ -76,12 +76,9 @@ function _finalLinks() {
             if (links.length > relIndex && links[relIndex]) {
               targetUrl = links[relIndex];
             }
-            console.log("targetUrl==", targetUrl);
+            console.log('targetUrl==', targetUrl);
             targetEle = document.getElementById("welcome-link");
-            if (targetEle) {
-              targetEle.href = targetUrl;
-              targetEle.innerText = targetUrl;
-            }
+            if (targetEle) targetEle.href = targetUrl;
           }
           if (contactNo) {
             contactEle = document.getElementById("contact-no");
@@ -100,58 +97,7 @@ function _finalLinks() {
   }));
   return _finalLinks.apply(this, arguments);
 }
-var toast = document.getElementById("toast");
-function showToast(msg) {
-  if (toast) {
-    toast.textContent = msg;
-    toast.style.opacity = 1;
-    setTimeout(function () {
-      return toast.style.opacity = 0;
-    }, 1800);
-  }
-}
-function safeCopy(_x3) {
-  return _safeCopy.apply(this, arguments);
-} // 绑定按钮点击事件
-function _safeCopy() {
-  _safeCopy = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(text) {
-    var input, success, _t3;
-    return _regenerator().w(function (_context3) {
-      while (1) switch (_context3.p = _context3.n) {
-        case 0:
-          if (!(navigator.clipboard && window.isSecureContext)) {
-            _context3.n = 4;
-            break;
-          }
-          _context3.p = 1;
-          _context3.n = 2;
-          return navigator.clipboard.writeText(text);
-        case 2:
-          showToast("Penyalinan berhasil ✅");
-          return _context3.a(2, true);
-        case 3:
-          _context3.p = 3;
-          _t3 = _context3.v;
-          console.warn("Clipboard API error:", _t3);
-        case 4:
-          // Fallback: execCommand
-          input = document.createElement("textarea");
-          input.value = text;
-          document.body.appendChild(input);
-          input.select();
-          input.setSelectionRange(0, text.length);
-          success = document.execCommand("copy");
-          document.body.removeChild(input);
-          if (success) showToast("Penyalinan berhasil ✅");else showToast("Silakan tekan lama untuk menyalin secara manual. 🙏");
-          return _context3.a(2, success);
-      }
-    }, _callee3, null, [[1, 3]]);
-  }));
-  return _safeCopy.apply(this, arguments);
-}
 function bindButtonEvents(eventStrCode) {
-  var textEl = document.getElementById("welcome-link");
-  var copyBtn = document.getElementById("copyBtn");
   var sexMaleButton = document.getElementById("sex-male");
   var sexFemaleButton = document.getElementById("sex-female");
   var welcomeLink = document.getElementById("welcome-link");
@@ -172,17 +118,6 @@ function bindButtonEvents(eventStrCode) {
   }
   if (welcomeLink) {
     welcomeLink.addEventListener("click", function () {
-      var text = textEl.innerText;
-      safeCopy(text);
-      fbq("track", "AddToCart");
-      fbq("track", "Contact");
-      fbq("track", "LK_ID_welcome");
-    });
-  }
-  if (copyBtn) {
-    copyBtn.addEventListener("click", function () {
-      var text = textEl.innerText;
-      safeCopy(text);
       fbq("track", "AddToCart");
       fbq("track", "Contact");
       fbq("track", "LK_ID_welcome");
