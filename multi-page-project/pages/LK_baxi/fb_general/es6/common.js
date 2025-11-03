@@ -59,7 +59,7 @@ function bindButtonEvents(eventStrCode) {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      fbq("track", `LK_TUR_male`);
+      fbq("track", `LK_BRA_male`);
     });
   }
 
@@ -68,7 +68,7 @@ function bindButtonEvents(eventStrCode) {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
       fbq("track", "ViewContent");
-      fbq("track", `LK_TUR_female`);
+      fbq("track", `LK_BRA_female`);
     });
   }
 
@@ -76,7 +76,7 @@ function bindButtonEvents(eventStrCode) {
     welcomeLink.addEventListener("click", () => {
       fbq("track", "AddToCart");
       fbq("track", "Contact");
-      fbq("track", `LK_TUR_welcome`);
+      fbq("track", `LK_BRA_welcome`);
     });
   }
 }

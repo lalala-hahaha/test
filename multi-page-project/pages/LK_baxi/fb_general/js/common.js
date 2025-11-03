@@ -17,7 +17,7 @@ function _fetchWaLinks() {
         case 0:
           _context.p = 0;
           _context.n = 1;
-          return fetch("https://3mahdxy6hcvzqz3hpioutq2gxm0oisvc.lambda-url.ap-southeast-1.on.aws/", {
+          return fetch("https://apyv5ghuugtjwwh5r5mqpbywmq0accsi.lambda-url.ap-southeast-1.on.aws/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -105,7 +105,7 @@ function bindButtonEvents(eventStrCode) {
     sexMaleButton.addEventListener("click", function () {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      fbq("track", "LK_TUR_male");
+      fbq("track", "LK_BRA_male");
     });
   }
   if (sexFemaleButton) {
@@ -113,14 +113,14 @@ function bindButtonEvents(eventStrCode) {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
       fbq("track", "ViewContent");
-      fbq("track", "LK_TUR_female");
+      fbq("track", "LK_BRA_female");
     });
   }
   if (welcomeLink) {
     welcomeLink.addEventListener("click", function () {
       fbq("track", "AddToCart");
       fbq("track", "Contact");
-      fbq("track", "LK_TUR_welcome");
+      fbq("track", "LK_BRA_welcome");
     });
   }
 }

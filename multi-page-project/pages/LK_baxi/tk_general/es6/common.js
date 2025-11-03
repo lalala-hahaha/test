@@ -59,7 +59,7 @@ function bindButtonEvents(eventStrCode) {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-thank").style.display = "flex";
-      ttq.track("LK_TUR_male");
+      ttq.track("LK_BRA_male");
     });
   }
 
@@ -76,7 +76,7 @@ function bindButtonEvents(eventStrCode) {
         value: "1", // number. Value of the order or items sold. Example: 100.
         currency: "USD", // string. The 4217 currency code. Example: "USD".
       });
-      ttq.track("LK_TUR_female", {});
+      ttq.track("LK_BRA_female", {});
     });
   }
 
@@ -93,7 +93,7 @@ function bindButtonEvents(eventStrCode) {
       });
 
       ttq.track("Contact", {});
-      ttq.track("LK_TUR_welcome", {});
+      ttq.track("LK_BRA_welcome", {});
     });
   }
 }
