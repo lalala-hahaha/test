@@ -52,17 +52,11 @@ const submitNewList = function (targetInput, targetList) {
   const value = targetInput.value;
   if (value) {
     const newValue = value.replace(/\s+/g, "");
-
-    let regex = /http/i; // "i" 表示忽略大小写
-    if (regex.test(newValue)) {
-      console.log(newValue);
-      fetchWaLinks("setList", newValue, targetList);
-      setTimeout(() => {
-        initializeToggles();
-      }, 3000);
-    } else {
-      alert("请输入正确的网址");
-    }
+    console.log(newValue);
+    fetchWaLinks("setList", newValue, targetList);
+    setTimeout(() => {
+      initializeToggles();
+    }, 3000);
   }
 };
 

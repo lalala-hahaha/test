@@ -71,16 +71,11 @@ var submitNewList = function submitNewList(targetInput, targetList) {
   var value = targetInput.value;
   if (value) {
     var newValue = value.replace(/\s+/g, "");
-    var regex = /http/i; // "i" 表示忽略大小写
-    if (regex.test(newValue)) {
-      console.log(newValue);
-      fetchWaLinks("setList", newValue, targetList);
-      setTimeout(function () {
-        initializeToggles();
-      }, 3000);
-    } else {
-      alert("请输入正确的网址");
-    }
+    console.log(newValue);
+    fetchWaLinks("setList", newValue, targetList);
+    setTimeout(function () {
+      initializeToggles();
+    }, 3000);
   }
 };
 var dflist = document.getElementById("wa-df-list");

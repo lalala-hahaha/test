@@ -9,7 +9,9 @@
     <meta name="apple-touch-fullscreen" content="yes" />
     <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no" />
     <meta name="viewport" content="width=750,viewport-fit=cover" />
-    <link rel="stylesheet" href="css/style.css">
+    <!-- build:css css/index.css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- endbuild -->
 
     <script>
         window.mobileUtil = function (i, e) { var t = navigator.userAgent, n = /android|adr/gi.test(t), a = /iphone|ipod|ipad/gi.test(t) && !n, r = n || a; return { isAndroid: n, isIos: a, isMobile: r, fixScreen: function () { function t(i) { return "initial-scale=" + i + ",maximum-scale=" + i + ",minimum-scale=" + i } var n = e.querySelector('meta[name="viewport"]'), a = n ? n.content : "", d = a.match(/initial\-scale=([\d\.]+)/), o = a.match(/width=([^,\s]+)/); if (r && !d && o && "device-width" != o[1]) { var c = parseInt(o[1]), s = i.innerWidth || c, m = i.screen.width || s, l = m / c; n.content = a + ",target-densitydpi=device-dpi," + t(l) } } } }(window, document), mobileUtil.fixScreen();
@@ -78,7 +80,9 @@
             </div>
         </div>
     </div>
+    <!-- build:js js/index.js -->
     <script src="js/index.js"></script>
+    <!-- endbuild -->
 </body>
 
 </html>

@@ -1,4 +1,4 @@
- const pageid = 'bright-kulfi-2fb39e'
+const pageId = 'bright-kulfi-2fb39e'
 // 获取按钮和 textarea 元素
 const submitDefault = document.getElementById("submit-default");
 const newlistDefault = document.getElementById("newlist-default");
@@ -52,17 +52,11 @@ const submitNewList = function (targetInput, targetList) {
   const value = targetInput.value;
   if (value) {
     const newValue = value.replace(/\s+/g, "");
-
-    let regex = /http/i; // "i" 表示忽略大小写
-    if (regex.test(newValue)) {
-      console.log(newValue);
-      fetchWaLinks("setList", newValue, targetList);
-      setTimeout(() => {
-        initializeToggles();
-      }, 3000);
-    } else {
-      alert("请输入正确的网址");
-    }
+    console.log(newValue);
+    fetchWaLinks("setList", newValue, targetList);
+    setTimeout(() => {
+      initializeToggles();
+    }, 3000);
   }
 };
 
