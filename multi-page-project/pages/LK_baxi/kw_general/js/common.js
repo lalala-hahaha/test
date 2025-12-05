@@ -133,6 +133,11 @@ function bindButtonEvents(eventStrCode) {
     welcomeLink.addEventListener("click", function () {
       kwaiq.instance(aid).track('addToCart');
       kwaiq.instance(aid).track('contact');
+      gtag('event', 'button_click', {
+        event_category: 'ui',
+        event_label: 'AddToCart',
+        value: 1
+      });
       // kwaiq.instance(aid).track('LK_BRA_welcome');
     });
   }

@@ -135,6 +135,11 @@ function bindButtonEvents(eventStrCode) {
       });
       ttq.track("Contact", {});
       ttq.track("LK_BRA_welcome", {});
+      gtag('event', 'button_click', {
+        event_category: 'ui',
+        event_label: 'AddToCart',
+        value: 1
+      });
     });
   }
 }
