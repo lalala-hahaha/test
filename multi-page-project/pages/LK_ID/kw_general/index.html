@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Premata Agency</title>
+  <meta http-equiv="Content-type" content="text/html" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="yes" name="apple-touch-fullscreen" />
+  <meta name="viewport" content="width=750">
+  <!-- build:css css/index.css -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- endbuild -->
+  <script>
+    (window.mobileUtil = (function (i, e) {
+      var t = navigator.userAgent,
+        n = /android|adr/gi.test(t),
+        a = /iphone|ipod|ipad/gi.test(t) && !n,
+        r = n || a;
+      return {
+        fixScreen: function () {
+          function t(i) {
+            return (
+              "initial-scale=" +
+              i +
+              ",maximum-scale=" +
+              i +
+              ",minimum-scale=" +
+              i
+            );
+          }
+          var n = e.querySelector('meta[name="viewport"]'),
+            a = n ? n.content : "",
+            d = a.match(/initial\-scale=([\d\.]+)/),
+            o = a.match(/width=([^,\s]+)/);
+          if (r && !d && o && "device-width" != o[1]) {
+            var c = parseInt(o[1]),
+              s = i.innerWidth || c,
+              m = i.screen.width || s,
+              l = m / c;
+            n.content = a + ",target-densitydpi=device-dpi," + t(l);
+          }
+        },
+      };
+    })(window, document)),
+      mobileUtil.fixScreen();
+  </script>
+  <script>
+    !function (e, t) { "object" == typeof exports && "object" == typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == typeof exports ? exports.install = t() : e.install = t() }(window, (function () { return function (e) { var t = {}; function n(o) { if (t[o]) return t[o].exports; var r = t[o] = { i: o, l: !1, exports: {} }; return e[o].call(r.exports, r, r.exports, n), r.l = !0, r.exports } return n.m = e, n.c = t, n.d = function (e, t, o) { n.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: o }) }, n.r = function (e) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 }) }, n.t = function (e, t) { if (1 & t && (e = n(e)), 8 & t) return e; if (4 & t && "object" == typeof e && e && e.__esModule) return e; var o = Object.create(null); if (n.r(o), Object.defineProperty(o, "default", { enumerable: !0, value: e }), 2 & t && "string" != typeof e) for (var r in e) n.d(o, r, function (t) { return e[t] }.bind(null, r)); return o }, n.n = function (e) { var t = e && e.__esModule ? function () { return e.default } : function () { return e }; return n.d(t, "a", t), t }, n.o = function (e, t) { return Object.prototype.hasOwnProperty.call(e, t) }, n.p = "", n(n.s = 0) }([function (e, t, n) { "use strict"; var o = this && this.__spreadArray || function (e, t, n) { if (n || 2 === arguments.length) for (var o, r = 0, i = t.length; r < i; r++)!o && r in t || (o || (o = Array.prototype.slice.call(t, 0, r)), o[r] = t[r]); return e.concat(o || Array.prototype.slice.call(t)) }; Object.defineProperty(t, "__esModule", { value: !0 }); var r = function (e, t, n) { var o, i = e.createElement("script"); i.type = "text/javascript", i.async = !0, i.src = t, n && (i.onerror = function () { r(e, n) }); var a = e.getElementsByTagName("script")[0]; null === (o = a.parentNode) || void 0 === o || o.insertBefore(i, a) }; !function (e, t, n) { e.KwaiAnalyticsObject = n; var i = e[n] = e[n] || []; i.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"]; var a = function (e, t) { e[t] = function () { for (var n = [], r = 0; r < arguments.length; r++)n[r] = arguments[r]; var i = o([t], n, !0); e.push(i) } }; i.methods.forEach((function (e) { a(i, e) })), i.instance = function (e) { var t, n = (null === (t = i._i) || void 0 === t ? void 0 : t[e]) || []; return i.methods.forEach((function (e) { a(n, e) })), n }, i.load = function (e, o) { var a = "https://s1.kwai.net/kos/s101/nlav11187/pixel/events.js"; i._i = i._i || {}, i._i[e] = [], i._i[e]._u = a, i._t = i._t || {}, i._t[e] = +new Date, i._o = i._o || {}, i._o[e] = o || {}; var c = "?sdkid=".concat(e, "&lib=").concat(n); r(t, a + c, "https://s16-11187.ap4r.com/kos/s101/nlav11187/pixel/events.js" + c) } }(window, document, "kwaiq") }]) }));
+  </script>
+  <script>
+    function getQueryParam(name) {
+      var query = window.location.search.substring(1);
+      var pairs = query.split("&");
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split("=");
+        if (decodeURIComponent(pair[0]) === name) {
+          return decodeURIComponent(pair[1] || "");
+        }
+      }
+      return null;
+    }
+    var aid = getQueryParam("aid");
+    kwaiq.load(aid);
+    kwaiq.page();
+  </script>
+</head>
+
+<body>
+  <div class="page">
+    <div class="banner"></div>
+    <div class="urgency">
+      <div class="urgency-content">
+        <h2 class="urgency-content-title">⏰ Kesempatan Terbatas</h2>
+        <p class="urgency-content-p">Kuota terbatas, hanya untuk 100 pendaftar pertama</p>
+        <div class="urgency-stats clf">
+          <div class="stat">
+            <p class="stat-number" id="remaining-spots">&nbsp;</p>
+            <p class="stat-label">Sisa Kuota</p>
+          </div>
+          <div class="stat">
+            <p class="stat-number" id="stat-timer">&nbsp;</p>
+            <p class="stat-label">Waktu Berakhir</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="page-sex" id="page-sex">
+        <div class="sex-options">
+          <p class="sex-title">Apakah Anda pria atau wanita?</p>
+          <div class="sex-female" id="sex-female">
+            <p>perempuan</p>
+          </div>
+          <div class="sex-male" id="sex-male">
+            <p>pria</p>
+          </div>
+        </div>
+      </div>
+      <div class="page-thank" id="page-thank">
+        <div class="page-thank-content">
+          <i class="page-thank-content-icon"></i>
+          <div class="page-thank-content-txt">
+            <p>Kami telah menerima aplikasi dan akan menghubungi and a apabila kami mempunyai peluang kerja yang sesuai
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="page-welcome" id="page-welcome">
+        <div class="welcome-box">
+          <div class="welcome-content">
+            <div class="welcome-txt">
+              <p>· 📱 Ngobrol santai di ponsel, gajian setiap hari.</p>
+              <p>· 🛜 Cukup Satu Ponsel + Internet.</p>
+              <p>· ⏰ Belajar dalam 5 menit, Anda bisa langsung bekerja dan menghasilkan uang.</p>
+              <p>· 🏠 Sekarang bisa mendapatkan uang saku kecil di rumah, tenang dan nyaman.</p>
+              <p class="welcome-txt-guide">👇 Ingin belajar cara kerja sambilan? Klik di bawah untuk bergabung dengan grup! Ada bimbingan khusus setiap hari!</p>
+              <p class="welcome-link-p"><a id="welcome-link" target="_blank"
+                  class="welcome-link" href="https://dynamic-hotteok-598901.netlify.app/">Klik untuk menghubungi
+                  kami</a></p>
+            </div>
+            <div class="welcome-notis">
+              <p>Notis:</p>
+              <p>Kami tidak mengenakan sebarang bayaran untuk keseluruhan proses! Jika anda mempunyai sebarang
+                pertanyaan,
+                sila rujuk kepada pentadbir kumpulan! Awas ditipu!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-intro">
+        <p class="intro-title">Tentang Kami</p>
+        <dl class="intro-content">
+          <dt>Latar Belakang Perusahaan:</dt>
+          <dd>Premata Agency adalah agensi yang membantu berbagai produk sosial untuk merekrut host di Indonesia.</dd>
+          <dt>Posisi Rekrutmen:</dt>
+          <dd>
+            <p><strong>[Standar Gaji]</strong></p>
+            <p>· Chat 1v1* membalas pesan</p>
+            <p class="text-indent2">· 1-9 pesan = <span class="text-prominent">Rp.30/pesan</span></p>
+            <p class="text-indent2">· 10-30 pesan = <span class="text-prominent">Rp.65/pesan</span></p>
+            <p class="text-indent2">· lebih dari 31 pesan = <span class="text-prominent">Rp.100/pesan</span></p>
+            <p>· Voice call = <span class="text-prominent">Rp.960/menit</span></p>
+            <p>· unlock image = <span class="text-prominent">Rp.800/ima</span></p>
+            <p>· Pendapatan Hadiah = <span class="text-prominent">Rp.30-319,000/pcs</span></p>
+            <br>
+            <p><strong>[Persyaratan Rekrutmen]</strong></p>
+            <p>· Usia 18 tahun ke atas</p>
+            <br>
+            <p><strong>[Catatan]</strong></p>
+            <p>· Pendapatan tergantung pada usaha pribadi</p>
+          </dd>
+        </dl>
+      </div>
+
+      <div class="page-footer">Jika Anda tertarik, silakan hubungi WhatsApp:<span id="contact-no">+852 5691 6687</span>
+      </div>
+    </div>
+    <div id="toast" class="toast"></div>
+  </div>
+  <!-- build:js js/index.js -->
+  <script src="js/common.js"></script>
+  <script src="js/index.js"></script>
+  <!-- endbuild -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHBG9V3LNN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-PHBG9V3LNN');
+  </script>
+</body>
+
+</html>
