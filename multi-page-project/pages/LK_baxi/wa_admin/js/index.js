@@ -179,3 +179,41 @@ function _initializeToggles() {
   return _initializeToggles.apply(this, arguments);
 }
 initializeToggles();
+function addWatermark() {
+  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    _ref2$text = _ref2.text,
+    text = _ref2$text === void 0 ? '内部资料 请勿外传' : _ref2$text,
+    _ref2$rotate = _ref2.rotate,
+    rotate = _ref2$rotate === void 0 ? 15 : _ref2$rotate,
+    _ref2$opacity = _ref2.opacity,
+    opacity = _ref2$opacity === void 0 ? 0.25 : _ref2$opacity,
+    _ref2$fontSize = _ref2.fontSize,
+    fontSize = _ref2$fontSize === void 0 ? 20 : _ref2$fontSize,
+    _ref2$gap = _ref2.gap,
+    gap = _ref2$gap === void 0 ? 150 : _ref2$gap;
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = gap * dpr;
+  canvas.height = gap * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.rotate(rotate * Math.PI / 180);
+  ctx.font = "".concat(fontSize, "px sans-serif");
+  ctx.fillStyle = "rgba(210, 210, 210,".concat(opacity, ")");
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, gap / 2, gap / 2);
+  var watermark = document.createElement('div');
+  watermark.style.pointerEvents = 'none';
+  watermark.style.position = 'fixed';
+  watermark.style.top = 0;
+  watermark.style.left = 0;
+  watermark.style.width = '100%';
+  watermark.style.height = '100%';
+  watermark.style.zIndex = 9999;
+  watermark.style.backgroundImage = "url(".concat(canvas.toDataURL(), ")");
+  document.body.appendChild(watermark);
+}
+addWatermark({
+  text: '🇧🇷巴西'
+});

@@ -130,3 +130,41 @@ async function initializeToggles() {
 
 // 调用初始化函数
 initializeToggles();
+function addWatermark({
+  text = '内部资料 请勿外传',
+  rotate = 15,
+  opacity = 0.25,
+  fontSize = 20,
+  gap = 150
+} = {}) {
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+
+  const dpr = window.devicePixelRatio || 1
+  canvas.width = gap * dpr
+  canvas.height = gap * dpr
+
+  ctx.scale(dpr, dpr)
+  ctx.rotate((rotate * Math.PI) / 180)
+  ctx.font = `${fontSize}px sans-serif`
+  ctx.fillStyle = `rgba(210, 210, 210,${opacity})`
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+  ctx.fillText(text, gap / 2, gap / 2)
+
+  const watermark = document.createElement('div')
+  watermark.style.pointerEvents = 'none'
+  watermark.style.position = 'fixed'
+  watermark.style.top = 0
+  watermark.style.left = 0
+  watermark.style.width = '100%'
+  watermark.style.height = '100%'
+  watermark.style.zIndex = 9999
+  watermark.style.backgroundImage = `url(${canvas.toDataURL()})`
+
+  document.body.appendChild(watermark)
+}
+
+addWatermark({
+  text: '🇧🇷巴西',
+})
