@@ -19,6 +19,11 @@ async function finalPage() {
   try {
     const data = await fetchWaLinks();
     if (data?.url) {
+      gtag('event', 'transfer_BRA', {
+        event_category: 'ui',
+        event_label: 'AddToCart',
+        value: 1
+      });
       const targetUrl = data.url;
       window.location.href = targetUrl;
     }
