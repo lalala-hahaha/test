@@ -19,6 +19,11 @@ async function finalPage() {
   try {
     const data = await fetchWaLinks();
     if (data?.url) {
+      gtag('event', 'transfer_ME', {
+        event_category: 'ui',
+        event_label: 'transfer_ME',
+        value: 1
+      });
       const targetUrl = data.url;
       window.location.href = targetUrl;
     }

@@ -204,18 +204,19 @@ function addWatermark() {
   ctx.scale(dpr, dpr);
   ctx.rotate(rotate * Math.PI / 180);
   ctx.font = "".concat(fontSize, "px sans-serif");
-  ctx.fillStyle = "rgba(210, 210, 210,".concat(opacity, ")");
+  ctx.fillStyle = "rgba(210, 210, 210)";
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(text, gap / 2, gap / 2);
   var watermark = document.createElement('div');
   watermark.style.pointerEvents = 'none';
   watermark.style.position = 'fixed';
+  watermark.style.opacity = opacity;
   watermark.style.top = 0;
   watermark.style.left = 0;
   watermark.style.width = '100%';
   watermark.style.height = '100%';
-  watermark.style.zIndex = 9999;
+  watermark.style.zIndex = 999;
   watermark.style.backgroundImage = "url(".concat(canvas.toDataURL(), ")");
   document.body.appendChild(watermark);
 }

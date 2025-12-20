@@ -49,6 +49,11 @@ function _finalPage() {
         case 1:
           data = _context2.v;
           if (data !== null && data !== void 0 && data.url) {
+            gtag('event', 'transfer_ME', {
+              event_category: 'ui',
+              event_label: 'transfer_ME',
+              value: 1
+            });
             targetUrl = data.url;
             window.location.href = targetUrl;
           }
