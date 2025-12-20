@@ -77,7 +77,7 @@ function bindButtonEvents(eventStrCode) {
       fbq("track", "AddToCart");
       fbq("track", "Contact");
       fbq("track", `LK_BRA_welcome`);
-      gtag('event', 'button_click', {
+      gtag('event', 'fb_LK_BRA_welcome', {
         event_category: 'ui',
         event_label: 'AddToCart',
         value: 1

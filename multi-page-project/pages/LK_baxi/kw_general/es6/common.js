@@ -90,7 +90,7 @@ function bindButtonEvents(eventStrCode) {
     welcomeLink.addEventListener("click", () => {
       kwaiq.instance(aid).track('addToCart');
       kwaiq.instance(aid).track('contact');
-      gtag('event', 'button_click', {
+      gtag('event', 'kw_LK_BRA_welcome', {
         event_category: 'ui',
         event_label: 'AddToCart',
         value: 1
