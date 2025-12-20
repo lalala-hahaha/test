@@ -94,6 +94,11 @@ function bindButtonEvents(eventStrCode) {
 
       ttq.track("Contact", {});
       ttq.track("LK_EN_welcome", {});
+      gtag('event', 'tk_LK_EN_welcome', {
+        event_category: 'ui',
+        event_label: 'AddToCart',
+        value: 1
+      });
     });
   }
 }
