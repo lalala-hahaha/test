@@ -121,6 +121,11 @@ function bindButtonEvents(eventStrCode) {
       fbq("track", "AddToCart");
       fbq("track", "Contact");
       fbq("track", "LK_ID_welcome");
+      gtag('event', 'fb_LK_ID_welcome', {
+        event_category: 'ui',
+        event_label: 'AddToCart',
+        value: 1
+      });
     });
   }
 }
