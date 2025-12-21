@@ -1,4 +1,4 @@
-const pageId = 'bright-kulfi-2fb39e'
+const pageId = 'nimble-tulumba-47afb1'
 // 获取按钮和 textarea 元素
 const submitDefault = document.getElementById("submit-default");
 const newlistDefault = document.getElementById("newlist-default");
@@ -87,7 +87,7 @@ const inseList = function (ele, dataList) {
 // 获取当前wa列表
 async function fetchWaLinks(action, newListValue, targetList) {
   const response = await fetch(
-    `https://japqvanyxxykw6fzi67pfeafeq0qezxn.lambda-url.ap-southeast-1.on.aws/`,
+    `https://trbd6biik2jndc4cs4lhn2q3gu0konjv.lambda-url.ap-southeast-1.on.aws/`,
     {
       method: "POST",
       headers: {
@@ -168,5 +168,5 @@ function addWatermark({
 }
 
 addWatermark({
-  text: '🇮🇩印尼',
+  text: '1️⃣管理1️⃣',
 })

@@ -4,7 +4,7 @@ function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present,
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-var pageId = 'bright-kulfi-2fb39e';
+var pageId = 'nimble-tulumba-47afb1';
 // 获取按钮和 textarea 元素
 var submitDefault = document.getElementById("submit-default");
 var newlistDefault = document.getElementById("newlist-default");
@@ -113,7 +113,7 @@ function _fetchWaLinks() {
       while (1) switch (_context2.n) {
         case 0:
           _context2.n = 1;
-          return fetch("https://japqvanyxxykw6fzi67pfeafeq0qezxn.lambda-url.ap-southeast-1.on.aws/", {
+          return fetch("https://trbd6biik2jndc4cs4lhn2q3gu0konjv.lambda-url.ap-southeast-1.on.aws/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -216,5 +216,5 @@ function addWatermark() {
   document.body.appendChild(watermark);
 }
 addWatermark({
-  text: '🇮🇩印尼'
+  text: '1️⃣管理1️⃣'
 });
