@@ -112,7 +112,14 @@ function bindButtonEvents(eventStrCode) {
     sexFemaleButton.addEventListener("click", function () {
       document.getElementById("page-sex").style.display = "none";
       document.getElementById("page-welcome").style.display = "flex";
-      ttq.track("ViewContent", {});
+      ttq.track("ViewContent", {
+        contents: [{
+          content_id: "666" // string. ID of the product. Example: "1077218".
+        }],
+        value: "1",
+        // number. Value of the order or items sold. Example: 100.
+        currency: "USD" // string. The 4217 currency code. Example: "USD".
+      });
       // ttq.track("LK_ID_female", {});
     });
   }
