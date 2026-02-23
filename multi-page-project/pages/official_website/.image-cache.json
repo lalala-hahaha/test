@@ -1,5 +1,14 @@
 {
-  "p1.jpg": "08ca3d0d8d73683d0ddb1f7f75292eeb",
-  "p2.jpg": "e2f78fe63417f6e577e01ba27ba0a7d0",
-  "p3.jpg": "e6e84c5c7e3976a62eadc002aa8cdbc5"
+  "p1.jpg": {
+    "hash": "08ca3d0d8d73683d0ddb1f7f75292eeb",
+    "rev": "p1-1dc3d6f8f0.jpg"
+  },
+  "p2.jpg": {
+    "hash": "e2f78fe63417f6e577e01ba27ba0a7d0",
+    "rev": "p2-8b6bcee0e9.jpg"
+  },
+  "p3.jpg": {
+    "hash": "e6e84c5c7e3976a62eadc002aa8cdbc5",
+    "rev": "p3-a3ba96616d.jpg"
+  }
 }
