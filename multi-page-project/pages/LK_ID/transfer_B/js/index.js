@@ -5,6 +5,7 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var pageId = "velvety-seahorse-9a8ce4";
+var refreshPromise = null;
 // 获取当前wa列表
 function fetchWaLinks() {
   return _fetchWaLinks.apply(this, arguments);
@@ -16,8 +17,9 @@ function _fetchWaLinks() {
       while (1) switch (_context.n) {
         case 0:
           _context.n = 1;
-          return fetch("https://xurnbwmda3d2rdzgba2zutv7x40tgblk.lambda-url.ap-southeast-1.on.aws/", {
+          return fetch("https://xurnbwmda3d2rdzgba2zutv7x40tgblk.lambda-url.ap-southeast-1.on.aws/?_ts=".concat(Date.now()), {
             method: "POST",
+            cache: "no-store",
             headers: {
               "Content-Type": "application/json"
             }
@@ -36,7 +38,7 @@ function _fetchWaLinks() {
 }
 function finalPage() {
   return _finalPage.apply(this, arguments);
-} // 调用初始化函数
+}
 function _finalPage() {
   _finalPage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
     var data, targetUrl, _t;
@@ -70,4 +72,23 @@ function _finalPage() {
   }));
   return _finalPage.apply(this, arguments);
 }
-finalPage();
+function refreshLatestData() {
+  if (refreshPromise) {
+    return refreshPromise;
+  }
+  refreshPromise = finalPage().finally(function () {
+    refreshPromise = null;
+  });
+  return refreshPromise;
+}
+function refreshOnPageActive() {
+  if (document.visibilityState === "visible") {
+    refreshLatestData();
+  }
+}
+
+// 调用初始化函数
+refreshLatestData();
+document.addEventListener("visibilitychange", refreshOnPageActive);
+window.addEventListener("focus", refreshOnPageActive);
+window.addEventListener("pageshow", refreshOnPageActive);

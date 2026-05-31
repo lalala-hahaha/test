@@ -71,6 +71,7 @@ const fblist = document.getElementById("wa-fb-list");
 const tklist = document.getElementById("wa-tk-list");
 const kwlist = document.getElementById("wa-kw-list");
 const footerWa = document.getElementById("footer-wa");
+let refreshPromise = null;
 const inseList = function (ele, dataList) {
   ele.innerHTML = "";
   // 遍历数组，并将每个元素作为新的列表项插入
@@ -93,9 +94,10 @@ const inseList = function (ele, dataList) {
 // 获取当前wa列表
 async function fetchWaLinks(action, newListValue, targetList) {
   const response = await fetch(
-      `https://pz4ccil4iqhrps7h5t7ecggfhi0glowz.lambda-url.ap-southeast-1.on.aws/`,
+      `https://pz4ccil4iqhrps7h5t7ecggfhi0glowz.lambda-url.ap-southeast-1.on.aws/?_ts=${Date.now()}`,
     {
       method: "POST",
+      cache: "no-store",
       headers: {
         "Content-Type": "application/json",
       },
@@ -134,8 +136,29 @@ async function initializeToggles() {
   }
 }
 
+function refreshLatestData() {
+  if (refreshPromise) {
+    return refreshPromise;
+  }
+
+  refreshPromise = initializeToggles().finally(() => {
+    refreshPromise = null;
+  });
+
+  return refreshPromise;
+}
+
+function refreshOnPageActive() {
+  if (document.visibilityState === "visible") {
+    refreshLatestData();
+  }
+}
+
 // 调用初始化函数
-initializeToggles();
+refreshLatestData();
+document.addEventListener("visibilitychange", refreshOnPageActive);
+window.addEventListener("focus", refreshOnPageActive);
+window.addEventListener("pageshow", refreshOnPageActive);
 
 function addWatermark({
   text = '内部资料 请勿外传',

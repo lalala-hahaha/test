@@ -1,10 +1,12 @@
 const pageId = "dynamic-hotteok-598901";
+let refreshPromise = null;
 // 获取当前wa列表
 async function fetchWaLinks() {
   const response = await fetch(
-      `https://japqvanyxxykw6fzi67pfeafeq0qezxn.lambda-url.ap-southeast-1.on.aws/`,
+      `https://japqvanyxxykw6fzi67pfeafeq0qezxn.lambda-url.ap-southeast-1.on.aws/?_ts=${Date.now()}`,
     {
       method: "POST",
+      cache: "no-store",
       headers: {
         "Content-Type": "application/json",
       },
@@ -32,5 +34,26 @@ async function finalPage() {
   }
 }
 
+function refreshLatestData() {
+  if (refreshPromise) {
+    return refreshPromise;
+  }
+
+  refreshPromise = finalPage().finally(() => {
+    refreshPromise = null;
+  });
+
+  return refreshPromise;
+}
+
+function refreshOnPageActive() {
+  if (document.visibilityState === "visible") {
+    refreshLatestData();
+  }
+}
+
 // 调用初始化函数
-finalPage();
+refreshLatestData();
+document.addEventListener("visibilitychange", refreshOnPageActive);
+window.addEventListener("focus", refreshOnPageActive);
+window.addEventListener("pageshow", refreshOnPageActive);

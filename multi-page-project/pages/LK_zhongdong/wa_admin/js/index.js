@@ -88,6 +88,7 @@ var fblist = document.getElementById("wa-fb-list");
 var tklist = document.getElementById("wa-tk-list");
 var kwlist = document.getElementById("wa-kw-list");
 var footerWa = document.getElementById("footer-wa");
+var refreshPromise = null;
 var inseList = function inseList(ele, dataList) {
   ele.innerHTML = "";
   // 遍历数组，并将每个元素作为新的列表项插入
@@ -118,8 +119,9 @@ function _fetchWaLinks() {
       while (1) switch (_context2.n) {
         case 0:
           _context2.n = 1;
-          return fetch("https://pz4ccil4iqhrps7h5t7ecggfhi0glowz.lambda-url.ap-southeast-1.on.aws/", {
+          return fetch("https://pz4ccil4iqhrps7h5t7ecggfhi0glowz.lambda-url.ap-southeast-1.on.aws/?_ts=".concat(Date.now()), {
             method: "POST",
+            cache: "no-store",
             headers: {
               "Content-Type": "application/json"
             },
@@ -143,7 +145,7 @@ function _fetchWaLinks() {
 }
 function initializeToggles() {
   return _initializeToggles.apply(this, arguments);
-} // 调用初始化函数
+}
 function _initializeToggles() {
   _initializeToggles = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
     var data, _t;
@@ -183,7 +185,26 @@ function _initializeToggles() {
   }));
   return _initializeToggles.apply(this, arguments);
 }
-initializeToggles();
+function refreshLatestData() {
+  if (refreshPromise) {
+    return refreshPromise;
+  }
+  refreshPromise = initializeToggles().finally(function () {
+    refreshPromise = null;
+  });
+  return refreshPromise;
+}
+function refreshOnPageActive() {
+  if (document.visibilityState === "visible") {
+    refreshLatestData();
+  }
+}
+
+// 调用初始化函数
+refreshLatestData();
+document.addEventListener("visibilitychange", refreshOnPageActive);
+window.addEventListener("focus", refreshOnPageActive);
+window.addEventListener("pageshow", refreshOnPageActive);
 function addWatermark() {
   var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
     _ref2$text = _ref2.text,
