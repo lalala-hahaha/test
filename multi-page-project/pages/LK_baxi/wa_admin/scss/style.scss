@@ -71,7 +71,6 @@ li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
   padding: 24px;
   background: rgba(0, 0, 0, 0.48);
   opacity: 0;
@@ -97,6 +96,7 @@ li {
 }
 
 .loading-text {
+  margin-top: 16px;
   color: #fff;
   font-size: 28px;
   line-height: 1.4;

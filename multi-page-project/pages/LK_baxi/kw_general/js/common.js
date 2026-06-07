@@ -17,6 +17,64 @@ function getQueryParam(name) {
   return null;
 }
 var aid = getQueryParam("aid");
+var welcomeLink = document.getElementById("welcome-link");
+var welcomeLoading = document.getElementById("welcome-loading");
+var contactEle = document.getElementById("contact-no");
+var fallbackWelcomeHref = welcomeLink ? welcomeLink.getAttribute("href") || "" : "";
+var WELCOME_LINK_UNLOCK_MS = 5000;
+var isWelcomeLinkReady = !welcomeLink;
+var welcomeLinkUnlockTimer = null;
+function setWelcomeLoadingVisible(visible) {
+  if (!welcomeLoading) {
+    return;
+  }
+  welcomeLoading.classList.toggle("is-visible", visible);
+  welcomeLoading.setAttribute("aria-hidden", "".concat(!visible));
+}
+function setWelcomeLinkState(ready) {
+  var href = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fallbackWelcomeHref;
+  if (!welcomeLink) {
+    return;
+  }
+  isWelcomeLinkReady = ready;
+  welcomeLink.classList.toggle("is-disabled", !ready);
+  welcomeLink.setAttribute("aria-disabled", "".concat(!ready));
+  if (ready) {
+    if (href) {
+      welcomeLink.href = href;
+    }
+  } else {
+    welcomeLink.removeAttribute("href");
+  }
+  setWelcomeLoadingVisible(!ready);
+}
+function armWelcomeLinkFallback() {
+  if (!welcomeLink) {
+    return;
+  }
+  if (welcomeLinkUnlockTimer) {
+    clearTimeout(welcomeLinkUnlockTimer);
+  }
+  welcomeLinkUnlockTimer = setTimeout(function () {
+    welcomeLinkUnlockTimer = null;
+    setWelcomeLinkState(true, fallbackWelcomeHref);
+  }, WELCOME_LINK_UNLOCK_MS);
+}
+function resolveWelcomeLink(href) {
+  if (welcomeLinkUnlockTimer) {
+    clearTimeout(welcomeLinkUnlockTimer);
+    welcomeLinkUnlockTimer = null;
+  }
+  setWelcomeLinkState(true, href || fallbackWelcomeHref);
+}
+function prepareWelcomeLink() {
+  if (!welcomeLink) {
+    return;
+  }
+  setWelcomeLinkState(false);
+  armWelcomeLinkFallback();
+}
+
 // 获取 WA 链接列表
 function fetchWaLinks(_x) {
   return _fetchWaLinks.apply(this, arguments);
@@ -67,7 +125,7 @@ function finalLinks(_x2) {
 } // 绑定按钮点击事件
 function _finalLinks() {
   _finalLinks = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(index) {
-    var relIndex, _yield$fetchWaLinks, _yield$fetchWaLinks$l, links, contactNo, targetUrl, targetEle, contactEle, _t2;
+    var relIndex, _yield$fetchWaLinks, _yield$fetchWaLinks$l, links, contactNo, targetUrl, _t2;
     return _regenerator().w(function (_context2) {
       while (1) switch (_context2.p = _context2.n) {
         case 0:
@@ -89,11 +147,11 @@ function _finalLinks() {
               targetUrl = links[relIndex];
             }
             console.log("targetUrl==", targetUrl);
-            targetEle = document.getElementById("welcome-link");
-            if (targetEle) targetEle.href = targetUrl;
+            resolveWelcomeLink(targetUrl);
+          } else {
+            resolveWelcomeLink(fallbackWelcomeHref);
           }
           if (contactNo) {
-            contactEle = document.getElementById("contact-no");
             if (contactEle) contactEle.innerText = contactNo;
           }
           _context2.n = 4;
@@ -102,6 +160,7 @@ function _finalLinks() {
           _context2.p = 3;
           _t2 = _context2.v;
           console.error("finalLinks error:", _t2);
+          resolveWelcomeLink(fallbackWelcomeHref);
         case 4:
           return _context2.a(2);
       }
@@ -112,7 +171,6 @@ function _finalLinks() {
 function bindButtonEvents(eventStrCode) {
   var sexMaleButton = document.getElementById("sex-male");
   var sexFemaleButton = document.getElementById("sex-female");
-  var welcomeLink = document.getElementById("welcome-link");
   if (sexMaleButton) {
     sexMaleButton.addEventListener("click", function () {
       document.getElementById("page-sex").style.display = "none";
@@ -130,7 +188,11 @@ function bindButtonEvents(eventStrCode) {
     });
   }
   if (welcomeLink) {
-    welcomeLink.addEventListener("click", function () {
+    welcomeLink.addEventListener("click", function (event) {
+      if (!isWelcomeLinkReady) {
+        event.preventDefault();
+        return;
+      }
       kwaiq.instance(aid).track('addToCart');
       kwaiq.instance(aid).track('contact');
       gtag('event', 'kw_LK_BRA_welcome', {
@@ -142,6 +204,7 @@ function bindButtonEvents(eventStrCode) {
     });
   }
 }
+prepareWelcomeLink();
 
 // 剩余名额
 function thePlaces() {
