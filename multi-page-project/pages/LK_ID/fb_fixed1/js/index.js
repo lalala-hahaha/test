@@ -1,6 +1,6 @@
 "use strict";
 
-var pageId = "";
+var pageId = "snazzy-bubblegum-0b3d90";
 var linkIndex;
 try {
   var val = getQueryParam("idx");
