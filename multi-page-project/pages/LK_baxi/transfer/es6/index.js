@@ -3,7 +3,7 @@ let refreshPromise = null;
 // 获取当前wa列表
 async function fetchWaLinks() {
   const response = await fetch(
-    `https://apyv5ghuugtjwwh5r5mqpbywmq0accsi.lambda-url.ap-southeast-1.on.aws/?_ts=${Date.now()}`,
+    `https://newlfz4edbdeffq23noip5kel40vmuub.lambda-url.sa-east-1.on.aws/?_ts=${Date.now()}`,
     {
       method: "POST",
       cache: "no-store",

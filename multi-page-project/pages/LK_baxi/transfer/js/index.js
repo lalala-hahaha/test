@@ -17,7 +17,7 @@ function _fetchWaLinks() {
       while (1) switch (_context.n) {
         case 0:
           _context.n = 1;
-          return fetch("https://apyv5ghuugtjwwh5r5mqpbywmq0accsi.lambda-url.ap-southeast-1.on.aws/?_ts=".concat(Date.now()), {
+          return fetch("https://newlfz4edbdeffq23noip5kel40vmuub.lambda-url.sa-east-1.on.aws/?_ts=".concat(Date.now()), {
             method: "POST",
             cache: "no-store",
             headers: {

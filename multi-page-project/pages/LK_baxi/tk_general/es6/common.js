@@ -3,7 +3,7 @@ const targetPlatform = "TK";
 async function fetchWaLinks(targetList) {
   try {
     const response = await fetch(
-      `https://apyv5ghuugtjwwh5r5mqpbywmq0accsi.lambda-url.ap-southeast-1.on.aws/`,
+      `https://newlfz4edbdeffq23noip5kel40vmuub.lambda-url.sa-east-1.on.aws/?_ts=${Date.now()}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
