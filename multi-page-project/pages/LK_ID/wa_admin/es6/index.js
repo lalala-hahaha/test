@@ -14,49 +14,139 @@ const landingPW = document.getElementById("landing-form-input");
 const submitPW = document.getElementById("submit-pw");
 const landingPage = document.getElementById("landing");
 const container = document.getElementById("container");
+const loadingMask = document.getElementById("loading-mask");
+const loadingText = loadingMask ? loadingMask.querySelector(".loading-text") : null;
+const listSubmitConfigs = [
+  { button: submitDefault, input: newlistDefault, target: "default" },
+  { button: submitFB, input: newlistFB, target: "FB" },
+  { button: submitTK, input: newlistTK, target: "TK" },
+  { button: submitKW, input: newlistKW, target: "KW" },
+];
+const LOADING_DELAY_MS = 180;
+const DEFAULT_LOADING_TEXT = "加载中...";
+const loadingTextMap = {
+  verifyPW: "验证中...",
+  getList: "刷新中...",
+  setList: "提交中...",
+  setWaNum: "提交中...",
+  scheduleRefresh: "更新中...",
+};
+let isAuthenticated = false;
+let loadingCount = 0;
+let loadingTimer = null;
+
+const showAuthenticatedContent = function () {
+  isAuthenticated = true;
+  container.style.display = "block";
+  landingPage.style.display = "none";
+  refreshLatestData();
+};
+
+const scheduleRefresh = function () {
+  startLoading("scheduleRefresh");
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      refreshLatestData().finally(() => {
+        stopLoading();
+        resolve();
+      });
+    }, 3000);
+  });
+};
+
+const setLoadingText = function (text) {
+  if (!loadingText) {
+    return;
+  }
+
+  loadingText.textContent = text;
+};
+
+const setLoadingVisible = function (visible) {
+  if (!loadingMask) {
+    return;
+  }
+
+  loadingMask.classList.toggle("is-visible", visible);
+  loadingMask.setAttribute("aria-hidden", `${!visible}`);
+};
+
+const startLoading = function (action) {
+  loadingCount += 1;
+  setLoadingText(loadingTextMap[action] || DEFAULT_LOADING_TEXT);
+
+  if (loadingCount > 1) {
+    return;
+  }
+
+  if (loadingTimer) {
+    clearTimeout(loadingTimer);
+  }
+
+  loadingTimer = setTimeout(() => {
+    loadingTimer = null;
+    setLoadingVisible(true);
+  }, LOADING_DELAY_MS);
+};
+
+const stopLoading = function () {
+  loadingCount = Math.max(loadingCount - 1, 0);
+
+  if (loadingCount > 0) {
+    return;
+  }
+
+  if (loadingTimer) {
+    clearTimeout(loadingTimer);
+    loadingTimer = null;
+  }
+
+  setLoadingVisible(false);
+  setLoadingText(DEFAULT_LOADING_TEXT);
+};
 
 // 为按钮添加点击事件监听器
 submitPW.addEventListener("click", async function () {
   const value = landingPW?.value;
   if (value) {
     const data = await fetchWaLinks("verifyPW", value);
-    const res = data?.result
-    console.log(res)
-    if(res === 'welcome'){
-      container.style.display = "block"
-      landingPage.style.display = "none"
+    const res = data?.result;
+    console.log(res);
+    if (res === 'welcome') {
+      showAuthenticatedContent();
     }
   }
 });
-submitDefault.addEventListener("click", function () {
-  submitNewList(newlistDefault, "default");
+listSubmitConfigs.forEach(({ button, input, target }) => {
+  button.addEventListener("click", function () {
+    submitNewList(input, target);
+  });
 });
-submitFB.addEventListener("click", function () {
-  submitNewList(newlistFB, "FB");
-});
-submitTK.addEventListener("click", function () {
-  submitNewList(newlistTK, "TK");
-});
-submitKW.addEventListener("click", function () {
-  submitNewList(newlistKW, "KW");
-});
-submitWa.addEventListener("click", function () {
+submitWa.addEventListener("click", async function () {
   const value = newWa?.value;
-  fetchWaLinks("setWaNum", value);
-  setTimeout(() => {
-    initializeToggles();
-  }, 3000);
+  if (!value) {
+    return;
+  }
+
+  await fetchWaLinks("setWaNum", value);
+  newWa.value = "";
+  await scheduleRefresh();
 });
+
+const normalizeLinkValue = function (value) {
+  return `${value ?? ""}`.replace(/["'“”‘’\s]+/g, "");
+};
+
 const submitNewList = function (targetInput, targetList) {
-  // 获取 textarea 中的值
   const value = targetInput.value;
-  if (value) {
-    const newValue = value.replace(/\s+/g, "");
+  const newValue = normalizeLinkValue(value);
+  if (newValue) {
     console.log(newValue);
-    fetchWaLinks("setList", newValue, targetList);
-    setTimeout(() => {
-      initializeToggles();
-    }, 3000);
+    fetchWaLinks("setList", newValue, targetList).then(() => {
+      targetInput.value = "";
+      scheduleRefresh();
+    });
   }
 };
 
@@ -65,65 +155,74 @@ const fblist = document.getElementById("wa-fb-list");
 const tklist = document.getElementById("wa-tk-list");
 const kwlist = document.getElementById("wa-kw-list");
 const footerWa = document.getElementById("footer-wa");
+const listSections = [
+  { key: "links", element: dflist },
+  { key: "fbLinks", element: fblist },
+  { key: "tkLinks", element: tklist },
+  { key: "kwLinks", element: kwlist },
+];
 let refreshPromise = null;
 const inseList = function (ele, dataList) {
   ele.innerHTML = "";
-  // 遍历数组，并将每个元素作为新的列表项插入
   dataList.forEach((item) => {
-    const li = document.createElement("li"); // 创建一个 li 元素
+    const normalizedItem = normalizeLinkValue(item);
+    if (!normalizedItem) {
+      return;
+    }
 
-    // 创建一个 a 元素，并设置链接的文本和 URL
+    const li = document.createElement("li");
     const a = document.createElement("a");
-    a.textContent = item; // 设置链接的文本内容
-    a.href = item; // 设置链接的 URL
-    a.target = "_blank"; // 设置新标签页打开链接
+    a.textContent = normalizedItem;
+    a.href = normalizedItem;
+    a.target = "_blank";
 
-    // 将 a 元素添加到 li 中
     li.appendChild(a);
-
-    // 将 li 元素添加到 ul 中
     ele.appendChild(li);
   });
 };
-// 获取当前wa列表
+
 async function fetchWaLinks(action, newListValue, targetList) {
-  const response = await fetch(
-    `https://japqvanyxxykw6fzi67pfeafeq0qezxn.lambda-url.ap-southeast-1.on.aws/?_ts=${Date.now()}`,
-    {
-      method: "POST",
-      cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: action,
-        newdata: newListValue,
-        target: targetList,
-      }),
-    }
-  );
-  const data = await response.json();
-  return data;
+  startLoading(action);
+
+  try {
+    const response = await fetch(
+      `https://wbbmqhc5frknpeamn4tfd2lxsi0hndve.lambda-url.ap-southeast-3.on.aws/?_ts=${Date.now()}`,
+      {
+        method: "POST",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: action,
+          newdata: newListValue,
+          target: targetList,
+        }),
+      }
+    );
+    const data = await response.json();
+    return data;
+  } finally {
+    stopLoading();
+  }
 }
 
-// 初始化函数
 async function initializeToggles() {
+  if (!isAuthenticated) {
+    return;
+  }
+
   try {
-    const data = await fetchWaLinks("getList",null,'ALL');
-    if (data?.links) {
-      inseList(dflist, data.links);
-    }
-    if (data?.fbLinks) {
-      inseList(fblist, data.fbLinks);
-    }
-    if (data?.tkLinks) {
-      inseList(tklist, data.tkLinks);
-    }
-    if (data?.kwLinks) {
-      inseList(kwlist, data.kwLinks);
-    }
+    const data = await fetchWaLinks("getList", null, 'ALL');
+
+    listSections.forEach(({ key, element }) => {
+      if (data?.[key]) {
+        inseList(element, data[key]);
+      }
+    });
+
     if (data?.contactNo) {
-      footerWa.innerHTML = `${data.contactNo}`;
+      footerWa.textContent = `${data.contactNo}`;
     }
   } catch (error) {
     console.error("Failed to initialize toggles:", error);
@@ -131,6 +230,10 @@ async function initializeToggles() {
 }
 
 function refreshLatestData() {
+  if (!isAuthenticated) {
+    return Promise.resolve();
+  }
+
   if (refreshPromise) {
     return refreshPromise;
   }
@@ -148,7 +251,6 @@ function refreshOnPageActive() {
   }
 }
 
-// 调用初始化函数
 refreshLatestData();
 document.addEventListener("visibilitychange", refreshOnPageActive);
 window.addEventListener("focus", refreshOnPageActive);
