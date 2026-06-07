@@ -21,3 +21,4 @@ yarn-error.log*
 # 错误日志（更通用的写法）
 **/*.log
 /multi-page-project/node_modules/.bin/autoprefixer
+/multi-page-project/aws.js
