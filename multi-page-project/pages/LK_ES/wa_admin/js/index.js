@@ -20,6 +20,93 @@ var landingPW = document.getElementById("landing-form-input");
 var submitPW = document.getElementById("submit-pw");
 var landingPage = document.getElementById("landing");
 var container = document.getElementById("container");
+var loadingMask = document.getElementById("loading-mask");
+var loadingText = loadingMask ? loadingMask.querySelector(".loading-text") : null;
+var listSubmitConfigs = [{
+  button: submitDefault,
+  input: newlistDefault,
+  target: "default"
+}, {
+  button: submitFB,
+  input: newlistFB,
+  target: "FB"
+}, {
+  button: submitTK,
+  input: newlistTK,
+  target: "TK"
+}, {
+  button: submitKW,
+  input: newlistKW,
+  target: "KW"
+}];
+var LOADING_DELAY_MS = 180;
+var DEFAULT_LOADING_TEXT = "加载中...";
+var loadingTextMap = {
+  verifyPW: "验证中...",
+  getList: "刷新中...",
+  setList: "提交中...",
+  setWaNum: "提交中...",
+  scheduleRefresh: "更新中..."
+};
+var isAuthenticated = false;
+var loadingCount = 0;
+var loadingTimer = null;
+var showAuthenticatedContent = function showAuthenticatedContent() {
+  isAuthenticated = true;
+  container.style.display = "block";
+  landingPage.style.display = "none";
+  refreshLatestData();
+};
+var scheduleRefresh = function scheduleRefresh() {
+  startLoading("scheduleRefresh");
+  return new Promise(function (resolve) {
+    setTimeout(function () {
+      refreshLatestData().finally(function () {
+        stopLoading();
+        resolve();
+      });
+    }, 3000);
+  });
+};
+var setLoadingText = function setLoadingText(text) {
+  if (!loadingText) {
+    return;
+  }
+  loadingText.textContent = text;
+};
+var setLoadingVisible = function setLoadingVisible(visible) {
+  if (!loadingMask) {
+    return;
+  }
+  loadingMask.classList.toggle("is-visible", visible);
+  loadingMask.setAttribute("aria-hidden", "".concat(!visible));
+};
+var startLoading = function startLoading(action) {
+  loadingCount += 1;
+  setLoadingText(loadingTextMap[action] || DEFAULT_LOADING_TEXT);
+  if (loadingCount > 1) {
+    return;
+  }
+  if (loadingTimer) {
+    clearTimeout(loadingTimer);
+  }
+  loadingTimer = setTimeout(function () {
+    loadingTimer = null;
+    setLoadingVisible(true);
+  }, LOADING_DELAY_MS);
+};
+var stopLoading = function stopLoading() {
+  loadingCount = Math.max(loadingCount - 1, 0);
+  if (loadingCount > 0) {
+    return;
+  }
+  if (loadingTimer) {
+    clearTimeout(loadingTimer);
+    loadingTimer = null;
+  }
+  setLoadingVisible(false);
+  setLoadingText(DEFAULT_LOADING_TEXT);
+};
 
 // 为按钮添加点击事件监听器
 submitPW.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
@@ -39,43 +126,57 @@ submitPW.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_
         res = data === null || data === void 0 ? void 0 : data.result;
         console.log(res);
         if (res === 'welcome') {
-          container.style.display = "block";
-          landingPage.style.display = "none";
+          showAuthenticatedContent();
         }
       case 2:
         return _context.a(2);
     }
   }, _callee);
 })));
-submitDefault.addEventListener("click", function () {
-  submitNewList(newlistDefault, "default");
+listSubmitConfigs.forEach(function (_ref2) {
+  var button = _ref2.button,
+    input = _ref2.input,
+    target = _ref2.target;
+  button.addEventListener("click", function () {
+    submitNewList(input, target);
+  });
 });
-submitFB.addEventListener("click", function () {
-  submitNewList(newlistFB, "FB");
-});
-submitTK.addEventListener("click", function () {
-  submitNewList(newlistTK, "TK");
-});
-submitKW.addEventListener("click", function () {
-  submitNewList(newlistKW, "KW");
-});
-submitWa.addEventListener("click", function () {
-  var value = newWa === null || newWa === void 0 ? void 0 : newWa.value;
-  fetchWaLinks("setWaNum", value);
-  setTimeout(function () {
-    initializeToggles();
-  }, 3000);
-});
+submitWa.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+  var value;
+  return _regenerator().w(function (_context2) {
+    while (1) switch (_context2.n) {
+      case 0:
+        value = newWa === null || newWa === void 0 ? void 0 : newWa.value;
+        if (value) {
+          _context2.n = 1;
+          break;
+        }
+        return _context2.a(2);
+      case 1:
+        _context2.n = 2;
+        return fetchWaLinks("setWaNum", value);
+      case 2:
+        newWa.value = "";
+        _context2.n = 3;
+        return scheduleRefresh();
+      case 3:
+        return _context2.a(2);
+    }
+  }, _callee2);
+})));
+var normalizeLinkValue = function normalizeLinkValue(value) {
+  return "".concat(value !== null && value !== void 0 ? value : "").replace(/["'“”‘’\s]+/g, "");
+};
 var submitNewList = function submitNewList(targetInput, targetList) {
   // 获取 textarea 中的值
   var value = targetInput.value;
-  if (value) {
-    var newValue = value.replace(/\s+/g, "");
+  var newValue = normalizeLinkValue(value);
+  if (newValue) {
     console.log(newValue);
-    fetchWaLinks("setList", newValue, targetList);
-    setTimeout(function () {
-      initializeToggles();
-    }, 3000);
+    fetchWaLinks("setList", newValue, targetList).then(function () {
+      targetInput.value = "";
+      scheduleRefresh();
+    });
   }
 };
 var dflist = document.getElementById("wa-df-list");
@@ -83,17 +184,34 @@ var fblist = document.getElementById("wa-fb-list");
 var tklist = document.getElementById("wa-tk-list");
 var kwlist = document.getElementById("wa-kw-list");
 var footerWa = document.getElementById("footer-wa");
+var listSections = [{
+  key: "links",
+  element: dflist
+}, {
+  key: "fbLinks",
+  element: fblist
+}, {
+  key: "tkLinks",
+  element: tklist
+}, {
+  key: "kwLinks",
+  element: kwlist
+}];
 var refreshPromise = null;
 var inseList = function inseList(ele, dataList) {
   ele.innerHTML = "";
   // 遍历数组，并将每个元素作为新的列表项插入
   dataList.forEach(function (item) {
+    var normalizedItem = normalizeLinkValue(item);
+    if (!normalizedItem) {
+      return;
+    }
     var li = document.createElement("li"); // 创建一个 li 元素
 
     // 创建一个 a 元素，并设置链接的文本和 URL
     var a = document.createElement("a");
-    a.textContent = item; // 设置链接的文本内容
-    a.href = item; // 设置链接的 URL
+    a.textContent = normalizedItem; // 设置链接的文本内容
+    a.href = normalizedItem; // 设置链接的 URL
     a.target = "_blank"; // 设置新标签页打开链接
 
     // 将 a 元素添加到 li 中
@@ -108,13 +226,15 @@ function fetchWaLinks(_x, _x2, _x3) {
   return _fetchWaLinks.apply(this, arguments);
 } // 初始化函数
 function _fetchWaLinks() {
-  _fetchWaLinks = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(action, newListValue, targetList) {
+  _fetchWaLinks = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(action, newListValue, targetList) {
     var response, data;
-    return _regenerator().w(function (_context2) {
-      while (1) switch (_context2.n) {
+    return _regenerator().w(function (_context3) {
+      while (1) switch (_context3.p = _context3.n) {
         case 0:
-          _context2.n = 1;
-          return fetch("https://kwb67pjaeqta4bvso2afc2aina0fgzfb.lambda-url.ap-southeast-1.on.aws/?_ts=".concat(Date.now()), {
+          startLoading(action);
+          _context3.p = 1;
+          _context3.n = 2;
+          return fetch("https://f4fsbwch442uukemlbuc7iivxu0axijk.lambda-url.us-east-1.on.aws/?_ts=".concat(Date.now()), {
             method: "POST",
             cache: "no-store",
             headers: {
@@ -126,15 +246,21 @@ function _fetchWaLinks() {
               target: targetList
             })
           });
-        case 1:
-          response = _context2.v;
-          _context2.n = 2;
-          return response.json();
         case 2:
-          data = _context2.v;
-          return _context2.a(2, data);
+          response = _context3.v;
+          _context3.n = 3;
+          return response.json();
+        case 3:
+          data = _context3.v;
+          return _context3.a(2, data);
+        case 4:
+          _context3.p = 4;
+          stopLoading();
+          return _context3.f(4);
+        case 5:
+          return _context3.a(2);
       }
-    }, _callee2);
+    }, _callee3, null, [[1,, 4, 5]]);
   }));
   return _fetchWaLinks.apply(this, arguments);
 }
@@ -142,45 +268,49 @@ function initializeToggles() {
   return _initializeToggles.apply(this, arguments);
 }
 function _initializeToggles() {
-  _initializeToggles = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+  _initializeToggles = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
     var data, _t;
-    return _regenerator().w(function (_context3) {
-      while (1) switch (_context3.p = _context3.n) {
+    return _regenerator().w(function (_context4) {
+      while (1) switch (_context4.p = _context4.n) {
         case 0:
-          _context3.p = 0;
-          _context3.n = 1;
-          return fetchWaLinks("getList", null, 'ALL');
+          if (isAuthenticated) {
+            _context4.n = 1;
+            break;
+          }
+          return _context4.a(2);
         case 1:
-          data = _context3.v;
-          if (data !== null && data !== void 0 && data.links) {
-            inseList(dflist, data.links);
-          }
-          if (data !== null && data !== void 0 && data.fbLinks) {
-            inseList(fblist, data.fbLinks);
-          }
-          if (data !== null && data !== void 0 && data.tkLinks) {
-            inseList(tklist, data.tkLinks);
-          }
-          if (data !== null && data !== void 0 && data.kwLinks) {
-            inseList(kwlist, data.kwLinks);
-          }
-          if (data !== null && data !== void 0 && data.contactNo) {
-            footerWa.innerHTML = "".concat(data.contactNo);
-          }
-          _context3.n = 3;
-          break;
+          _context4.p = 1;
+          _context4.n = 2;
+          return fetchWaLinks("getList", null, 'ALL');
         case 2:
-          _context3.p = 2;
-          _t = _context3.v;
-          console.error("Failed to initialize toggles:", _t);
+          data = _context4.v;
+          listSections.forEach(function (_ref5) {
+            var key = _ref5.key,
+              element = _ref5.element;
+            if (data !== null && data !== void 0 && data[key]) {
+              inseList(element, data[key]);
+            }
+          });
+          if (data !== null && data !== void 0 && data.contactNo) {
+            footerWa.textContent = "".concat(data.contactNo);
+          }
+          _context4.n = 4;
+          break;
         case 3:
-          return _context3.a(2);
+          _context4.p = 3;
+          _t = _context4.v;
+          console.error("Failed to initialize toggles:", _t);
+        case 4:
+          return _context4.a(2);
       }
-    }, _callee3, null, [[0, 2]]);
+    }, _callee4, null, [[1, 3]]);
   }));
   return _initializeToggles.apply(this, arguments);
 }
 function refreshLatestData() {
+  if (!isAuthenticated) {
+    return Promise.resolve();
+  }
   if (refreshPromise) {
     return refreshPromise;
   }
@@ -201,17 +331,17 @@ document.addEventListener("visibilitychange", refreshOnPageActive);
 window.addEventListener("focus", refreshOnPageActive);
 window.addEventListener("pageshow", refreshOnPageActive);
 function addWatermark() {
-  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-    _ref2$text = _ref2.text,
-    text = _ref2$text === void 0 ? '内部资料 请勿外传' : _ref2$text,
-    _ref2$rotate = _ref2.rotate,
-    rotate = _ref2$rotate === void 0 ? 15 : _ref2$rotate,
-    _ref2$opacity = _ref2.opacity,
-    opacity = _ref2$opacity === void 0 ? 0.25 : _ref2$opacity,
-    _ref2$fontSize = _ref2.fontSize,
-    fontSize = _ref2$fontSize === void 0 ? 20 : _ref2$fontSize,
-    _ref2$gap = _ref2.gap,
-    gap = _ref2$gap === void 0 ? 150 : _ref2$gap;
+  var _ref4 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    _ref4$text = _ref4.text,
+    text = _ref4$text === void 0 ? '内部资料 请勿外传' : _ref4$text,
+    _ref4$rotate = _ref4.rotate,
+    rotate = _ref4$rotate === void 0 ? 15 : _ref4$rotate,
+    _ref4$opacity = _ref4.opacity,
+    opacity = _ref4$opacity === void 0 ? 0.25 : _ref4$opacity,
+    _ref4$fontSize = _ref4.fontSize,
+    fontSize = _ref4$fontSize === void 0 ? 20 : _ref4$fontSize,
+    _ref4$gap = _ref4.gap,
+    gap = _ref4$gap === void 0 ? 150 : _ref4$gap;
   var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
   var dpr = window.devicePixelRatio || 1;

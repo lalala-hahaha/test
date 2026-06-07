@@ -1,9 +1,81 @@
 const targetPlatform = "FB";
+const welcomeLink = document.getElementById("welcome-link");
+const welcomeLoading = document.getElementById("welcome-loading");
+const contactEle = document.getElementById("contact-no");
+const fallbackWelcomeHref = welcomeLink
+  ? welcomeLink.getAttribute("href") || ""
+  : "";
+const WELCOME_LINK_UNLOCK_MS = 5000;
+let isWelcomeLinkReady = !welcomeLink;
+let welcomeLinkUnlockTimer = null;
+
+function setWelcomeLoadingVisible(visible) {
+  if (!welcomeLoading) {
+    return;
+  }
+
+  welcomeLoading.classList.toggle("is-visible", visible);
+  welcomeLoading.setAttribute("aria-hidden", `${!visible}`);
+}
+
+function setWelcomeLinkState(ready, href = fallbackWelcomeHref) {
+  if (!welcomeLink) {
+    return;
+  }
+
+  isWelcomeLinkReady = ready;
+  welcomeLink.classList.toggle("is-disabled", !ready);
+  welcomeLink.setAttribute("aria-disabled", `${!ready}`);
+
+  if (ready) {
+    if (href) {
+      welcomeLink.href = href;
+    }
+  } else {
+    welcomeLink.removeAttribute("href");
+  }
+
+  setWelcomeLoadingVisible(!ready);
+}
+
+function armWelcomeLinkFallback() {
+  if (!welcomeLink) {
+    return;
+  }
+
+  if (welcomeLinkUnlockTimer) {
+    clearTimeout(welcomeLinkUnlockTimer);
+  }
+
+  welcomeLinkUnlockTimer = setTimeout(() => {
+    welcomeLinkUnlockTimer = null;
+    setWelcomeLinkState(true, fallbackWelcomeHref);
+  }, WELCOME_LINK_UNLOCK_MS);
+}
+
+function resolveWelcomeLink(href) {
+  if (welcomeLinkUnlockTimer) {
+    clearTimeout(welcomeLinkUnlockTimer);
+    welcomeLinkUnlockTimer = null;
+  }
+
+  setWelcomeLinkState(true, href || fallbackWelcomeHref);
+}
+
+function prepareWelcomeLink() {
+  if (!welcomeLink) {
+    return;
+  }
+
+  setWelcomeLinkState(false);
+  armWelcomeLinkFallback();
+}
+
 // 获取 WA 链接列表
 async function fetchWaLinks(targetList) {
   try {
     const response = await fetch(
-      `https://kwb67pjaeqta4bvso2afc2aina0fgzfb.lambda-url.ap-southeast-1.on.aws/`,
+      `https://f4fsbwch442uukemlbuc7iivxu0axijk.lambda-url.us-east-1.on.aws/?_ts=${Date.now()}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,16 +109,17 @@ async function finalLinks(index) {
         targetUrl = links[relIndex]
       }
       console.log('targetUrl==',targetUrl)
-      const targetEle = document.getElementById("welcome-link");
-      if (targetEle) targetEle.href = targetUrl;
+      resolveWelcomeLink(targetUrl);
+    } else {
+      resolveWelcomeLink(fallbackWelcomeHref);
     }
 
     if (contactNo) {
-      const contactEle = document.getElementById("contact-no");
       if (contactEle) contactEle.innerText = contactNo;
     }
   } catch (error) {
     console.error("finalLinks error:", error);
+    resolveWelcomeLink(fallbackWelcomeHref);
   }
 }
 
@@ -55,7 +128,6 @@ async function finalLinks(index) {
 function bindButtonEvents(eventStrCode) {
   const sexMaleButton = document.getElementById("sex-male");
   const sexFemaleButton = document.getElementById("sex-female");
-  const welcomeLink = document.getElementById("welcome-link");
   if (sexMaleButton) {
     sexMaleButton.addEventListener("click", () => {
       document.getElementById("page-sex").style.display = "none";
@@ -74,7 +146,12 @@ function bindButtonEvents(eventStrCode) {
   }
 
   if (welcomeLink) {
-    welcomeLink.addEventListener("click", () => {
+    welcomeLink.addEventListener("click", (event) => {
+      if (!isWelcomeLinkReady) {
+        event.preventDefault();
+        return;
+      }
+
       fbq("track", "AddToCart");
       fbq("track", "Contact");
       fbq("track", `LK_EN_welcome`);
@@ -86,6 +163,8 @@ function bindButtonEvents(eventStrCode) {
     });
   }
 }
+
+prepareWelcomeLink();
 
 // 剩余名额
 function thePlaces() {
